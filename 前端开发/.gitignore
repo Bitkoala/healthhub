@@ -1,0 +1,34 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.idea
+.vscode
+
+# Editor directories and files
+
+.idea
+.vscode
+\*.suo
+*.ntvs*
+\*.njsproj
+\*.sln
+\*.sw?
+
+# Dependencies
+
+/node\_modules
+/dist
+
+# dotenv environment variables file
+
+.env
+.env.\*
+\!.env.example
+
+# Optional eslint cache
+
+.eslintcache

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Authenticating...</title>
+  <style>
+    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f4f4; }
+    .container { text-align: center; }
+    .error { color: red; }
+  </style>
+  <script>
+    try {
+      // 1. 从 URL 获取 token
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token');
+
+      if (token) {
+        // 2. 将 token 存入 localStorage
+        localStorage.setItem('authToken', token);
+        // 3. 跳转到首页
+        window.location.href = '/';
+      } else {
+        // 如果没有 token，显示错误并引导用户
+        document.body.innerHTML = '<div class="container"><h1>Authentication Error</h1><p class="error">No token found in the callback URL.</p><p>Please <a href="/#/login">try logging in again</a>.</p></div>';
+      }
+    } catch (e) {
+      // 处理可能发生的错误
+      document.body.innerHTML = '<div class="container"><h1>An error occurred</h1><p class="error">Could not process authentication. Please try again.</p></div>';
+      console.error('Callback page error:', e);
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <p>Please wait, authenticating...</p>
+  </div>
+</body>
+</html>
