@@ -103,16 +103,22 @@ sudo apt-get install -y nodejs npm git
     FRONTEND_URL=https://a.joru.email
 
     # =================================
-    #      第三方登录 (Linux.do)
+    #      第三方登录 (OAuth 2.0)
     # =================================
+    # Linux.do
     LINUX_DO_CLIENT_ID=YOUR_LINUX_DO_CLIENT_ID
     LINUX_DO_CLIENT_SECRET=YOUR_LINUX_DO_CLIENT_SECRET
-    # 您的后端回调地址，必须与Linux.do后台配置完全一致
-    LINUX_DO_REDIRECT_URI=https://api.joru.email/api/linuxdo/callback
-    # 以下地址通常无需修改
-    LINUX_DO_AUTHORIZE_URL=https://connect.linux.do/oauth2/authorize
-    LINUX_DO_TOKEN_URL=https://connect.linux.do/oauth2/token
-    LINUX_DO_USER_INFO_URL=https://connect.linux.do/api/user
+    LINUX_DO_REDIRECT_URI=https://api.joru.email/api/auth/linuxdo/callback
+
+    # Google
+    GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+    GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
+    GOOGLE_REDIRECT_URI=https://api.joru.email/api/auth/google/callback
+
+    # GitHub
+    GITHUB_CLIENT_ID=YOUR_GITHUB_CLIENT_ID
+    GITHUB_CLIENT_SECRET=YOUR_GITHUB_CLIENT_SECRET
+    GITHUB_REDIRECT_URI=https://api.joru.email/api/auth/github/callback
     ```
 
 3.  **使用 PM2 启动服务**:
@@ -302,11 +308,14 @@ Nginx 作为反向代理，将外部世界的域名请求转发到我们内部�
   pm2 logs health-hub-backend
   ```
 
-- **配置管理员账户**: 要指定一个用户为管理员，您需要手动修改数据库中的记录。
-  1.  **找到用户ID**: 首先，通过用户名或邮箱在 `users` 表中找到您想设为管理员的用户记录，并获取其 `id`。
-  2.  **更新权限**: 执行以下 SQL 命令，将该用户的 `is_admin` 字段设置为 `1`。
-      ```sql
-      -- 将 'YOUR_USER_ID' 替换为您要设为管理员的用户的实际 ID
-      UPDATE users SET is_admin = 1 WHERE id = YOUR_USER_ID;
+- **配置管理员账户**: 要指定一个用户为管理员，您可以使用项目内置的脚本，也可以手动修改数据库。
+  - **方法 A (推荐)**: 在服务器终端进入 `后端服务` 目录并运行以下命令（将 `YOUR_USERNAME` 替换为实际用户名）：
+      ```bash
+      node set_admin.js YOUR_USERNAME
       ```
-  3.  **访问后台**: 完成后，该用户重新登录，导航栏中将会出现“后台管理”链接。
+  - **方法 B (SQL 方式)**: 如果您无法运行脚本，可以手动更新数据库：
+      ```sql
+      -- 将 'YOUR_ID' 替换为用户的 ID
+      UPDATE users SET is_admin = 1 WHERE id = YOUR_ID;
+      ```
+  - **访问后台**: 完成后，该用户重新登录，导航栏中将会出现“管理”链接。

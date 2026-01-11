@@ -38,17 +38,17 @@
   - **私密记录**: 可选择记录某天是否进行了亲密活动，保护个人隐私。
 - **一体化生活管理**:
   - **财务记账**: 全功能的个人财务中心。支持多账户管理、收支记录、借贷跟踪（包括部分还款和还款历史），并通过图表进行收支分析。
+  - **番茄钟 (Pomodoro)**: 集成番茄工作法计时器，支持自定义专注与休息时长，伴随音效提醒与任务关联。
   - **备忘录 (To-Do)**: 带有优先级的任务清单，助您聚焦重要事项。
   - **每日清单**: 追踪每日习惯和一次性任务的完成情况。
-  - **番茄钟 (Pomodoro Timer)**: 一个内置的番茄工作法计时器，帮助您在工作和休息之间找到平衡，提升专注度和效率。
 - **管理工具 (Admin Tool)**:
   - **辅助管理**: 管理员可以帮助用户重置密码。
   - **系统维护**: 清理长时间未登录的非活跃账户及其关联数据，释放资源。
   - **隐私保护**: 管理员无法查看用户的密码、财务、健康记录等任何隐私数据，所有操作均以保护用户隐私为前提。
 - **现代化用户体验 (Premium UI)**:
-  - **极致视觉美学**: 全方位采用 **毛玻璃 (Glassmorphism)** 设计系统，配合动态光效与 HSL 色彩系统，打造高端、精致的视觉感官。
-  - **统一身份认证 (Casdoor SSO)**: 集成自托管 **Casdoor** 认证系统，提供安全、便捷的单点登录体验，支持多平台扩展。
-  - **灵动导航布局**: 全新的 **顶部悬浮式导航 (Top Floating Header)**，配合精选的功能图标，操作更直观，视野更开阔。
+  - **极致视觉美学**: 全方位采用 **毛玻璃 (Glassmorphism)** 设计系统，配合动态悬浮光效与 HSL 色彩系统。
+  - **多元身份认证**: 支持 **本地账户注册/登录** 以及 **Google、GitHub、Linux.do** 三大主流平台 OAuth 2.0 快捷登录。
+  - **智能导航系统**: 适配桌面端的 **顶部悬浮导航** 与移动端的 **底部快捷导航 (Dock)**，全图标带文字标注，操作更直观。
   - **响应式布局**: 完美适配桌面与移动端。
   - **极致性能**: 毫秒级页面过渡动画，配合数据可视化图表。
   - **多语言与个性化**: 内置中英双语，支持模块化功能定制，打造您的专属健康管家。
@@ -131,13 +131,21 @@
     # --- 安全与加密 ---
     JWT_SECRET=your_random_secret_string
 
-    # --- Casdoor 认证配置 (SSO) ---
-    CASDOOR_ENDPOINT=https://your-casdoor-url
-    CASDOOR_CLIENT_ID=your_client_id
-    CASDOOR_CLIENT_SECRET=your_client_secret
-    CASDOOR_ORG_NAME=your_org_name
-    CASDOOR_APP_NAME=your_app_name
-    CASDOOR_REDIRECT_URI=http://localhost:3000/api/auth/casdoor/callback
+    # --- 三方登录配置 (OAuth 2.0) ---
+    # Google
+    GOOGLE_CLIENT_ID=your_google_id
+    GOOGLE_CLIENT_SECRET=your_google_secret
+    GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/google/callback
+
+    # GitHub
+    GITHUB_CLIENT_ID=your_github_id
+    GITHUB_CLIENT_SECRET=your_github_secret
+    GITHUB_REDIRECT_URI=http://localhost:3000/api/auth/github/callback
+
+    # Linux.do
+    LINUX_DO_CLIENT_ID=your_linuxdo_id
+    LINUX_DO_CLIENT_SECRET=your_linuxdo_secret
+    LINUX_DO_REDIRECT_URI=http://localhost:3000/api/auth/linuxdo/callback
 
     # --- 前端关联配置 ---
     FRONTEND_URL=http://localhost:5173

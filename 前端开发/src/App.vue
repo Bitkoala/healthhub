@@ -87,22 +87,24 @@ router.afterEach(() => {
     <!-- Global Navigation Floating Header -->
     <nav
       v-if="userStore.isLoggedIn"
-      class="fixed md:top-6 bottom-0 md:bottom-auto left-1/2 -translate-x-1/2 glass-dock px-4 md:px-6 py-2 md:py-3 md:rounded-full shadow-2xl z-50 flex items-center justify-between md:justify-start space-x-2 md:space-x-4 max-w-full md:max-w-[95vw] w-full md:w-auto overflow-x-auto no-scrollbar border-t md:border border-white/20 dark:border-white/5 animate-slide-up bg-white/80 dark:bg-black/80 md:bg-transparent"
+      class="fixed md:top-6 bottom-0 md:bottom-auto left-1/2 -translate-x-1/2 glass-dock px-2 md:px-6 py-1.5 md:py-3 md:rounded-full shadow-2xl z-50 flex items-center justify-around md:justify-start space-x-0 md:space-x-4 max-w-full md:max-w-[95vw] w-full md:w-auto overflow-x-auto no-scrollbar border-t md:border border-white/20 dark:border-white/10 animate-slide-up bg-white/90 dark:bg-slate-900/90 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none"
     >
       <!-- Group 1: General -->
-      <div class="flex items-center space-x-1 md:space-x-2">
+      <div class="flex items-center space-x-0 md:space-x-2">
         <RouterLink to="/" class="nav-item group" :title="$t('home')">
           <i data-lucide="home"></i>
           <span class="nav-label">{{ $t('home') }}</span>
         </RouterLink>
         <RouterLink to="/profile" class="nav-item group" :title="$t('profile')">
-          <img
-            v-if="avatarUrl"
-            :src="avatarUrl"
-            :alt="userStore.user?.username || ''"
-            class="h-6 w-6 rounded-full border border-primary/20 bg-gray-100"
-          />
-          <i v-else data-lucide="user"></i>
+          <div class="relative w-6 h-6 mb-1">
+            <img
+              v-if="avatarUrl"
+              :src="avatarUrl"
+              :alt="userStore.user?.username || ''"
+              class="h-full w-full rounded-full border border-primary/20 bg-gray-100"
+            />
+            <i v-else data-lucide="user"></i>
+          </div>
           <span class="nav-label">{{ $t('profile') }}</span>
         </RouterLink>
       </div>
@@ -110,7 +112,7 @@ router.afterEach(() => {
       <div class="hidden md:block h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
 
       <!-- Group 2: Health -->
-      <div class="flex items-center space-x-1 md:space-x-2">
+      <div class="flex items-center space-x-0 md:space-x-2">
         <RouterLink to="/meds" class="nav-item group" :title="$t('meds')">
           <i data-lucide="pill"></i>
           <span class="nav-label">{{ $t('meds') }}</span>
@@ -126,18 +128,18 @@ router.afterEach(() => {
           :title="$t('periodTracker')"
         >
           <i data-lucide="calendar-heart"></i>
-          <span class="nav-label">{{ $t('periodTracker').slice(0, 2) }}</span>
+          <span class="nav-label">{{ $t('periodTracker') }}</span>
         </RouterLink>
         <RouterLink to="/weight" class="nav-item group" :title="$t('weightManagement')">
           <i data-lucide="weight"></i>
-          <span class="nav-label">{{ $t('weightManagement').slice(0, 2) }}</span>
+          <span class="nav-label">{{ $t('weightManagement') }}</span>
         </RouterLink>
       </div>
 
       <div class="hidden md:block h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
 
       <!-- Group 3: Life -->
-      <div class="flex items-center space-x-1 md:space-x-2">
+      <div class="flex items-center space-x-0 md:space-x-2">
         <RouterLink to="/daily" class="nav-item group" :title="$t('checklist')">
           <i data-lucide="list-todo"></i>
           <span class="nav-label">{{ $t('checklist') }}</span>
@@ -152,14 +154,14 @@ router.afterEach(() => {
         </RouterLink>
         <RouterLink to="/pomodoro" class="nav-item group" :title="$t('pomodoro')">
           <i data-lucide="timer"></i>
-          <span class="nav-label">{{ $t('pomodoro').slice(0, 2) }}</span>
+          <span class="nav-label">{{ $t('pomodoro') }}</span>
         </RouterLink>
       </div>
 
       <div class="hidden md:block h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
 
       <!-- Group 4: System -->
-      <div class="flex items-center space-x-2 ml-auto md:ml-0">
+      <div class="flex items-center space-x-1 ml-auto md:ml-0 pr-2 md:pr-0">
         <!-- Admin -->
         <RouterLink
           v-if="userStore.isAdmin"
@@ -172,7 +174,7 @@ router.afterEach(() => {
         </RouterLink>
 
         <!-- Actions -->
-        <div class="flex items-center space-x-1">
+        <div class="flex items-center space-x-1 ml-2">
           <button @click="toggleLanguage" class="action-mini-btn" :title="$t('language')">
             {{ languageStore.lang === 'zh' ? 'EN' : '中' }}
           </button>
@@ -215,19 +217,19 @@ router.afterEach(() => {
 
 /* Nav Item Styling */
 .nav-item {
-  @apply flex flex-col items-center justify-center p-2 md:px-3 rounded-2xl transition-all duration-300 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/50 dark:hover:bg-white/10 min-w-[3.5rem] md:min-w-[4rem];
+  @apply flex flex-col items-center justify-center p-1.5 md:p-2 md:px-3 rounded-2xl transition-all duration-300 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/80 dark:hover:bg-white/10 min-w-[3.2rem] md:min-w-[4rem];
 }
 
 .nav-item.router-link-active {
-  @apply text-blue-600 dark:text-blue-400 bg-white/80 dark:bg-white/20 shadow-sm ring-1 ring-black/5;
+  @apply text-blue-600 dark:text-blue-400 bg-white/90 dark:bg-white/20 shadow-md ring-1 ring-black/5;
 }
 
 .nav-item i {
-  @apply w-5 h-5 md:w-6 md:h-6 mb-1;
+  @apply w-5 h-5 md:w-6 md:h-6 mb-1 transition-transform duration-300 group-hover:scale-110;
 }
 
 .nav-label {
-  @apply text-[10px] md:text-xs font-medium whitespace-nowrap;
+  @apply text-[9px] md:text-[11px] font-bold whitespace-nowrap opacity-80 group-hover:opacity-100 transition-opacity;
 }
 
 .action-mini-btn {

@@ -103,16 +103,22 @@ Before deploying the backend, you need to create the database and initialize all
     FRONTEND_URL=https://a.joru.email
 
     # =================================
-    #      Third-Party Login (Linux.do)
+    #      Third-Party Auth (OAuth 2.0)
     # =================================
+    # Linux.do
     LINUX_DO_CLIENT_ID=YOUR_LINUX_DO_CLIENT_ID
     LINUX_DO_CLIENT_SECRET=YOUR_LINUX_DO_CLIENT_SECRET
-    # Your backend's callback URL, must exactly match the one in your Linux.do app settings
-    LINUX_DO_REDIRECT_URI=https://api.joru.email/api/linuxdo/callback
-    # The following URLs usually do not need to be changed
-    LINUX_DO_AUTHORIZE_URL=https://connect.linux.do/oauth2/authorize
-    LINUX_DO_TOKEN_URL=https://connect.linux.do/oauth2/token
-    LINUX_DO_USER_INFO_URL=https://connect.linux.do/api/user
+    LINUX_DO_REDIRECT_URI=https://api.joru.email/api/auth/linuxdo/callback
+
+    # Google
+    GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+    GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
+    GOOGLE_REDIRECT_URI=https://api.joru.email/api/auth/google/callback
+
+    # GitHub
+    GITHUB_CLIENT_ID=YOUR_GITHUB_CLIENT_ID
+    GITHUB_CLIENT_SECRET=YOUR_GITHUB_CLIENT_SECRET
+    GITHUB_REDIRECT_URI=https://api.joru.email/api/auth/github/callback
     ```
 
 3.  **Start Service with PM2**:
@@ -302,11 +308,14 @@ When a new version of the project is released, you can update your deployed appl
   pm2 logs health-hub-backend
   ```
 
-- **Configuring an Admin Account**: To designate a user as an administrator, you need to manually modify the record in the database.
-  1.  **Find User ID**: First, find the user you want to make an admin in the `users` table by their username or email and get their `id`.
-  2.  **Update Permissions**: Execute the following SQL command to set the user's `is_admin` field to `1`.
-      ```sql
-      -- Replace 'YOUR_USER_ID' with the actual ID of the user you want to make an admin
-      UPDATE users SET is_admin = 1 WHERE id = YOUR_USER_ID;
+- **Configuring an Admin Account**: To designate a user as an administrator, you can use the built-in script or manually modify the database.
+  - **Method A (Recommended)**: On your server terminal, navigate to the `后端服务` directory and run the following command (replace `YOUR_USERNAME` with the actual username):
+      ```bash
+      node set_admin.js YOUR_USERNAME
       ```
-  3.  **Access Panel**: After this, when the user logs in again, an "Admin Panel" link will appear in the navigation bar.
+  - **Method B (SQL Method)**: If you cannot run the script, you can manually update the database:
+      ```sql
+      -- Replace 'YOUR_ID' with the user's ID
+      UPDATE users SET is_admin = 1 WHERE id = YOUR_ID;
+      ```
+  - **Access Panel**: Once completed, when the user logs in again, a "Management" link will appear in the navigation bar.

@@ -38,17 +38,17 @@
   - **Intimacy Log**: Optionally log intimate activity on specific days, ensuring personal privacy.
 - **Integrated Life Management**:
   - **Financial Accounting**: A full-featured personal finance center. Supports multi-account management, income/expense tracking, loan tracking (including partial repayments and repayment history), and provides income/expense analysis through charts.
+  - **Pomodoro Timer**: Integrated Pomodoro method timer with customizable focus/break durations, sound alerts, and task association.
   - **Memo (To-Do)**: A prioritized task list to help you focus on important matters.
   - **Daily Checklist**: Track the completion of daily habits and one-time tasks.
-  - **Pomodoro Timer**: A built-in Pomodoro Timer to help you find a balance between work and rest, improving focus and efficiency.
 - **Admin Tools**:
   - **User Assistance**: Admins can help users by resetting their passwords.
   - **System Maintenance**: Clean up inactive accounts (and their associated data) that have not logged in for a long time to free up resources.
   - **Privacy Protection**: Administrators cannot view any user's private data, such as passwords, financial records, or health logs. All operations are designed with user privacy as a priority.
 - **Modern User Experience (Premium UI)**:
-  - **Ultimate Visual Aesthetics**: Full implementation of the **Glassmorphism** design system with dynamic light effects and HSL color systems for a high-end, sophisticated feel.
-  - **Unified Identity (Casdoor SSO)**: Integrated self-hosted **Casdoor** authentication for a secure and seamless Single Sign-On experience, supporting multi-platform expansion.
-  - **Fluid Navigation**: A brand-new **Top Floating Header** layout paired with curated icons for more intuitive operation and an open field of view.
+  - **Ultimate Visual Aesthetics**: Full implementation of the **Glassmorphism** design system with dynamic light effects and HSL color systems for a high-end feel.
+  - **Diverse Authentication**: Supports **Local Account Registration/Login** and OAuth 2.0快捷登录 for **Google, GitHub, and Linux.do**.
+  - **Smart Navigation**: Adaptive **Top Floating Header** for desktop and **Bottom Navigation (Dock)** for mobile, with all icons clearly labeled.
   - **Fully Responsive**: Perfectly adapts to both desktop and mobile devices.
   - **Peak Performance**: Millisecond-level page transitions combined with powerful data visualizations.
   - **Global & Personal**: Built-in multi-language support (i18n) and modular customization to build your personal health steward.
@@ -131,13 +131,21 @@ We believe users should have a choice and provide comprehensive support for both
     # --- Security & Encryption ---
     JWT_SECRET=your_random_secret_string
 
-    # --- Casdoor SSO Configuration ---
-    CASDOOR_ENDPOINT=https://your-casdoor-url
-    CASDOOR_CLIENT_ID=your_client_id
-    CASDOOR_CLIENT_SECRET=your_client_secret
-    CASDOOR_ORG_NAME=your_org_name
-    CASDOOR_APP_NAME=your_app_name
-    CASDOOR_REDIRECT_URI=http://localhost:3000/api/auth/casdoor/callback
+    # --- Third-Party Auth (OAuth 2.0) ---
+    # Google
+    GOOGLE_CLIENT_ID=your_google_id
+    GOOGLE_CLIENT_SECRET=your_google_secret
+    GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/google/callback
+
+    # GitHub
+    GITHUB_CLIENT_ID=your_github_id
+    GITHUB_CLIENT_SECRET=your_github_secret
+    GITHUB_REDIRECT_URI=http://localhost:3000/api/auth/github/callback
+
+    # Linux.do
+    LINUX_DO_CLIENT_ID=your_linuxdo_id
+    LINUX_DO_CLIENT_SECRET=your_linuxdo_secret
+    LINUX_DO_REDIRECT_URI=http://localhost:3000/api/auth/linuxdo/callback
 
     # --- Frontend Linkage ---
     FRONTEND_URL=http://localhost:5173
