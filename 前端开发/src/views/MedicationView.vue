@@ -42,7 +42,7 @@ interface MedicationLog {
 // --- 响应式状态 (State) ---
 const medications = ref<Medication[]>([]) // 所有用药计划列表
 const showMedForm = ref(false) // 是否显示添加药品的表单
-const medForm = ref({ name: '', dosage: '', frequency: 1, stock: null as number | null, times: ['08:00'] }) // 添加/编辑药品的表单数据
+const medForm = ref<{ name: string, dosage: string, frequency: number, stock: number | null, times: string[] }>({ name: '', dosage: '', frequency: 1, stock: null, times: ['08:00'] }) // 添加/编辑药品的表单数据
 const toastStore = useToastStore() // Toast 通知状态
 const showHistoryModal = ref(false) // 是否显示服药历史弹窗
 const selectedMedLogs = ref<MedicationLog[]>([]) // 选定药品的服药历史记录
@@ -78,13 +78,7 @@ watch(
  * @description 计算出库存不足（少于3次用量）的药品列表。
  */
 const lowStockMedications = computed(() => {
-  return medications.value.filter(med => {
-    if (med.stock === null || med.stock === undefined) return false;
-    const dosageAmount = parseFloat(med.dosage) || 0;
-    if (dosageAmount <= 0) return false;
-    const requiredStock = dosageAmount * 3;
-    return med.stock < requiredStock;
-  });
+  return medications.value.filter(med => isLowOnStock(med));
 });
 
 // --- 通用方法 (Common Methods) ---
@@ -352,7 +346,7 @@ onMounted(() => {
             <div class="md:col-span-2">
               <label class="block text-sm font-medium text-gray-700">服药时间</label>
               <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mt-1">
-                <div v-for="(time, index) in medForm.times" :key="index">
+                <div v-for="(_, index) in medForm.times" :key="index">
                   <input
                     type="time"
                     v-model="medForm.times[index]"
@@ -443,27 +437,39 @@ onMounted(() => {
     <div
       v-if="showHistoryModal"
       @click.self="showHistoryModal = false"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+      class="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in"
     >
-      <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
-        <h2 class="text-xl font-bold mb-4">"{{ selectedMedName }}" 的服药历史</h2>
-        <ul v-if="selectedMedLogs.length > 0" class="space-y-2 max-h-80 overflow-y-auto">
+      <div class="glass-card max-w-md w-full p-8 shadow-2xl relative overflow-hidden animate-slide-up">
+        <div class="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+          <i data-lucide="history" class="w-32 h-32 text-blue-500"></i>
+        </div>
+        
+        <h2 class="text-xl font-bold mb-6 flex items-center space-x-2">
+          <i data-lucide="clock" class="w-5 h-5 text-blue-500"></i>
+          <span>"{{ selectedMedName }}" 的服药历史</span>
+        </h2>
+        
+        <ul v-if="selectedMedLogs.length > 0" class="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
           <li
             v-for="log in selectedMedLogs"
             :key="log.id"
-            class="flex justify-between items-center p-2 bg-gray-100 rounded-md text-sm"
+            class="flex justify-between items-center p-4 bg-white/5 border border-white/10 rounded-2xl text-sm hover:bg-white/10 transition-colors"
           >
-            <span>{{ new Date(log.taken_at).toLocaleString('zh-CN') }}</span>
-            <button @click="deleteMedLog(log.id)" class="text-red-500 hover:text-red-700 font-semibold text-xs">
+            <span class="font-medium opacity-80">{{ new Date(log.taken_at).toLocaleString('zh-CN') }}</span>
+            <button @click="deleteMedLog(log.id)" class="text-red-400 hover:text-red-300 font-bold text-xs uppercase tracking-widest px-3 py-1 bg-red-500/10 rounded-full transition-all active:scale-95">
               删除
             </button>
           </li>
         </ul>
-        <p v-else class="text-gray-500 text-center py-4">暂无服药记录</p>
-        <div class="mt-6 text-right">
+        <div v-else class="text-on-surface-variant/40 text-center py-12 flex flex-col items-center">
+          <i data-lucide="inbox" class="w-12 h-12 mb-2 opacity-20"></i>
+          <p class="text-sm">暂无服药记录</p>
+        </div>
+        
+        <div class="mt-8">
           <button
             @click="showHistoryModal = false"
-            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition-all"
+            class="w-full py-3 bg-white/10 hover:bg-white/20 text-on-surface font-bold rounded-2xl transition-all active:scale-[0.98]"
           >
             关闭
           </button>

@@ -14,7 +14,7 @@
     *   复制 `后端服务/.env.example` 创建此文件。
     *   填入您的数据库连接信息、JWT密钥、CORS白名单以及第三方登录凭据。
 
-2.  **前端配置**: `前端开发/public/config.js` (或构建后的 `/var/www/health-hub/config.js`)
+2.  **前端配置**: `前端开发/public/config.js` (或构建后的 `/var/www/koala-health/config.js`)
     *   在前端项目 **构建并上传到服务器后**，修改此文件。
     *   将 `API_BASE_URL` 指向您部署的后端服务公网地址。
 
@@ -58,7 +58,7 @@ sudo apt-get install -y nodejs npm git
 1.  **获取代码并安装依赖**:
     ```bash
     # 克隆项目到服务器
-    git clone https://your-git-repository.com/health-hub.git /home/user/app
+    git clone https://github.com/pandax-i/healthhub.git /home/user/app
     
     # 进入后端目录并安装依赖
     cd /home/user/app/后端服务
@@ -98,9 +98,9 @@ sudo apt-get install -y nodejs npm git
     PORT=3000
     # 允许访问后端的的前端域名列表 (多个用逗号,分隔，不要有空格)
     # 例如: hb.jiankang.mom,www.another.com
-    CORS_WHITELIST=hb.jiankang.mom
+    CORS_WHITELIST=a.joru.email
     # 您的前端主页地址，用于第三方登录成功后跳转
-    FRONTEND_URL=https://hb.jiankang.mom
+    FRONTEND_URL=https://a.joru.email
 
     # =================================
     #      第三方登录 (Linux.do)
@@ -108,7 +108,7 @@ sudo apt-get install -y nodejs npm git
     LINUX_DO_CLIENT_ID=YOUR_LINUX_DO_CLIENT_ID
     LINUX_DO_CLIENT_SECRET=YOUR_LINUX_DO_CLIENT_SECRET
     # 您的后端回调地址，必须与Linux.do后台配置完全一致
-    LINUX_DO_REDIRECT_URI=https://api.jiankang.mom/api/linuxdo/callback
+    LINUX_DO_REDIRECT_URI=https://api.joru.email/api/linuxdo/callback
     # 以下地址通常无需修改
     LINUX_DO_AUTHORIZE_URL=https://connect.linux.do/oauth2/authorize
     LINUX_DO_TOKEN_URL=https://connect.linux.do/oauth2/token
@@ -124,7 +124,7 @@ sudo apt-get install -y nodejs npm git
     
     # 使用 PM2 启动后端应用
     # --name 参数为您的服务指定一个易于识别的名称
-    pm2 start server.js --name health-hub-backend
+    pm2 start server.js --name koala-health-backend
     
     # 设置开机自启
     pm2 startup
@@ -174,7 +174,7 @@ sudo apt-get install -y nodejs npm git
     // /var/www/health-hub/config.js
     window.APP_CONFIG = {
       // 将这里修改为您的后端 API 公网地址
-      API_BASE_URL: 'https://api.jiankang.mom/api'
+      API_BASE_URL: 'https://api.joru.email/api'
     };
     ```
     **优势**: 未来如果后端地址变更，您只需修改这一个文件并刷新浏览器，**无需重新打包和上传整个前端项目**。
@@ -202,7 +202,7 @@ Nginx 作为反向代理，将外部世界的域名请求转发到我们内部�
     # 后端服务 (例如: api.jiankang.mom)
     server {
         listen 80;
-        server_name api.jiankang.mom; # 请替换为您的后端域名
+        server_name api.joru.email; # 请替换为您的后端域名
 
         location / {
             proxy_pass http://127.0.0.1:3000; # 将所有请求转发给在3000端口运行的后端服务
@@ -219,7 +219,7 @@ Nginx 作为反向代理，将外部世界的域名请求转发到我们内部�
     # 前端服务 (例如: hb.jiankang.mom)
     server {
         listen 80;
-        server_name hb.jiankang.mom; # 请替换为您的前端域名
+        server_name a.joru.email; # 请替换为您的前端域名
 
         # 前端静态文件的根目录
         root /var/www/health-hub;

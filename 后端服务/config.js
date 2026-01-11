@@ -9,16 +9,20 @@ module.exports = {
     JWT_SECRET: process.env.JWT_SECRET,
 
     // --- Linux.do OAuth 2.0 配置 ---
-    // 在 Linux.do 开发者平台申请的应用客户端 ID
     LINUX_DO_CLIENT_ID: process.env.LINUX_DO_CLIENT_ID,
-    // 在 Linux.do 开发者平台申请的应用客户端密钥
     LINUX_DO_CLIENT_SECRET: process.env.LINUX_DO_CLIENT_SECRET,
-    // Linux.do 授权后重定向回本应用的 URL
     LINUX_DO_REDIRECT_URI: process.env.LINUX_DO_REDIRECT_URI,
-    // Linux.do 的授权页面 URL
-    LINUX_DO_AUTHORIZE_URL: process.env.LINUX_DO_AUTHORIZE_URL,
-    // 用于通过授权码换取 access token 的 URL
-    LINUX_DO_TOKEN_URL: process.env.LINUX_DO_TOKEN_URL,
-    // 用于通过 access token 获取用户信息的 URL
-    LINUX_DO_USER_INFO_URL: process.env.LINUX_DO_USER_INFO_URL
+    LINUX_DO_AUTHORIZE_URL: process.env.LINUX_DO_AUTHORIZE_URL || 'https://connect.linux.do/oauth2/authorize',
+    LINUX_DO_TOKEN_URL: process.env.LINUX_DO_TOKEN_URL || 'https://connect.linux.do/oauth2/token',
+    LINUX_DO_USER_INFO_URL: process.env.LINUX_DO_USER_INFO_URL || 'https://connect.linux.do/api/user',
+
+    // --- Google OAuth 2.0 配置 ---
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
+
+    // --- GitHub OAuth 2.0 配置 ---
+    GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
+    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
+    GITHUB_REDIRECT_URI: process.env.GITHUB_REDIRECT_URI
 };

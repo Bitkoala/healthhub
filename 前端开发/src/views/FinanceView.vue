@@ -18,7 +18,7 @@
  * 以及控制多视图和表单的显示状态。
  */
 import { ref, onMounted, computed, nextTick } from 'vue'
-import { getTodayDateString } from '../utils'
+import { getTodayDateString, formatCurrency } from '../utils'
 import { apiRequest } from '../api'
 import { useToastStore } from '@/stores/toast'
 import { Bar } from 'vue-chartjs'
@@ -472,16 +472,6 @@ const searchTransactions = async () => {
   }
 };
 
-/**
- * @function formatCurrency
- * @description 一个工具函数，用于将数字格式化为标准的人民币货币字符串（例如, ¥1,234.56）。
- * @param {number | null | undefined} value - 需要格式化的数字。
- * @returns {string} 格式化后的字符串。
- */
-const formatCurrency = (value: number | null | undefined) => {
-  if (value === null || typeof value === 'undefined') return '';
-  return new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(value)
-}
 
 /**
  * @function updateChart
@@ -811,167 +801,197 @@ onMounted(loadAllFinanceData)
     <div
       v-if="showForm"
       @click.self="showForm = null"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+      class="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in"
     >
-      <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
+      <div class="glass-card max-w-md w-full p-8 shadow-2xl relative overflow-hidden animate-slide-up">
         <!-- 添加账户 -->
-        <form v-if="showForm === 'account'" @submit.prevent="addAccount" class="space-y-4">
-          <h2 class="text-xl font-bold">添加新账户</h2>
-          <div>
-            <label class="block text-sm">账户名称</label
-            ><input
+        <form v-if="showForm === 'account'" @submit.prevent="addAccount" class="space-y-6">
+          <h2 class="text-xl font-bold mb-6 flex items-center space-x-2">
+            <i data-lucide="plus-circle" class="w-5 h-5 text-blue-500"></i>
+            <span>添加新账户</span>
+          </h2>
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">账户名称</label>
+            <input
               v-model="newAccount.account_name"
               type="text"
               required
-              class="w-full px-3 py-2 border rounded-md"
+              placeholder="例如：支付宝、招行卡"
+              class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
             />
           </div>
-          <div>
-            <label class="block text-sm">初始余额</label
-            ><input
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">初始余额</label>
+            <input
               v-model.number="newAccount.initial_balance"
               type="number"
               step="0.01"
               required
-              class="w-full px-3 py-2 border rounded-md"
+              class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
             />
           </div>
-          <div class="flex justify-end space-x-2">
-            <button type="button" @click="showForm = null" class="py-2 px-4 rounded-lg bg-gray-200">
-              取消</button
-            ><button type="submit" class="py-2 px-4 rounded-lg bg-blue-500 text-white">保存</button>
+          <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" @click="showForm = null" class="py-3 px-6 rounded-2xl bg-white/5 hover:bg-white/10 font-bold transition-all">
+              取消
+            </button>
+            <button type="submit" class="py-3 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/20 transition-all active:scale-95">
+              保存账户
+            </button>
           </div>
         </form>
+
         <!-- 添加交易 -->
         <form v-if="showForm === 'transaction'" @submit.prevent="addTransaction" class="space-y-4">
-          <h2 class="text-xl font-bold">记录一笔交易</h2>
-          <div>
-            <label class="block text-sm">类型</label
-            ><select
-              v-model="newTransaction.transaction_type"
-              class="w-full px-3 py-2 border rounded-md"
-            >
-              <option value="expense">支出</option>
-              <option value="income">收入</option>
-            </select>
+          <h2 class="text-xl font-bold mb-4 flex items-center space-x-2">
+            <i data-lucide="receipt" class="w-5 h-5 text-emerald-500"></i>
+            <span>记录一笔交易</span>
+          </h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">账务类型</label>
+              <select
+                v-model="newTransaction.transaction_type"
+                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all appearance-none"
+              >
+                <option value="expense">支出 💸</option>
+                <option value="income">收入 💰</option>
+              </select>
+            </div>
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">关联账户</label>
+              <select
+                v-model.number="newTransaction.account_id"
+                required
+                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all appearance-none"
+              >
+                <option :value="null" disabled>请选择</option>
+                <option v-for="acc in accounts" :key="acc.id" :value="acc.id">
+                  {{ acc.account_name }}
+                </option>
+              </select>
+            </div>
           </div>
-          <div>
-            <label class="block text-sm">账户</label
-            ><select
-              v-model.number="newTransaction.account_id"
-              required
-              class="w-full px-3 py-2 border rounded-md"
-            >
-              <option :value="null" disabled>选择一个账户</option>
-              <option v-for="acc in accounts" :key="acc.id" :value="acc.id">
-                {{ acc.account_name }}
-              </option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm">金额</label
-            ><input
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">交易金额</label>
+            <input
               v-model.number="newTransaction.amount"
               type="number"
               step="0.01"
               required
-              class="w-full px-3 py-2 border rounded-md"
+              class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm font-bold text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
             />
           </div>
-          <div>
-            <label class="block text-sm">分类 (可选)</label
-            ><input
-              v-model="newTransaction.category"
-              type="text"
-              class="w-full px-3 py-2 border rounded-md"
-            />
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">分类</label>
+              <input
+                v-model="newTransaction.category"
+                type="text"
+                placeholder="例如：餐饮、房租"
+                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+              />
+            </div>
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">日期</label>
+              <input
+                v-model="newTransaction.transaction_date"
+                type="date"
+                required
+                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+              />
+            </div>
           </div>
-          <div>
-            <label class="block text-sm">日期</label
-            ><input
-              v-model="newTransaction.transaction_date"
-              type="date"
-              required
-              class="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
-          <div>
-            <label class="block text-sm">备注 (可选)</label
-            ><textarea
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">备注</label>
+            <textarea
               v-model="newTransaction.notes"
               rows="2"
-              class="w-full px-3 py-2 border rounded-md"
+              class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all resize-none"
             ></textarea>
           </div>
-          <div class="flex justify-end space-x-2">
-            <button type="button" @click="showForm = null" class="py-2 px-4 rounded-lg bg-gray-200">
-              取消</button
-            ><button type="submit" class="py-2 px-4 rounded-lg bg-blue-500 text-white">保存</button>
+          <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" @click="showForm = null" class="py-3 px-6 rounded-2xl bg-white/5 hover:bg-white/10 font-bold transition-all">
+              取消
+            </button>
+            <button type="submit" class="py-3 px-6 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-lg shadow-emerald-500/20 transition-all active:scale-95">
+              立即记账
+            </button>
           </div>
         </form>
+
         <!-- 添加借贷 -->
         <form v-if="showForm === 'loan'" @submit.prevent="addLoan" class="space-y-4">
-          <h2 class="text-xl font-bold">记录一笔借贷</h2>
-          <div>
-            <label class="block text-sm">类型</label
-            ><select v-model="newLoan.loan_type" class="w-full px-3 py-2 border rounded-md">
-              <option value="lend">我借给别人</option>
-              <option value="borrow">别人借给我</option>
+          <h2 class="text-xl font-bold mb-4 flex items-center space-x-2">
+            <i data-lucide="hand-metal" class="w-5 h-5 text-orange-500"></i>
+            <span>记录一笔借贷</span>
+          </h2>
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">借贷模式</label>
+            <select v-model="newLoan.loan_type" class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all appearance-none">
+              <option value="lend">借出给别人 ⤴️</option>
+              <option value="borrow">从别人处借入 ⤵️</option>
             </select>
           </div>
-          <div>
-            <label class="block text-sm">对方姓名</label
-            ><input
-              v-model="newLoan.person_name"
-              type="text"
-              required
-              class="w-full px-3 py-2 border rounded-md"
-            />
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">对方姓名</label>
+              <input
+                v-model="newLoan.person_name"
+                type="text"
+                required
+                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+              />
+            </div>
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">关联账户</label>
+              <select
+                v-model.number="newLoan.account_id"
+                required
+                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface whitespace-nowrap overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all appearance-none"
+              >
+                <option :value="null" disabled>选择账户</option>
+                <option v-for="acc in accounts" :key="acc.id" :value="acc.id">
+                  {{ acc.account_name }}
+                </option>
+              </select>
+            </div>
           </div>
-          <div>
-            <label class="block text-sm">关联账户</label
-            ><select
-              v-model.number="newLoan.account_id"
-              required
-              class="w-full px-3 py-2 border rounded-md"
-            >
-              <option :value="null" disabled>选择资金账户</option>
-              <option v-for="acc in accounts" :key="acc.id" :value="acc.id">
-                {{ acc.account_name }} ({{ formatCurrency(acc.current_balance) }})
-              </option>
-            </select>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">借贷金额</label>
+              <input
+                v-model.number="newLoan.amount"
+                type="number"
+                step="0.01"
+                required
+                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+              />
+            </div>
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">日期</label>
+              <input
+                v-model="newLoan.loan_date"
+                type="date"
+                required
+                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+              />
+            </div>
           </div>
-          <div>
-            <label class="block text-sm">金额</label
-            ><input
-              v-model.number="newLoan.amount"
-              type="number"
-              step="0.01"
-              required
-              class="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
-          <div>
-            <label class="block text-sm">日期</label
-            ><input
-              v-model="newLoan.loan_date"
-              type="date"
-              required
-              class="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
-          <div>
-            <label class="block text-sm">备注 (可选)</label
-            ><textarea
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">细节说明</label>
+            <textarea
               v-model="newLoan.notes"
               rows="2"
-              class="w-full px-3 py-2 border rounded-md"
+              class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all resize-none"
             ></textarea>
           </div>
-          <div class="flex justify-end space-x-2">
-            <button type="button" @click="showForm = null" class="py-2 px-4 rounded-lg bg-gray-200">
-              取消</button
-            ><button type="submit" class="py-2 px-4 rounded-lg bg-blue-500 text-white">保存</button>
+          <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" @click="showForm = null" class="py-3 px-6 rounded-2xl bg-white/5 hover:bg-white/10 font-bold transition-all">
+              取消
+            </button>
+            <button type="submit" class="py-3 px-6 rounded-2xl bg-orange-600 hover:bg-orange-700 text-white font-bold shadow-lg shadow-orange-500/20 transition-all active:scale-95">
+              确认记录
+            </button>
           </div>
         </form>
       </div>
@@ -981,27 +1001,36 @@ onMounted(loadAllFinanceData)
     <div
       v-if="showHistoryModal"
       @click.self="showHistoryModal = false"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+      class="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in"
     >
-      <div v-if="historyLoan" class="bg-white rounded-xl shadow-2xl max-w-lg w-full p-6">
-        <h3 class="text-xl font-bold mb-4">“{{ historyLoan.person_name }}”的还款历史</h3>
-        <div v-if="repaymentHistory.length > 0" class="space-y-2 max-h-80 overflow-y-auto pr-2">
-          <div v-for="item in repaymentHistory" :key="item.id" class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-            <div>
-              <p class="font-semibold text-green-600">{{ formatCurrency(item.amount) }}</p>
-              <p class="text-sm text-gray-500">日期: {{ new Date(item.repayment_date).toLocaleDateString() }}</p>
+      <div v-if="historyLoan" class="glass-card max-w-lg w-full p-8 shadow-2xl relative overflow-hidden animate-slide-up">
+        <h3 class="text-xl font-bold mb-6 flex items-center space-x-2">
+           <i data-lucide="history" class="w-5 h-5 text-blue-500"></i>
+           <span>“{{ historyLoan.person_name }}”的还款历史</span>
+        </h3>
+        <div v-if="repaymentHistory.length > 0" class="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
+          <div v-for="item in repaymentHistory" :key="item.id" class="flex justify-between items-center p-4 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-colors">
+            <div class="space-y-1">
+              <p class="font-bold text-emerald-400 text-lg">{{ formatCurrency(item.amount) }}</p>
+              <p class="text-[10px] text-on-surface-variant/60 uppercase tracking-widest">日期: {{ new Date(item.repayment_date).toLocaleDateString() }}</p>
             </div>
             <div class="flex items-center gap-4">
-              <p class="text-sm text-gray-600">通过 {{ item.account_name }}</p>
-              <button @click="deleteRepayment(item)" class="text-xs bg-red-100 text-red-700 hover:bg-red-200 py-1 px-3 rounded-md">
-                删除
+              <div class="text-right">
+                <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/40">账户</p>
+                <p class="text-xs font-medium text-on-surface/80">{{ item.account_name }}</p>
+              </div>
+              <button @click="deleteRepayment(item)" class="p-2 text-red-400/60 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
               </button>
             </div>
           </div>
         </div>
-        <p v-else class="text-gray-500 my-4">暂无还款历史记录。</p>
-        <div class="mt-6 text-right">
-          <button @click="showHistoryModal = false" class="py-2 px-4 rounded-lg bg-gray-200">关闭</button>
+        <div v-else class="text-on-surface-variant/40 text-center py-12 flex flex-col items-center">
+          <i data-lucide="inbox" class="w-12 h-12 mb-2 opacity-20"></i>
+          <p class="text-sm">暂无还款历史记录</p>
+        </div>
+        <div class="mt-8">
+          <button @click="showHistoryModal = false" class="w-full py-3 bg-white/10 hover:bg-white/20 text-on-surface font-bold rounded-2xl transition-all">关闭</button>
         </div>
       </div>
     </div>
@@ -1010,52 +1039,58 @@ onMounted(loadAllFinanceData)
     <div
       v-if="showRepayForm"
       @click.self="showRepayForm = false"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+      class="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in"
     >
-      <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
-        <form @submit.prevent="repayLoan" class="space-y-4">
-          <h2 class="text-xl font-bold">为 "{{ repayLoanData.person_name }}" 还款</h2>
-          <p class="text-sm text-gray-600">
-            剩余未还: <span class="font-bold">{{ formatCurrency(repayLoanData.remaining_amount) }}</span>
-          </p>
-          <div>
-            <label class="block text-sm">还款金额</label>
+      <div class="glass-card max-w-md w-full p-8 shadow-2xl relative overflow-hidden animate-slide-up">
+        <form @submit.prevent="repayLoan" class="space-y-6">
+          <h2 class="text-xl font-bold mb-6 flex items-center space-x-2">
+             <i data-lucide="badge-check" class="w-5 h-5 text-blue-500"></i>
+             <span>为 "{{ repayLoanData.person_name }}" 还款</span>
+          </h2>
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10 mb-6">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-1 leading-none">剩余未还金额</p>
+            <p class="text-2xl font-black text-on-surface tracking-tighter">{{ formatCurrency(repayLoanData.remaining_amount) }}</p>
+          </div>
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">本次还款金额</label>
             <input
               v-model.number="repayLoanData.amount"
               type="number"
               step="0.01"
               required
-              class="w-full px-3 py-2 border rounded-md"
+              class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm font-bold text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all font-mono"
               :max="repayLoanData.remaining_amount"
             />
           </div>
-          <div>
-            <label class="block text-sm">收/付款账户</label>
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">收/付款账户</label>
             <select
               v-model.number="repayLoanData.account_id"
               required
-              class="w-full px-3 py-2 border rounded-md"
+              class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all appearance-none"
             >
-              <option :value="null" disabled>选择一个账户</option>
+              <option :value="null" disabled>选择账户</option>
               <option v-for="acc in accounts" :key="acc.id" :value="acc.id">
-                {{ acc.account_name }} ({{ formatCurrency(acc.current_balance) }})
+                {{ acc.account_name }}
               </option>
             </select>
           </div>
-          <div>
-            <label class="block text-sm">还款日期</label>
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 ml-1">还款日期</label>
             <input
               v-model="repayLoanData.repayment_date"
               type="date"
               required
-              class="w-full px-3 py-2 border rounded-md"
+              class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
             />
           </div>
-          <div class="flex justify-end space-x-2">
-            <button type="button" @click="showRepayForm = false" class="py-2 px-4 rounded-lg bg-gray-200">
+          <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" @click="showRepayForm = false" class="py-3 px-6 rounded-2xl bg-white/5 hover:bg-white/10 font-bold transition-all">
               取消
             </button>
-            <button type="submit" class="py-2 px-4 rounded-lg bg-blue-500 text-white">确认还款</button>
+            <button type="submit" class="py-3 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/20 transition-all active:scale-95">
+              确认提交
+            </button>
           </div>
         </form>
       </div>

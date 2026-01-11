@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务条款 - 九如投资发展旗下考拉健康 (Koala Health)</title>
+    <meta name="description" content="考拉健康服务条款。了解使用我们服务的规则、权利义务及免责声明。">
+    <link rel="icon" type="image/webp" href="https://pickoala.com/img/images/2026/01/09/C0esAzd8.webp">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        .prose h2 {
+            @apply text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white;
+        }
+
+        .prose h3 {
+            @apply text-xl font-semibold mt-6 mb-3 text-gray-900 dark:text-white;
+        }
+
+        .prose p {
+            @apply mb-4 leading-relaxed text-gray-600 dark:text-gray-300;
+        }
+
+        .prose ul {
+            @apply list-disc list-outside ml-6 mb-4 text-gray-600 dark:text-gray-300;
+        }
+
+        .prose li {
+            @apply mb-2;
+        }
+
+        /* Essential Landing Page Styles */
+        .mesh-gradient {
+            background-color: #f8fafc;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(79, 70, 229, 0.1) 0px, transparent 50%);
+        }
+
+        .dark .mesh-gradient {
+            background-color: #0f172a;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.15) 0px, transparent 50%);
+        }
+
+        @keyframes mesh-animation {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            50% {
+                background-position: 100% 100%;
+            }
+
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        .animate-mesh {
+            background-size: 200% 200%;
+            animation: mesh-animation 15s ease infinite;
+        }
+
+        .glass-effect {
+            @apply backdrop-blur-md bg-white/70 dark:bg-gray-900/70 border-b border-white/20 dark:border-gray-800/50;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-300 font-sans antialiased transition-colors duration-300 flex flex-col min-h-screen relative selection:bg-blue-100 dark:selection:bg-blue-900/30">
+
+    <!-- Animated background layers -->
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div class="mesh-gradient absolute inset-0 animate-mesh opacity-60"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass-effect">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-4">
+                <div class="flex items-center">
+                    <!-- Company Logo -->
+                    <img src="https://pickoala.com/img/images/2026/01/05/xG3tSjft.webp" alt="Company Logo"
+                        class="h-8 md:h-10 w-auto dark:hidden">
+                    <img src="https://pickoala.com/img/images/2026/01/05/tEGzX5DN.webp" alt="Company Logo"
+                        class="h-8 md:h-10 w-auto hidden dark:block">
+                </div>
+                <div class="h-6 w-px bg-gray-300 dark:bg-gray-700 hidden md:block"></div>
+                <div class="flex items-center">
+                    <!-- Project Logo -->
+                    <img src="https://pickoala.com/img/images/2026/01/05/zaajujcv.webp" alt="Project Logo"
+                        class="h-10 md:h-12 w-auto dark:hidden">
+                    <img src="https://pickoala.com/img/images/2026/01/05/EOiSqYhH.webp" alt="Project Logo"
+                        class="h-10 md:h-12 w-auto hidden dark:block">
+                </div>
+            </a>
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <a href="index.html"
+                    class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                    返回首页
+                </a>
+
+                <!-- Dark Mode Toggle -->
+                <button id="theme-toggle-btn"
+                    class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    aria-label="Toggle Dark Mode">
+                    <svg id="theme-toggle-light-icon" class="w-6 h-6" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
+                    <svg id="theme-toggle-dark-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12 flex-grow max-w-4xl">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 md:p-12 prose max-w-none">
+            <h1
+                class="text-3xl md:text-4xl font-extrabold mb-8 text-gray-900 dark:text-white border-b pb-4 dark:border-gray-700">
+                服务条款</h1>
+
+            <p class="text-sm text-gray-500 dark:text-gray-400">生效日期：2024年1月1日</p>
+
+            <p>欢迎使用九如投资发展旗下考拉健康（以下简称“本应用”或“服务”）。在使用我们的服务之前，请仔细阅读以下条款。访问或使用本应用即表示您同意受这些条款的约束。</p>
+
+            <h2>1. 服务说明</h2>
+            <p>考拉健康是一款集健康追踪、财务管理和生活助手于一体的综合性管理工具。我们通过提供数据记录、图表分析和智能提醒功能，帮助用户更好地管理个人生活。</p>
+
+            <h2>2. 重要免责声明：非医疗服务</h2>
+            <p><strong>请注意：本应用提供的信息、数据分析和建议仅供参考，不构成任何医疗建议、诊断或治疗方案。</strong></p>
+            <ul>
+                <li>本应用不能替代专业医生、药师或其他医疗卫生专业人士的当面咨询和诊断。</li>
+                <li>在使用本应用的数据做出任何医疗决定（如改变用药剂量、开始剧烈运动）之前，请务必咨询专业医生的意见。</li>
+                <li>如果您感到身体不适或遇到紧急医疗情况，请立即拨打急救电话或前往医院就诊。</li>
+            </ul>
+
+            <h2>3. 账户注册与安全</h2>
+            <ul>
+                <li>您承诺在注册时提供真实、准确、完整的个人信息，并及时更新。</li>
+                <li>您有责任妥善保管您的账户名称和密码。因您保管不善导致的任何损失，由您自行承担。</li>
+                <li>若发现您的账户遭到未授权使用，请立即通知我们。</li>
+            </ul>
+
+            <h2>4. 用户行为规范</h2>
+            <p>您同意在使用本服务过程中遵守法律法规，不得进行以下行为：</p>
+            <ul>
+                <li>上传、传输包含病毒、木马或其他恶意代码的内容。</li>
+                <li>利用本应用进行洗钱、非法集资或其他违法金融活动。</li>
+                <li>干扰或破坏本服务的正常运行，尝试攻击我们的服务器。</li>
+                <li>侵犯他人的知识产权、隐私权或其他合法权益。</li>
+            </ul>
+
+            <h2>5. 数据所有权与使用</h2>
+            <h3>5.1 您的数据</h3>
+            <p>您在考拉健康中录入的所有个人数据（包括健康记录和财务记录）归您所有。我们不会声称对您的数据拥有所有权。</p>
+
+            <h3>5.2 授权许可</h3>
+            <p>为了向您提供服务（例如生成报表、云端同步），您授予我们在全球范围内、免版税的许可，允许我们存储、复制和处理您的数据。如果您使用私有化部署版本，则您的数据完全由您自行掌控，无需向我们授予此许可。</p>
+
+            <h2>6. 知识产权</h2>
+            <p>考拉健康应用本身（包括但不限于代码、界面设计、图标、商标）的知识产权归九如投资发展（山东）有限公司所有。未经我们书面许可，您不得复制、修改、反向工程或用于商业目的。</p>
+
+            <h2>7. 服务的变更与终止</h2>
+            <p>我们不断改进服务，可能会随时更新、增加或移除功能。如果发生重大变更或停止服务，我们会提前向您发出通知。对于违反本条款的用户，我们保留暂停或终止其账户的权利。</p>
+
+            <h2>8. 责任限制</h2>
+            <p>在法律允许的最大范围内，九如投资发展不对因使用或无法使用本服务而导致的任何直接、间接、附带或惩罚性损害负责，包括但不限于数据丢失、利润损失或业务中断。</p>
+
+            <h2>9. 联系我们</h2>
+            <p>如果您对本服务条款有任何疑问，请通过以下方式联系我们：</p>
+            <ul>
+                <li>邮箱：<a href="mailto:info@bitekaola.com" class="text-blue-600 hover:underline">info@bitekaola.com</a>
+                </li>
+                <li>电话：全球服务热线 +14217911079</li>
+                <li>地址：山东省济南市历下区九如投资大厦</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+                <!-- 品牌信息 -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <!-- Company Logo -->
+                        <img src="https://pickoala.com/img/images/2026/01/05/xG3tSjft.webp" alt="Company Logo"
+                            class="h-6 w-auto dark:hidden">
+                        <img src="https://pickoala.com/img/images/2026/01/05/tEGzX5DN.webp" alt="Company Logo"
+                            class="h-6 w-auto hidden dark:block">
+                        <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+                        <!-- Project Logo -->
+                        <img src="https://pickoala.com/img/images/2026/01/05/zaajujcv.webp" alt="Project Logo"
+                            class="h-8 w-auto dark:hidden">
+                        <img src="https://pickoala.com/img/images/2026/01/05/EOiSqYhH.webp" alt="Project Logo"
+                            class="h-8 w-auto hidden dark:block">
+                    </div>
+                    <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                        九如投资发展旗下核心健康管理品牌。我们致力于通过科技手段提升健康管理效率，让每一个家庭都能享受到触手可及的健康服务。
+                    </p>
+                </div>
+
+                <!-- 生态项目 -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-6 relative inline-block">
+                        <span>生态项目</span>
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-blue-500"></span>
+                    </h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><span class="text-gray-400">更多项目即将上线...</span></li>
+                    </ul>
+                </div>
+
+                <!-- 快速链接 -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-6 relative inline-block">
+                        <span>快速通道</span>
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-blue-500"></span>
+                    </h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="index.html"
+                                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">返回首页</a></li>
+                        <li><a href="https://github.com/Bitkoala/healthhub" target="_blank"
+                                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">GitHub 源码</a>
+                        </li>
+                        <li><a href="privacy.html"
+                                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">隐私政策</a></li>
+                        <li><a href="terms.html"
+                                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">服务条款</a></li>
+                    </ul>
+                </div>
+
+                <!-- 联系我们 -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-6 relative inline-block">
+                        <span>联系我们</span>
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-blue-500"></span>
+                    </h4>
+                    <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start">
+                            <i data-lucide="map-pin" class="w-4 h-4 mt-1 mr-3 text-blue-500 shrink-0"></i>
+                            <span>山东省济南市历下区九如投资大厦</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="mail" class="w-4 h-4 mr-3 text-blue-500 shrink-0"></i>
+                            <a href="mailto:info@bitekaola.com"
+                                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">info@bitekaola.com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="phone" class="w-4 h-4 mr-3 text-blue-500 shrink-0"></i>
+                            <span>全球服务热线+14217911079</span>
+                        </li>
+                        <li class="flex items-center pt-2">
+                            <div class="relative group cursor-pointer">
+                                <div
+                                    class="flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                                    <i data-lucide="message-circle" class="w-4 h-4 mr-3 text-blue-500 shrink-0"></i>
+                                    <span>联系微信</span>
+                                </div>
+                                <!-- QR Code Popover -->
+                                <div
+                                    class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-64 md:w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-20">
+                                    <div
+                                        class="p-4 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 backdrop-blur-xl bg-white/90 dark:bg-gray-800/95">
+                                        <img src="https://pickoala.com/img/images/2026/01/05/RM45hGH4.webp"
+                                            alt="WeChat QR Code" class="w-full h-auto object-contain rounded-2xl">
+                                        <div
+                                            class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/90 dark:bg-gray-800/95 rotate-45 border-r border-b border-gray-100 dark:border-gray-700">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 底部版权与备案 -->
+            <div
+                class="border-t border-gray-200 dark:border-gray-800 pt-8 text-center text-gray-500 dark:text-gray-500 text-sm">
+                <p>&copy; 2024-2026 九如投资发展（山东）有限公司. All Rights Reserved.</p>
+                <div class="mt-2 flex flex-col md:flex-row justify-center items-center gap-2">
+                    <span>
+                        由 <a href="https://github.com/Bitkoala/healthhub" target="_blank" rel="noopener noreferrer"
+                            class="text-blue-600 hover:underline">比特考拉Bitkoala</a> 构建
+                    </span>
+                    <span class="hidden md:inline">|</span>
+                    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"
+                        class="hover:text-blue-600 transition-colors duration-200">
+                        鲁ICP备2025174251号-1
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 初始化图标
+            lucide.createIcons();
+
+            // 主题切换逻辑
+            const themeToggleButton = document.getElementById('theme-toggle-btn');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+
+            // 检查初始主题
+            const initialThemeIsDark = localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            if (initialThemeIsDark) {
+                document.documentElement.classList.add('dark');
+            }
+            lightIcon.classList.toggle('hidden', initialThemeIsDark);
+            darkIcon.classList.toggle('hidden', !initialThemeIsDark);
+
+            themeToggleButton.addEventListener('click', function () {
+                document.documentElement.classList.toggle('dark');
+                const isDarkNow = document.documentElement.classList.contains('dark');
+                localStorage.setItem('color-theme', isDarkNow ? 'dark' : 'light');
+                lightIcon.classList.toggle('hidden', isDarkNow);
+                darkIcon.classList.toggle('hidden', !isDarkNow);
+            });
+        });
+    </script>
+</body>
+
+</html>

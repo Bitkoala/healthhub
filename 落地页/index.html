@@ -1,91 +1,225 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="page_title">清风健康 (Health Hub) - 您的私人健康与生活管家</title>
-    <meta name="description" data-lang-key="page_description" content="集健康追踪、财务管理、生活助手于一体的现代化全栈应用。支持SaaS服务或私有化部署，数据安全可控。">
+    <title data-lang-key="page_title">九如投资发展旗下考拉健康 (Koala Health) - 您的私人健康与生活管家</title>
+    <meta name="description" data-lang-key="page_description"
+        content="集健康追踪、财务管理、生活助手于一体的现代化全栈应用。支持SaaS服务或私有化部署，数据安全可控。">
+    <link rel="icon" type="image/webp" href="https://pickoala.com/img/images/2026/01/09/C0esAzd8.webp">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://hb.jiankang.mom/">
-    <meta property="og:title" content="清风健康 (Health Hub) - 您的私人健康与生活管家">
+    <meta property="og:url" content="https://a.joru.email/">
+    <meta property="og:title" content="九如投资发展旗下考拉健康 (Koala Health) - 您的私人健康与生活管家">
     <meta property="og:description" content="集健康追踪、财务管理、生活助手于一体的现代化全栈应用。支持SaaS服务或私有化部署，数据安全可控。">
-    <meta property="og:image" content="https://hb.jiankang.mom/img/1.webp">
-    <meta property="og:site_name" content="清风健康">
+    <meta property="og:image" content="https://pickoala.com/img/1.webp">
+    <meta property="og:site_name" content="九如投资发展旗下考拉健康">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://hb.jiankang.mom/">
-    <meta property="twitter:title" content="清风健康 (Health Hub) - 您的私人健康与生活管家">
+    <meta property="twitter:url" content="https://a.joru.email/">
+    <meta property="twitter:title" content="九如投资发展旗下考拉健康 (Koala Health) - 您的私人健康与生活管家">
     <meta property="twitter:description" content="集健康追踪、财务管理、生活助手于一体的现代化全栈应用。支持SaaS服务或私有化部署，数据安全可控。">
-    <meta property="twitter:image" content="https://hb.jiankang.mom/img/1.webp">
+    <meta property="twitter:image" content="https://pickoala.com/img/1.webp">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 新增：引入 Lucide 图标库 -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <script>
-      // 关键配置：启用 Tailwind 的 class-based dark mode
-      tailwind.config = {
-        darkMode: 'class'
-      }
+        // 关键配置：启用 Tailwind 的 class-based dark mode
+        tailwind.config = {
+            darkMode: 'class'
+        }
     </script>
     <style>
-        /* 预留样式区 */
+        :root {
+            --primary-blue: #2563eb;
+            --primary-indigo: #4f46e5;
+        }
+
+        .mesh-gradient {
+            background-color: #f8fafc;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(79, 70, 229, 0.1) 0px, transparent 50%);
+        }
+
+        .dark .mesh-gradient {
+            background-color: #0f172a;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.15) 0px, transparent 50%);
+        }
+
+        @keyframes mesh-animation {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            50% {
+                background-position: 100% 100%;
+            }
+
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        .animate-mesh {
+            background-size: 200% 200%;
+            animation: mesh-animation 15s ease infinite;
+        }
+
+        .glass-effect {
+            @apply backdrop-blur-md bg-white/70 dark:bg-gray-900/70 border-b border-white/20 dark:border-gray-800/50;
+        }
+
+        .premium-card {
+            @apply transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/10 border border-transparent hover:border-blue-500/10 dark:hover:border-blue-400/10;
+        }
+
+        .text-gradient {
+            @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400;
+        }
+
+        .btn-shine-parent {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: skewX(-25deg);
+            transition: 0.5s;
+        }
+
+        .btn-shine-parent:hover .btn-shine {
+            left: 150%;
+        }
     </style>
+    <script src="https://u.pandax.it.com/script.js" data-website-id="622a4de0-10cc-475b-a3f1-cd9fe093308e"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script async defer src="https://dsi.mom/tracker.js" data-website-id="cmin76v96000113bttmbf16n1"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-300 font-sans antialiased transition-colors duration-300">
+
+<body
+    class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-300 font-sans antialiased transition-colors duration-300 flex flex-col min-h-screen relative selection:bg-blue-100 dark:selection:bg-blue-900/30">
+
+    <!-- Animated background layers -->
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div class="mesh-gradient absolute inset-0 animate-mesh opacity-60"></div>
+    </div>
 
     <!-- Header -->
-    <header class="sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 shadow-sm">
+    <header class="sticky top-0 z-50 glass-effect">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-gray-900 dark:text-white" data-lang-key="nav_title">
-                清风健康
+            <a href="#" class="flex items-center space-x-4">
+                <div class="flex items-center">
+                    <!-- Company Logo -->
+                    <img src="https://pickoala.com/img/images/2026/01/05/xG3tSjft.webp" alt="Company Logo"
+                        class="h-8 md:h-10 w-auto dark:hidden">
+                    <img src="https://pickoala.com/img/images/2026/01/05/tEGzX5DN.webp" alt="Company Logo"
+                        class="h-8 md:h-10 w-auto hidden dark:block">
+                </div>
+                <div class="h-6 w-px bg-gray-300 dark:bg-gray-700 hidden md:block"></div>
+                <div class="flex items-center">
+                    <!-- Project Logo -->
+                    <img src="https://pickoala.com/img/images/2026/01/05/zaajujcv.webp" alt="Project Logo"
+                        class="h-10 md:h-12 w-auto dark:hidden">
+                    <img src="https://pickoala.com/img/images/2026/01/05/EOiSqYhH.webp" alt="Project Logo"
+                        class="h-10 md:h-12 w-auto hidden dark:block">
+                </div>
             </a>
             <div class="flex items-center space-x-2 md:space-x-4">
-                <a href="#features" class="hidden md:inline text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors" data-lang-key="nav_features">功能</a>
-                <a href="#privacy" class="hidden md:inline text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors" data-lang-key="nav_privacy">数据隐私</a>
-                <a href="https://github.com/pandax-i/healthhub" target="_blank" rel="noopener noreferrer" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">GitHub</a>
-                
+                <a href="#features"
+                    class="hidden md:inline text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                    data-lang-key="nav_features">功能</a>
+
+                <a href="https://github.com/Bitkoala/healthhub" target="_blank" rel="noopener noreferrer"
+                    class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">GitHub</a>
+
                 <!-- Language Toggle -->
-                <button id="lang-toggle-btn" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors font-semibold text-sm" aria-label="Toggle Language">
+                <button id="lang-toggle-btn"
+                    class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors font-semibold text-sm"
+                    aria-label="Toggle Language">
                     EN
                 </button>
 
                 <!-- Dark Mode Toggle -->
-                <button id="theme-toggle-btn" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle Dark Mode">
+                <button id="theme-toggle-btn"
+                    class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    aria-label="Toggle Dark Mode">
                     <!-- Sun icon -->
-                    <svg id="theme-toggle-light-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="w-6 h-6" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
                     <!-- Moon icon -->
-                    <svg id="theme-toggle-dark-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg id="theme-toggle-dark-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
                 </button>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <main class="container mx-auto px-6">
-        <section class="text-center py-20 md:py-32">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white leading-tight">
-                <span data-lang-key="hero_title_part1">一个真正属于你的</span><span class="text-blue-600 dark:text-blue-400" data-lang-key="hero_title_part2">私人健康管家</span>
+    <main class="container mx-auto px-6 flex-grow">
+        <section class="text-center py-24 md:py-36 relative overflow-hidden">
+            <h1 class="text-5xl md:text-7xl font-display font-extrabold text-gray-900 dark:text-white leading-[1.1] tracking-tight"
+                data-aos="zoom-y-out">
+                <span data-lang-key="hero_title_part1">一个真正属于你的</span><br>
+                <span class="text-gradient" data-lang-key="hero_title_part2">私人健康管家</span>
             </h1>
-            <p class="mt-6 text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" data-lang-key="hero_subtitle">
+            <p class="mt-6 text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto"
+                data-lang-key="hero_subtitle">
                 集健康追踪、财务管理、生活助手于一体的现代化全栈应用。数据私有，安全可控。
             </p>
-            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
-                <a href="https://hb.jiankang.mom/" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105" data-lang-key="hero_cta_demo">
-                    立即体验
+            <div class="mt-12 flex flex-col sm:flex-row justify-center items-center gap-6" data-aos="fade-up"
+                data-aos-delay="200">
+                <a href="https://a.joru.email/"
+                    class="btn-shine-parent group w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full text-lg shadow-xl shadow-blue-500/20 transition-all duration-300 transform hover:scale-105"
+                    data-lang-key="hero_cta_demo">
+                    <span class="relative z-10">立即体验</span>
+                    <div class="btn-shine"></div>
                 </a>
-                <a href="https://github.com/pandax-i/healthhub" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300" data-lang-key="hero_cta_source">
+                <a href="https://github.com/Bitkoala/healthhub" target="_blank" rel="noopener noreferrer"
+                    class="w-full sm:w-auto bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/80 text-gray-800 dark:text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg transition-all duration-300"
+                    data-lang-key="hero_cta_source">
                     查看源码
                 </a>
             </div>
-            <div class="mt-16 mx-auto max-w-6xl" data-aos="zoom-in" data-aos-duration="1000">
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden p-2">
-                    <!-- 图片轮播容器 -->
-                    <div class="relative" style="padding-bottom: 56.25%;"> <!-- 16:9 aspect ratio -->
-                        <img src="./img/1.webp" alt="清风健康应用界面 1" class="carousel-image absolute top-0 left-0 w-full h-full object-cover rounded-lg transition-opacity duration-1000 ease-in-out opacity-100">
-                        <img src="./img/2.webp" alt="清风健康应用界面 2" class="carousel-image absolute top-0 left-0 w-full h-full object-cover rounded-lg transition-opacity duration-1000 ease-in-out opacity-0">
+            <div class="mt-20 mx-auto max-w-6xl px-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="relative group">
+                    <!-- Decorative blur -->
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200">
+                    </div>
+                    <div
+                        class="relative bg-white dark:bg-gray-800 rounded-[2rem] shadow-2xl overflow-hidden p-3 border border-white/20 dark:border-gray-700/50">
+                        <!-- 图片轮播容器 -->
+                        <div class="relative rounded-2xl overflow-hidden shadow-inner" style="padding-bottom: 56.25%;">
+                            <!-- 16:9 aspect ratio -->
+                            <img src="./img/1.webp" alt="考拉健康应用界面 1"
+                                class="carousel-image absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-100">
+                            <img src="./img/2.webp" alt="考拉健康应用界面 2"
+                                class="carousel-image absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-0">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,105 +228,160 @@
         <!-- Features Section -->
         <section id="features" class="py-20">
             <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white" data-lang-key="features_title">功能一览</h2>
-                <p class="mt-4 text-lg text-gray-600 dark:text-gray-400" data-lang-key="features_subtitle">从健康到生活，满足您的各种记录需求。</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white" data-lang-key="features_title">
+                    功能一览</h2>
+                <p class="mt-4 text-lg text-gray-600 dark:text-gray-400" data-lang-key="features_subtitle">
+                    从健康到生活，满足您的各种记录需求。</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- 女性健康 -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div
+                        class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
                     </div>
-                    <h3 class="mt-5 text-xl font-semibold text-gray-900 dark:text-white" data-lang-key="feature_period_title">女性健康</h3>
-                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_period_desc">记录和预测生理周期（经期、易孕期、排卵期），并支持记录疼痛程度、流量等详细信息。</p>
+                    <h3 class="mt-6 text-xl font-display font-bold text-gray-900 dark:text-white"
+                        data-lang-key="feature_period_title">女性健康</h3>
+                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_period_desc">
+                        记录和预测生理周期（经期、易孕期、排卵期），并支持记录疼痛程度、流量等详细信息。</p>
                 </div>
                 <!-- 体重管理 -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <div
+                        class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
+                        </svg>
                     </div>
-                    <h3 class="mt-5 text-xl font-semibold text-gray-900 dark:text-white" data-lang-key="feature_weight_title">体重管理</h3>
-                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_weight_desc">记录体重、身高，自动计算BMI，通过图表追踪变化趋势。</p>
+                    <h3 class="mt-6 text-xl font-display font-bold text-gray-900 dark:text-white"
+                        data-lang-key="feature_weight_title">体重管理</h3>
+                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_weight_desc">
+                        记录体重、身高，自动计算BMI，通过图表追踪变化趋势。</p>
                 </div>
                 <!-- 财务记账 -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <div
+                        class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
                     </div>
-                    <h3 class="mt-5 text-xl font-semibold text-gray-900 dark:text-white" data-lang-key="feature_finance_title">财务记账</h3>
-                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_finance_desc">全功能的个人财务中心。支持多账户管理、收支记录、借贷跟踪，并通过图表进行收支分析。</p>
+                    <h3 class="mt-6 text-xl font-display font-bold text-gray-900 dark:text-white"
+                        data-lang-key="feature_finance_title">财务记账</h3>
+                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_finance_desc">
+                        全功能的个人财务中心。支持多账户管理、收支记录、借贷跟踪，并通过图表进行收支分析。</p>
                 </div>
                 <!-- 用药管理 -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div
+                        class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
                     </div>
-                    <h3 class="mt-5 text-xl font-semibold text-gray-900 dark:text-white" data-lang-key="feature_meds_title">用药管理</h3>
-                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_meds_desc">记录药品信息、库存，并追踪详细的服药历史。</p>
+                    <h3 class="mt-6 text-xl font-display font-bold text-gray-900 dark:text-white"
+                        data-lang-key="feature_meds_title">用药管理</h3>
+                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_meds_desc">
+                        记录药品信息、库存，并追踪详细的服药历史。</p>
                 </div>
                 <!-- 运动日志 -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <div
+                        class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
                     </div>
-                    <h3 class="mt-5 text-xl font-semibold text-gray-900 dark:text-white" data-lang-key="feature_exercise_title">运动日志</h3>
-                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_exercise_desc">记录每日的运动项目、时长和强度，保持活力。</p>
+                    <h3 class="mt-6 text-xl font-display font-bold text-gray-900 dark:text-white"
+                        data-lang-key="feature_exercise_title">运动日志</h3>
+                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_exercise_desc">
+                        记录每日的运动项目、时长和强度，保持活力。</p>
                 </div>
                 <!-- 备忘录 (To-Do) -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <div
+                        class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
+                            </path>
+                        </svg>
                     </div>
-                    <h3 class="mt-5 text-xl font-semibold text-gray-900 dark:text-white" data-lang-key="feature_todo_title">备忘录 (To-Do)</h3>
-                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_todo_desc">带有优先级的任务清单，助您聚焦重要事项。</p>
+                    <h3 class="mt-6 text-xl font-display font-bold text-gray-900 dark:text-white"
+                        data-lang-key="feature_todo_title">备忘录 (To-Do)</h3>
+                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_todo_desc">
+                        带有优先级的任务清单，助您聚焦重要事项。</p>
                 </div>
                 <!-- 排便记录 -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div
+                        class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
                     </div>
-                    <h3 class="mt-5 text-xl font-semibold text-gray-900 dark:text-white" data-lang-key="feature_stool_title">排便记录</h3>
-                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_stool_desc">使用布里斯托大便分类法，科学记录与分析。</p>
+                    <h3 class="mt-6 text-xl font-display font-bold text-gray-900 dark:text-white"
+                        data-lang-key="feature_stool_title">排便记录</h3>
+                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_stool_desc">
+                        使用布里斯托大便分类法，科学记录与分析。</p>
                 </div>
                 <!-- 每日清单 -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <div
+                        class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
                     </div>
-                    <h3 class="mt-5 text-xl font-semibold text-gray-900 dark:text-white" data-lang-key="feature_checklist_title">每日清单</h3>
-                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_checklist_desc">追踪每日习惯和一次性任务的完成情况。</p>
+                    <h3 class="mt-6 text-xl font-display font-bold text-gray-900 dark:text-white"
+                        data-lang-key="feature_checklist_title">每日清单</h3>
+                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_checklist_desc">
+                        追踪每日习惯和一次性任务的完成情况。</p>
                 </div>
                 <!-- 番茄钟 -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <div
+                        class="flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
                     </div>
-                    <h3 class="mt-5 text-xl font-semibold text-gray-900 dark:text-white" data-lang-key="feature_pomodoro_title">番茄钟</h3>
-                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_pomodoro_desc">内置的番茄工作法计时器，提升专注度和效率。</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Privacy / Value Proposition Section -->
-        <section id="privacy" class="py-20">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white" data-lang-key="privacy_title">您的数据，您做主</h2>
-                <p class="mt-4 text-lg text-gray-600 dark:text-gray-400" data-lang-key="privacy_subtitle">我们提供两种模式，满足您对便利性和隐私的不同需求。</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700" data-aos="fade-right">
-                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 mx-auto">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h10a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.757 14.757l.707.707a2 2 0 010 2.828l-1.414 1.414a2 2 0 01-2.828 0l-.707-.707M16.243 14.757l-.707.707a2 2 0 000 2.828l1.414 1.414a2 2 0 002.828 0l.707-.707M9 11.044A4.002 4.002 0 0112 7a4 4 0 013 1.044"></path></svg>
-                    </div>
-                    <h3 class="mt-6 text-2xl font-bold text-center text-gray-900 dark:text-white" data-lang-key="privacy_saas_title">便捷云服务 (SaaS)</h3>
-                    <p class="mt-4 text-center text-gray-600 dark:text-gray-400" data-lang-key="privacy_saas_desc">开箱即用，零配置。只需注册即可在我们的服务器上体验全部功能，适合追求便利的用户。</p>
-                </div>
-                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border-2 border-blue-500" data-aos="fade-left">
-                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 mx-auto">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    </div>
-                    <h3 class="mt-6 text-2xl font-bold text-center text-gray-900 dark:text-white" data-lang-key="privacy_selfhost_title">私有化部署</h3>
-                    <p class="mt-4 text-center text-gray-600 dark:text-gray-400" data-lang-key="privacy_selfhost_desc">数据100%归您所有。将应用部署在您自己的服务器上，完全掌控健康、财务等敏感数据，实现最高级别的隐私保护。</p>
+                    <h3 class="mt-6 text-xl font-display font-bold text-gray-900 dark:text-white"
+                        data-lang-key="feature_pomodoro_title">番茄钟</h3>
+                    <p class="mt-2 text-base text-gray-600 dark:text-gray-400" data-lang-key="feature_pomodoro_desc">
+                        内置的番茄工作法计时器，提升专注度和效率。</p>
                 </div>
             </div>
         </section>
@@ -200,41 +389,59 @@
         <!-- Testimonials Section -->
         <section id="testimonials" class="py-20 bg-gray-100 dark:bg-gray-800/50">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white" data-lang-key="testimonials_title">他们怎么说？</h2>
-                    <p class="mt-4 text-lg text-gray-600 dark:text-gray-400" data-lang-key="testimonials_subtitle">来自真实用户的声音。</p>
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-5xl font-display font-bold text-gray-900 dark:text-white"
+                        data-lang-key="testimonials_title">他们怎么说？</h2>
+                    <p class="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                        data-lang-key="testimonials_subtitle">
+                        来自全球用户的真实声音。</p>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Testimonial 1 -->
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                        <p class="text-gray-600 dark:text-gray-400 italic" data-lang-key="testimonial_1_text">"终于找到一个可以把经期和记账放在一起的应用了！界面干净，而且数据私有化部署的选项让我非常安心。"</p>
+                    <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl" data-aos="fade-up"
+                        data-aos-delay="100">
+                        <p class="text-gray-600 dark:text-gray-400 italic" data-lang-key="testimonial_1_text">
+                            "终于找到一个可以把经期和记账放在一起的应用了！界面干净，而且数据私有化部署的选项让我非常安心。"</p>
                         <div class="mt-4 flex items-center">
-                            <img class="w-12 h-12 rounded-full object-cover" src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="用户头像 1">
+                            <img class="w-12 h-12 rounded-full object-cover"
+                                src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="用户头像 1">
                             <div class="ml-4">
-                                <p class="font-semibold text-gray-900 dark:text-white" data-lang-key="testimonial_1_name">小夏</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400" data-lang-key="testimonial_1_role">效率工具爱好者</p>
+                                <p class="font-semibold text-gray-900 dark:text-white"
+                                    data-lang-key="testimonial_1_name">小夏</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400" data-lang-key="testimonial_1_role">
+                                    效率工具爱好者</p>
                             </div>
                         </div>
                     </div>
                     <!-- Testimonial 2 -->
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                        <p class="text-gray-600 dark:text-gray-400 italic" data-lang-key="testimonial_2_text">"作为开发者，我非常欣赏这个项目的开源精神。部署过程很顺利，现在我全家都在用我搭的这个服务。"</p>
+                    <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl border-blue-500/10 dark:border-blue-400/10"
+                        data-aos="fade-up" data-aos-delay="200">
+                        <p class="text-gray-600 dark:text-gray-400 italic" data-lang-key="testimonial_2_text">
+                            "作为开发者，我非常欣赏这个项目的开源精神。部署过程很顺利，现在我全家都在用我搭的这个服务。"</p>
                         <div class="mt-4 flex items-center">
-                            <img class="w-12 h-12 rounded-full object-cover" src="https://i.pravatar.cc/150?u=a042581f4e29026704e" alt="用户头像 2">
+                            <img class="w-12 h-12 rounded-full object-cover"
+                                src="https://i.pravatar.cc/150?u=a042581f4e29026704e" alt="用户头像 2">
                             <div class="ml-4">
-                                <p class="font-semibold text-gray-900 dark:text-white" data-lang-key="testimonial_2_name">阿强</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400" data-lang-key="testimonial_2_role">全栈工程师</p>
+                                <p class="font-semibold text-gray-900 dark:text-white"
+                                    data-lang-key="testimonial_2_name">阿强</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400" data-lang-key="testimonial_2_role">
+                                    全栈工程师</p>
                             </div>
                         </div>
                     </div>
                     <!-- Testimonial 3 -->
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                        <p class="text-gray-600 dark:text-gray-400 italic" data-lang-key="testimonial_3_text">"用它记录宝宝的成长和自己的健康状况，真的太方便了。图表功能一目了然，比用表格强太多！"</p>
+                    <div class="premium-card bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl" data-aos="fade-up"
+                        data-aos-delay="300">
+                        <p class="text-gray-600 dark:text-gray-400 italic" data-lang-key="testimonial_3_text">
+                            "用它记录宝宝的成长和自己的健康状况，真的太方便了。图表功能一目了然，比用表格强太多！"</p>
                         <div class="mt-4 flex items-center">
-                            <img class="w-12 h-12 rounded-full object-cover" src="https://i.pravatar.cc/150?u=a042581f4e29026704f" alt="用户头像 3">
+                            <img class="w-12 h-12 rounded-full object-cover"
+                                src="https://i.pravatar.cc/150?u=a042581f4e29026704f" alt="用户头像 3">
                             <div class="ml-4">
-                                <p class="font-semibold text-gray-900 dark:text-white" data-lang-key="testimonial_3_name">一位母亲</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400" data-lang-key="testimonial_3_role">新手妈妈</p>
+                                <p class="font-semibold text-gray-900 dark:text-white"
+                                    data-lang-key="testimonial_3_name">一位母亲</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400" data-lang-key="testimonial_3_role">
+                                    新手妈妈</p>
                             </div>
                         </div>
                     </div>
@@ -245,59 +452,212 @@
         <!-- Tech Stack Section -->
         <section class="py-20" data-aos="fade-up">
             <div class="text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white" data-lang-key="tech_title">强大的技术栈</h2>
-                <p class="mt-4 text-lg text-gray-600 dark:text-gray-400" data-lang-key="tech_subtitle">采用现代化、可靠的技术构建。</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white" data-lang-key="tech_title">
+                    强大的技术栈</h2>
+                <p class="mt-4 text-lg text-gray-600 dark:text-gray-400" data-lang-key="tech_subtitle">采用现代化、可靠的技术构建。
+                </p>
             </div>
             <div class="mt-10 flex flex-wrap justify-center items-center gap-8 md:gap-12">
                 <img src="https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=for-the-badge&logo=vue.js" alt="Vue.js">
-                <img src="https://img.shields.io/badge/Node.js-20.x-5FA04E?style=for-the-badge&logo=node.js" alt="Node.js">
-                <img src="https://img.shields.io/badge/Express.js-4.x-000000?style=for-the-badge&logo=express" alt="Express.js">
+                <img src="https://img.shields.io/badge/Node.js-20.x-5FA04E?style=for-the-badge&logo=node.js"
+                    alt="Node.js">
+                <img src="https://img.shields.io/badge/Express.js-4.x-000000?style=for-the-badge&logo=express"
+                    alt="Express.js">
                 <img src="https://img.shields.io/badge/MySQL-8.x-4479A1?style=for-the-badge&logo=mysql" alt="MySQL">
                 <img src="https://img.shields.io/badge/Vite-^5.0-646CFF?style=for-the-badge&logo=vite" alt="Vite">
-                <img src="https://img.shields.io/badge/Tailwind_CSS-3.x-06B6D4?style=for-the-badge&logo=tailwindcss" alt="Tailwind CSS">
+                <img src="https://img.shields.io/badge/Tailwind_CSS-3.x-06B6D4?style=for-the-badge&logo=tailwindcss"
+                    alt="Tailwind CSS">
             </div>
         </section>
 
         <!-- Final CTA Section -->
-        <section class="py-20 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white" data-lang-key="final_cta_title">准备好开启您的健康新篇章了吗？</h2>
-            <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
-                <a href="https://hb.jiankang.mom/" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105" data-lang-key="final_cta_demo">
-                    立即体验
-                </a>
-                <a href="https://github.com/pandax-i/healthhub" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300" data-lang-key="final_cta_source">
-                    查看源码
-                </a>
+        <section class="py-24 text-center">
+            <div class="max-w-4xl mx-auto px-6 py-16 rounded-[3rem] bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-2xl shadow-blue-500/30 relative overflow-hidden"
+                data-aos="zoom-in">
+                <!-- Background decorative shapes -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/20 rounded-full -ml-20 -mb-20 blur-3xl">
+                </div>
+
+                <h2 class="relative z-10 text-3xl md:text-5xl font-display font-bold leading-tight"
+                    data-lang-key="final_cta_title">
+                    准备好开启您的健康新篇章了吗？</h2>
+                <div class="mt-10 relative z-10 flex flex-col sm:flex-row justify-center items-center gap-6">
+                    <a href="https://a.joru.email/"
+                        class="btn-shine-parent w-full sm:w-auto bg-white text-blue-600 font-bold py-4 px-10 rounded-full text-lg shadow-xl hover:scale-105 transition duration-300"
+                        data-lang-key="final_cta_demo">
+                        <span class="relative z-10">立即体验</span>
+                        <div class="btn-shine !via-blue-600/10"></div>
+                    </a>
+                    <a href="https://github.com/Bitkoala/healthhub" target="_blank" rel="noopener noreferrer"
+                        class="w-full sm:w-auto bg-transparent border-2 border-white/30 hover:bg-white/10 text-white font-bold py-4 px-10 rounded-full text-lg transition duration-300"
+                        data-lang-key="final_cta_source">
+                        查看源码
+                    </a>
+                </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-600 dark:text-gray-400">
-            <p>&copy; 2024 <span data-lang-key="footer_copyright">清风健康 (Health Hub). All Rights Reserved.</span></p>
-            <p class="mt-2">
-                <span data-lang-key="footer_built_by_part1">由 </span>
-                <a href="https://github.com/pandax-i/healthhub" class="text-blue-600 hover:underline">pandax-i</a>
-                <span data-lang-key="footer_built_by_part2"> 构建</span>
-            </p>
+    <footer id="contact" class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+                <!-- 品牌信息 -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <!-- Company Logo -->
+                        <img src="https://pickoala.com/img/images/2026/01/05/xG3tSjft.webp" alt="Company Logo"
+                            class="h-6 w-auto dark:hidden">
+                        <img src="https://pickoala.com/img/images/2026/01/05/tEGzX5DN.webp" alt="Company Logo"
+                            class="h-6 w-auto hidden dark:block">
+                        <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+                        <!-- Project Logo -->
+                        <img src="https://pickoala.com/img/images/2026/01/05/zaajujcv.webp" alt="Project Logo"
+                            class="h-8 w-auto dark:hidden">
+                        <img src="https://pickoala.com/img/images/2026/01/05/EOiSqYhH.webp" alt="Project Logo"
+                            class="h-8 w-auto hidden dark:block">
+                    </div>
+                    <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400"
+                        data-lang-key="footer_brand_desc">
+                        九如投资发展旗下核心健康管理品牌。我们致力于通过科技手段提升健康管理效率，让每一个家庭都能享受到触手可及的健康服务。
+                    </p>
+                </div>
+
+                <!-- 生态项目 -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-6 relative inline-block">
+                        <span data-lang-key="footer_col_projects">生态项目</span>
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-blue-500"></span>
+                    </h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <!-- 暂时隐藏生态项目链接
+                        <li>
+                            <a href="#" class="group flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                <i data-lucide="arrow-up-right" class="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                <span data-lang-key="footer_proj_1">考拉医生版 App</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="group flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                <i data-lucide="arrow-up-right" class="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                <span data-lang-key="footer_proj_2">考拉云医院 SaaS</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="group flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                <i data-lucide="arrow-up-right" class="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                <span data-lang-key="footer_proj_3">智康老年陪护平台</span>
+                            </a>
+                        </li>
+                        -->
+                        <li><span class="text-gray-400">更多项目即将上线...</span></li>
+                    </ul>
+                </div>
+
+                <!-- 快速链接 -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-6 relative inline-block">
+                        <span data-lang-key="footer_col_links">快速通道</span>
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-blue-500"></span>
+                    </h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="https://github.com/Bitkoala/healthhub" target="_blank"
+                                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                data-lang-key="footer_link_github">GitHub 源码</a></li>
+                        <li><a href="privacy.html"
+                                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                data-lang-key="footer_link_privacy">隐私政策</a></li>
+                        <li><a href="terms.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                data-lang-key="footer_link_terms">服务条款</a></li>
+                    </ul>
+                </div>
+
+                <!-- 联系我们 -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-6 relative inline-block">
+                        <span data-lang-key="footer_col_contact">联系我们</span>
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-blue-500"></span>
+                    </h4>
+                    <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start">
+                            <i data-lucide="map-pin" class="w-4 h-4 mt-1 mr-3 text-blue-500 shrink-0"></i>
+                            <span data-lang-key="footer_contact_addr">山东省济南市历下区九如投资大厦</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="mail" class="w-4 h-4 mr-3 text-blue-500 shrink-0"></i>
+                            <a href="mailto:info@bitekaola.com"
+                                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">info@bitekaola.com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="phone" class="w-4 h-4 mr-3 text-blue-500 shrink-0"></i>
+                            <span>全球服务热线+14217911079</span>
+                        </li>
+                        <li class="flex items-center pt-2">
+                            <div class="relative group cursor-pointer">
+                                <div
+                                    class="flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                                    <i data-lucide="message-circle" class="w-4 h-4 mr-3 text-blue-500 shrink-0"></i>
+                                    <span data-lang-key="footer_contact_wechat">联系微信</span>
+                                </div>
+                                <!-- QR Code Popover -->
+                                <div
+                                    class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-64 md:w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-20">
+                                    <div
+                                        class="p-4 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 backdrop-blur-xl bg-white/90 dark:bg-gray-800/95">
+                                        <img src="https://pickoala.com/img/images/2026/01/05/RM45hGH4.webp"
+                                            alt="WeChat QR Code" class="w-full h-auto object-contain rounded-2xl">
+                                        <div
+                                            class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/90 dark:bg-gray-800/95 rotate-45 border-r border-b border-gray-100 dark:border-gray-700">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 底部版权与备案 -->
+            <div
+                class="border-t border-gray-200 dark:border-gray-800 pt-8 text-center text-gray-500 dark:text-gray-500 text-sm">
+                <p>&copy; 2024-2026 <span data-lang-key="footer_copyright">九如投资发展（山东）有限公司. All Rights Reserved.</span>
+                </p>
+                <div class="mt-2 flex flex-col md:flex-row justify-center items-center gap-2">
+                    <span>
+                        <span data-lang-key="footer_built_by_part1">由 </span>
+                        <a href="https://github.com/Bitkoala/healthhub" target="_blank" rel="noopener noreferrer"
+                            class="text-blue-600 hover:underline">比特考拉Bitkoala</a>
+                        <span data-lang-key="footer_built_by_part2"> 构建</span>
+                    </span>
+                    <span class="hidden md:inline">|</span>
+                    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"
+                        class="hover:text-blue-600 transition-colors duration-200">
+                        鲁ICP备2025174251号-1
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
-            duration: 800, // values from 0 to 3000, with step 50ms
-            once: true, // whether animation should happen only once - while scrolling down
+            duration: 800,
+            once: true,
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            // 初始化图标
+            lucide.createIcons();
+
             // --- 翻译功能 ---
             const translations = {
                 "zh": {
-                    "page_title": "清风健康 (Health Hub) - 您的私人健康与生活管家",
+                    "page_title": "九如投资发展旗下考拉健康 (Koala Health) - 您的私人健康与生活管家",
                     "page_description": "集健康追踪、财务管理、生活助手于一体的现代化全栈应用。支持SaaS服务或私有化部署，数据安全可控。",
-                    "nav_title": "清风健康",
+                    "nav_title": "九如投资发展旗下考拉健康",
                     "nav_features": "功能",
                     "nav_privacy": "数据隐私",
                     "hero_title_part1": "一个真正属于你的",
@@ -325,63 +685,11 @@
                     "feature_checklist_desc": "追踪每日习惯和一次性任务的完成情况。",
                     "feature_pomodoro_title": "番茄钟",
                     "feature_pomodoro_desc": "内置的番茄工作法计时器，提升专注度和效率。",
-                    "privacy_title": "您的数据，您做主",
-                    "privacy_subtitle": "我们提供两种模式，满足您对便利性和隐私的不同需求。",
-                    "privacy_saas_title": "便捷云服务 (SaaS)",
-                    "privacy_saas_desc": "开箱即用，零配置。只需注册即可在我们的服务器上体验全部功能，适合追求便利的用户。",
-                    "privacy_selfhost_title": "私有化部署",
-                    "privacy_selfhost_desc": "数据100%归您所有。将应用部署在您自己的服务器上，完全掌控健康、财务等敏感数据，实现最高级别的隐私保护。",
                     "tech_title": "强大的技术栈",
                     "tech_subtitle": "采用现代化、可靠的技术构建。",
                     "final_cta_title": "准备好开启您的健康新篇章了吗？",
                     "final_cta_demo": "立即体验",
                     "final_cta_source": "查看源码",
-                    "footer_copyright": "清风健康 (Health Hub). All Rights Reserved.",
-                    "footer_built_by_part1": "由 ",
-                    "footer_built_by_part2": " 构建"
-                },
-                "en": {
-                    "page_title": "Health Hub - Your Personal Health & Life Assistant",
-                    "page_description": "A modern full-stack application integrating health tracking, financial management, and life assistance. Supports SaaS or self-hosting for full data control.",
-                    "nav_title": "Health Hub",
-                    "nav_features": "Features",
-                    "nav_privacy": "Data Privacy",
-                    "hero_title_part1": "Your Truly ",
-                    "hero_title_part2": "Personal Health Assistant",
-                    "hero_subtitle": "A modern full-stack application integrating health tracking, financial management, and life assistance. Private data, secure control.",
-                    "hero_cta_demo": "Live Demo",
-                    "hero_cta_source": "View Source",
-                    "features_title": "Features at a Glance",
-                    "features_subtitle": "From health to life, meeting all your tracking needs.",
-                    "feature_period_title": "Period Tracker",
-                    "feature_period_desc": "Record and predict menstrual cycles (period, fertile window, ovulation) with details like pain and flow.",
-                    "feature_weight_title": "Weight Management",
-                    "feature_weight_desc": "Log weight, height, auto-calculate BMI, and track trends with charts.",
-                    "feature_finance_title": "Finance Tracker",
-                    "feature_finance_desc": "A full-featured personal finance center. Supports multi-account management, income/expense tracking, and loan management.",
-                    "feature_meds_title": "Medication Log",
-                    "feature_meds_desc": "Record medication info, stock, and track detailed dosage history.",
-                    "feature_exercise_title": "Exercise Log",
-                    "feature_exercise_desc": "Log daily exercises, duration, and intensity to stay active.",
-                    "feature_todo_title": "To-Do List",
-                    "feature_todo_desc": "A prioritized task list to help you focus on what matters.",
-                    "feature_stool_title": "Stool Log",
-                    "feature_stool_desc": "Use the Bristol Stool Scale for scientific recording and analysis.",
-                    "feature_checklist_title": "Daily Checklist",
-                    "feature_checklist_desc": "Track the completion of daily habits and one-time tasks.",
-                    "feature_pomodoro_title": "Pomodoro Timer",
-                    "feature_pomodoro_desc": "A built-in Pomodoro timer to boost focus and efficiency.",
-                    "privacy_title": "Your Data, Your Choice",
-                    "privacy_subtitle": "We offer two modes to meet your needs for convenience and privacy.",
-                    "privacy_saas_title": "Convenient Cloud Service (SaaS)",
-                    "privacy_saas_desc": "Out-of-the-box, zero configuration. Register to use all features on our servers, perfect for users who value convenience.",
-                    "privacy_selfhost_title": "Self-Hosted",
-                    "privacy_selfhost_desc": "Your data is 100% yours. Deploy the app on your own server for complete control over sensitive health and financial data.",
-                    "tech_title": "Powered by a Robust Tech Stack",
-                    "tech_subtitle": "Built with modern and reliable technologies.",
-                    "final_cta_title": "Ready to Start Your New Health Chapter?",
-                    "final_cta_demo": "Live Demo",
-                    "final_cta_source": "View Source",
                     "testimonials_title": "他们怎么说？",
                     "testimonials_subtitle": "来自真实用户的声音。",
                     "testimonial_1_text": "\"终于找到一个可以把经期和记账放在一起的应用了！界面干净，而且数据私有化部署的选项让我非常安心。\"",
@@ -393,64 +701,84 @@
                     "testimonial_3_text": "\"用它记录宝宝的成长和自己的健康状况，真的太方便了。图表功能一目了然，比用表格强太多！\"",
                     "testimonial_3_name": "一位母亲",
                     "testimonial_3_role": "新手妈妈",
-                    "footer_copyright": "清风健康 (Health Hub). All Rights Reserved.",
+                    // Footer Translations
+                    "footer_brand_title": "考拉健康",
+                    "footer_brand_desc": "九如投资发展旗下核心健康管理品牌。我们致力于通过科技手段提升健康管理效率，让每一个家庭都能享受到触手可及的健康服务。",
+                    "footer_col_projects": "生态项目",
+                    "footer_proj_1": "考拉医生版 App",
+                    "footer_proj_2": "考拉云医院 SaaS",
+                    "footer_proj_3": "智康老年陪护平台",
+                    "footer_col_links": "快速通道",
+                    "footer_link_github": "GitHub 源码",
+                    "footer_link_privacy": "隐私政策",
+                    "footer_link_terms": "服务条款",
+                    "footer_col_contact": "联系我们",
+                    "footer_contact_addr": "山东省济南市历下区九如投资大厦",
+                    "footer_copyright": "九如投资发展（山东）有限公司. All Rights Reserved.",
                     "footer_built_by_part1": "由 ",
                     "footer_built_by_part2": " 构建"
                 },
                 "en": {
-                    "page_title": "Health Hub - Your Personal Health & Life Assistant",
-                    "page_description": "A modern full-stack application integrating health tracking, financial management, and life assistance. Supports SaaS or self-hosting for full data control.",
-                    "nav_title": "Health Hub",
+                    "page_title": "Koala Health - Your Personal Health & Life Assistant",
+                    "page_description": "A modern full-stack application integrating health tracking, financial management, and life assistance.",
+                    "nav_title": "Koala Health",
                     "nav_features": "Features",
                     "nav_privacy": "Data Privacy",
                     "hero_title_part1": "Your Truly ",
                     "hero_title_part2": "Personal Health Assistant",
-                    "hero_subtitle": "A modern full-stack application integrating health tracking, financial management, and life assistance. Private data, secure control.",
+                    "hero_subtitle": "A modern full-stack application integrating health tracking, financial management, and life assistance.",
                     "hero_cta_demo": "Live Demo",
                     "hero_cta_source": "View Source",
                     "features_title": "Features at a Glance",
                     "features_subtitle": "From health to life, meeting all your tracking needs.",
                     "feature_period_title": "Period Tracker",
-                    "feature_period_desc": "Scientifically record and predict menstrual cycles with details like pain and flow.",
+                    "feature_period_desc": "Record and predict menstrual cycles with details like pain and flow.",
                     "feature_weight_title": "Weight Management",
-                    "feature_weight_desc": "Log weight, height, auto-calculate BMI, and track trends with charts.",
+                    "feature_weight_desc": "Log weight, height, auto-calculate BMI, and track trends.",
                     "feature_finance_title": "Finance Tracker",
-                    "feature_finance_desc": "Manage income/expenses across multiple accounts and loans with clear financial reports.",
+                    "feature_finance_desc": "A full-featured personal finance center.",
                     "feature_meds_title": "Medication Log",
-                    "feature_meds_desc": "Record medication info, stock, and track detailed dosage history.",
+                    "feature_meds_desc": "Record medication info, stock, and dosage history.",
                     "feature_exercise_title": "Exercise Log",
-                    "feature_exercise_desc": "Log daily exercises, duration, and intensity to stay active.",
+                    "feature_exercise_desc": "Log daily exercises to stay active.",
                     "feature_todo_title": "To-Do List",
-                    "feature_todo_desc": "A prioritized task list to help you focus on what matters.",
-                    "feature_intimacy_title": "Intimacy Log",
-                    "feature_intimacy_desc": "Optionally log intimate activities for any given day, ensuring personal privacy.",
+                    "feature_todo_desc": "A prioritized task list.",
                     "feature_stool_title": "Stool Log",
-                    "feature_stool_desc": "Use the Bristol Stool Scale for scientific recording and analysis.",
-                    "feature_admin_title": "Admin Tools",
-                    "feature_admin_desc": "Assist users with password resets and maintain system health.",
-                    "privacy_title": "Your Data, Your Choice",
-                    "privacy_subtitle": "We offer two modes to meet your needs for convenience and privacy.",
-                    "privacy_saas_title": "Convenient Cloud Service (SaaS)",
-                    "privacy_saas_desc": "Out-of-the-box, zero configuration. Register to use all features on our servers, perfect for users who value convenience.",
-                    "privacy_selfhost_title": "Self-Hosted",
-                    "privacy_selfhost_desc": "Your data is 100% yours. Deploy the app on your own server for complete control over sensitive health and financial data.",
+                    "feature_stool_desc": "Scientific recording and analysis.",
+                    "feature_checklist_title": "Daily Checklist",
+                    "feature_checklist_desc": "Track habits and tasks.",
+                    "feature_pomodoro_title": "Pomodoro Timer",
+                    "feature_pomodoro_desc": "Boost focus and efficiency.",
                     "tech_title": "Powered by a Robust Tech Stack",
-                    "tech_subtitle": "Built with modern and reliable technologies.",
+                    "tech_subtitle": "Built with modern technologies.",
                     "final_cta_title": "Ready to Start Your New Health Chapter?",
                     "final_cta_demo": "Live Demo",
                     "final_cta_source": "View Source",
                     "testimonials_title": "What Our Users Say",
                     "testimonials_subtitle": "Voices from our community.",
-                    "testimonial_1_text": "\"Finally, an app that combines period tracking and finances! The interface is clean, and the self-hosting option gives me peace of mind.\"",
-                    "testimonial_1_name": "Alex",
+                    "testimonial_1_text": "\"Finally found an app that combines period tracking and budgeting! The interface is clean, and the self-hosted option gives me peace of mind.\"",
+                    "testimonial_1_name": "Summer",
                     "testimonial_1_role": "Productivity Enthusiast",
-                    "testimonial_2_text": "\"As a developer, I appreciate the open-source nature of this project. The deployment was smooth, and now my whole family uses the service I host.\"",
-                    "testimonial_2_name": "Ben",
-                    "testimonial_2_role": "Full-Stack Engineer",
-                    "testimonial_3_text": "\"It's so convenient for tracking my baby's milestones and my own health. The charts are a game-changer compared to spreadsheets!\"",
-                    "testimonial_3_name": "A Mom",
-                    "testimonial_3_role": "New Parent",
-                    "footer_copyright": "Health Hub. All Rights Reserved.",
+                    "testimonial_2_text": "\"As a developer, I appreciate the open-source spirit. Deployment was smooth, and now my whole family uses this service.\"",
+                    "testimonial_2_name": "John",
+                    "testimonial_2_role": "Full Stack Engineer",
+                    "testimonial_3_text": "\"Logging my baby's growth and my own health is so convenient. The charts are super clear, much better than spreadsheets!\"",
+                    "testimonial_3_name": "A Mother",
+                    "testimonial_3_role": "New Mom",
+                    // Footer Translations
+                    "footer_brand_title": "Koala Health",
+                    "footer_brand_desc": "A core digital health brand under Joru Investment. We are dedicated to improving medical efficiency through technology.",
+                    "footer_col_projects": "Ecosystem",
+                    "footer_proj_1": "Koala Doctor App",
+                    "footer_proj_2": "Koala Cloud Hospital",
+                    "footer_proj_3": "Senior Care Platform",
+                    "footer_col_links": "Quick Links",
+                    "footer_link_github": "GitHub Source",
+                    "footer_link_privacy": "Privacy Policy",
+                    "footer_link_terms": "Terms of Service",
+                    "footer_col_contact": "Contact Us",
+                    "footer_contact_addr": "Joru Investment Bldg, Lixia District, Jinan, Shandong",
+                    "footer_copyright": "Joru Investment Development (Shandong) Co., Ltd. All Rights Reserved.",
                     "footer_built_by_part1": "Built by ",
                     "footer_built_by_part2": ""
                 }
@@ -469,7 +797,7 @@
                     const key = element.getAttribute('data-lang-key');
                     if (translations[lang] && translations[lang][key]) {
                         if (element.tagName === 'META' || element.tagName === 'TITLE') {
-                            if(element.hasAttribute('content')) {
+                            if (element.hasAttribute('content')) {
                                 element.content = translations[lang][key];
                             } else {
                                 element.textContent = translations[lang][key];
@@ -486,12 +814,12 @@
                 setLanguage(newLang);
             });
 
-            // --- 主题切换功能 (更直接的实现) ---
+            // --- 主题切换功能 ---
             const themeToggleButton = document.getElementById('theme-toggle-btn');
             const lightIcon = document.getElementById('theme-toggle-light-icon');
             const darkIcon = document.getElementById('theme-toggle-dark-icon');
 
-            themeToggleButton.addEventListener('click', function() {
+            themeToggleButton.addEventListener('click', function () {
                 document.documentElement.classList.toggle('dark');
                 const isDarkNow = document.documentElement.classList.contains('dark');
                 localStorage.setItem('color-theme', isDarkNow ? 'dark' : 'light');
@@ -514,7 +842,7 @@
 
             // --- 初始化 ---
             setLanguage(currentLang);
-            
+
             const initialThemeIsDark = localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
             if (initialThemeIsDark) {
                 document.documentElement.classList.add('dark');
@@ -524,4 +852,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -4,7 +4,7 @@
 
 ---
 
-# Health Hub
+# Koala Health
 
 <p align="center">
   <img src="https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=for-the-badge&logo=vue.js" alt="Vue.js">
@@ -20,12 +20,12 @@
 </p>
 
 <p align="center">
-  <a href="https://jiankang.mom/"><strong>Live Demo &raquo;</strong></a>
+  <a href="https://pickoala.com/"><strong>Live Demo &raquo;</strong></a>
 </p>
 
 ---
 
-**Health Hub** is a one-stop web application designed to help users easily record and manage their daily health and life information. From medication schedules to financial status, from daily tasks to exercise logs, Health Hub provides a comprehensive and intuitive set of tools.
+**Koala Health** is a one-stop web application designed to help users easily record and manage their daily health and life information. From medication schedules to financial status, from daily tasks to exercise logs, Koala Health provides a comprehensive and intuitive set of tools.
 
 ## ✨ Features
 
@@ -45,28 +45,24 @@
   - **User Assistance**: Admins can help users by resetting their passwords.
   - **System Maintenance**: Clean up inactive accounts (and their associated data) that have not logged in for a long time to free up resources.
   - **Privacy Protection**: Administrators cannot view any user's private data, such as passwords, financial records, or health logs. All operations are designed with user privacy as a priority.
-- **Modern User Experience**:
-  - **User Authentication & Management**:
-    - Supports registration and login with either a **username** or an **email**.
-    - A comprehensive profile page to bind or update username and email at any time.
-    - Supports `linux.do` third-party authorization.
-    - Automatically generates a unique robot avatar based on the user ID for a personalized touch.
-  - **Responsive Design**: Perfectly adapts to desktop and mobile devices.
-  - **Dynamic Wallpapers**: Enhance the visual experience and bring a pleasant mood.
-  - **Data Visualization**: Intuitively display financial and health data through charts.
-  - **Multi-language support (i18n)**: Built-in support for Chinese and English, making it convenient for users with different language preferences.
-  - **Modular Customization**: Users can enable or disable specific functional modules (e.g., "Women's Health") in their personal settings to create a personalized application interface.
+- **Modern User Experience (Premium UI)**:
+  - **Ultimate Visual Aesthetics**: Full implementation of the **Glassmorphism** design system with dynamic light effects and HSL color systems for a high-end, sophisticated feel.
+  - **Unified Identity (Casdoor SSO)**: Integrated self-hosted **Casdoor** authentication for a secure and seamless Single Sign-On experience, supporting multi-platform expansion.
+  - **Fluid Navigation**: A brand-new **Top Floating Header** layout paired with curated icons for more intuitive operation and an open field of view.
+  - **Fully Responsive**: Perfectly adapts to both desktop and mobile devices.
+  - **Peak Performance**: Millisecond-level page transitions combined with powerful data visualizations.
+  - **Global & Personal**: Built-in multi-language support (i18n) and modular customization to build your personal health steward.
 
 ## 🚀 Two Usage Models: SaaS vs. Self-Hosting
 
-You can choose the best way to use Health Hub based on your needs for convenience and data privacy:
+You can choose the best way to use Koala Health based on your needs for convenience and data privacy:
 
 ### Model 1: SaaS Service (Out-of-the-Box)
 
 This model provides you with the most convenient experience.
 
 -   **Target Audience**: Users who want to experience the core features immediately and don't mind their data being managed by the service provider.
--   **How to Use**: Simply visit the official demo website at <a href="https://hb.jiankang.mom/"><strong>https://hb.jiankang.mom/</strong></a> to register and use.
+-   **How to Use**: Simply visit the official demo website at <a href="https://a.joru.email/"><strong>https://a.joru.email/</strong></a> to register and use.
 -   **Advantages**: No technical background or server required, zero cost, zero configuration.
 -   **Data Ownership**: Your data will be stored encrypted in the project's demo server database.
 
@@ -125,28 +121,28 @@ We believe users should have a choice and provide comprehensive support for both
     Example content for `.env`:
 
     ```dotenv
-    # Database Configuration
+    # --- Database Configuration (MySQL) ---
     DB_HOST=127.0.0.1
+    DB_PORT=3306
     DB_USER=root
     DB_PASSWORD=your_password
-    DB_DATABASE=health_hub_db
-    DB_PORT=3306
+    DB_DATABASE=health_hub
 
-    # JWT Secret (for user authentication, be sure to change this to a long, random string)
-    JWT_SECRET=please_change_this_to_a_long_random_string
+    # --- Security & Encryption ---
+    JWT_SECRET=your_random_secret_string
 
-    # Linux.do Third-Party Login Configuration (for local development)
-    LINUX_DO_CLIENT_ID=YOUR_LINUX_DO_CLIENT_ID
-    LINUX_DO_CLIENT_SECRET=YOUR_LINUX_DO_CLIENT_SECRET
-    # Note: The callback URI points to the local backend service
-    LINUX_DO_REDIRECT_URI=http://localhost:3000/api/linuxdo/callback
+    # --- Casdoor SSO Configuration ---
+    CASDOOR_ENDPOINT=https://your-casdoor-url
+    CASDOOR_CLIENT_ID=your_client_id
+    CASDOOR_CLIENT_SECRET=your_client_secret
+    CASDOOR_ORG_NAME=your_org_name
+    CASDOOR_APP_NAME=your_app_name
+    CASDOOR_REDIRECT_URI=http://localhost:3000/api/auth/casdoor/callback
 
-    # Server Port
-    PORT=3000
-    # Allow access from the frontend dev server during local development
-    CORS_WHITELIST=localhost:5173
-    # Local frontend address
+    # --- Frontend Linkage ---
     FRONTEND_URL=http://localhost:5173
+    PORT=3000
+    CORS_WHITELIST=localhost:5173
     ```
 
 3.  **Install dependencies**:

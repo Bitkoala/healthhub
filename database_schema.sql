@@ -1,5 +1,5 @@
 -- -------------------------------------------------------------
--- Health Hub - Database Schema
+-- Koala Health - Database Schema
 --
 -- This file contains the complete schema for the application's
 -- database. Execute this script in your MySQL database to
@@ -18,6 +18,9 @@ CREATE TABLE `users` (
   `password_hash` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `linuxdo_id` varchar(255) DEFAULT NULL,
+  `google_id` varchar(255) DEFAULT NULL,
+  `github_id` varchar(255) DEFAULT NULL,
+  `casdoor_id` varchar(255) DEFAULT NULL,
   `height_cm` decimal(5,2) DEFAULT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `last_login_at` datetime DEFAULT NULL,
@@ -25,7 +28,9 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `linuxdo_id` (`linuxdo_id`)
+  UNIQUE KEY `linuxdo_id` (`linuxdo_id`),
+  UNIQUE KEY `google_id` (`google_id`),
+  UNIQUE KEY `github_id` (`github_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --

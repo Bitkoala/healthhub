@@ -14,11 +14,6 @@
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
-// --- 调试代码 ---
-// 在服务器启动时，检查 JWT_SECRET 是否已成功加载。
-// 请在后端服务的启动日志中查看此输出。
-console.log('[DEBUG] JWT_SECRET on startup:', process.env.JWT_SECRET);
-// --- 调试代码结束 ---
 
 const express = require('express');
 const cors = require('cors');
@@ -80,7 +75,7 @@ app.use(express.json());
 
 // --- API 路由注册 ---
 // 将不同的 API 路径前缀映射到对应的路由处理模块。
-app.use('/api', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/medications', medicationRoutes);
 app.use('/api/stool-logs', stoolRoutes);
 app.use('/api/daily-logs', dailyRoutes);

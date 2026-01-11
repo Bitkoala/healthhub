@@ -15,6 +15,7 @@ import { useRouter } from 'vue-router'
 import ToastNotification from './components/ToastNotification.vue'
 import { useUserStore } from './stores/user'
 import { useLanguageStore } from './stores/language'
+import AppFooter from './components/AppFooter.vue'
 
 declare const lucide: { createIcons: () => void };
 
@@ -76,106 +77,176 @@ router.afterEach(() => {
 </script>
 
 <template>
-  <nav
-    v-if="userStore.isLoggedIn"
-    class="fixed bottom-0 left-0 right-0 bg-white shadow-t-lg border-t z-50 md:top-0 md:bottom-auto md:border-b"
-  >
-    <div
-      class="max-w-4xl mx-auto flex justify-around p-2 md:justify-end md:items-center md:space-x-4 md:px-6"
-    >
-      <RouterLink to="/" class="nav-link flex flex-col items-center text-gray-500 hover:text-blue-600"
-        ><i data-lucide="home"></i><span class="text-xs mt-1">{{ $t('home') }}</span></RouterLink
-      >
-      <RouterLink
-        to="/meds"
-        class="nav-link flex flex-col items-center text-gray-500 hover:text-blue-600"
-        ><i data-lucide="pilcrow"></i><span class="text-xs mt-1">{{ $t('meds') }}</span></RouterLink
-      >
-      <RouterLink
-        to="/stool"
-        class="nav-link flex flex-col items-center text-gray-500 hover:text-blue-600"
-        ><i data-lucide="activity"></i><span class="text-xs mt-1">{{ $t('stool') }}</span></RouterLink
-      >
-      <RouterLink
-        to="/daily"
-        class="nav-link flex flex-col items-center text-gray-500 hover:text-blue-600"
-        ><i data-lucide="clipboard-list"></i><span class="text-xs mt-1">{{ $t('checklist') }}</span></RouterLink
-      >
-      <RouterLink
-        to="/memos"
-        class="nav-link flex flex-col items-center text-gray-500 hover:text-blue-600"
-        ><i data-lucide="check-square"></i><span class="text-xs mt-1">{{ $t('memos') }}</span></RouterLink
-      >
-      <RouterLink
-        to="/finance"
-        class="nav-link flex flex-col items-center text-gray-500 hover:text-blue-600"
-        ><i data-lucide="dollar-sign"></i><span class="text-xs mt-1">{{ $t('finance') }}</span></RouterLink
-      >
-      <RouterLink
-        to="/pomodoro"
-        class="nav-link flex flex-col items-center text-gray-500 hover:text-blue-600"
-        ><i data-lucide="timer"></i><span class="text-xs mt-1">{{ $t('pomodoro') }}</span></RouterLink
-      >
-      <RouterLink
-        to="/exercise"
-        class="nav-link flex flex-col items-center text-gray-500 hover:text-blue-600"
-        ><i data-lucide="bike"></i><span class="text-xs mt-1">{{ $t('exercise') }}</span></RouterLink
-      >
-      <RouterLink
-        v-if="userStore.user?.show_womens_health"
-        to="/periods"
-        class="nav-link flex flex-col items-center text-gray-500 hover:text-blue-600"
-        ><i data-lucide="calendar-heart"></i><span class="text-xs mt-1">{{ $t('periodTracker') }}</span></RouterLink
-      >
-      <RouterLink
-        to="/weight"
-        class="nav-link flex flex-col items-center text-gray-500 hover:text-blue-600"
-        ><i data-lucide="scale"></i><span class="text-xs mt-1">{{ $t('weightManagement') }}</span></RouterLink
-      >
-
-      <!-- 管理员入口 -->
-      <RouterLink
-        v-if="userStore.isAdmin"
-        to="/admin"
-        class="nav-link flex flex-col items-center text-red-500 hover:text-red-700"
-        ><i data-lucide="shield"></i><span class="text-xs mt-1">{{ $t('admin') }}</span></RouterLink
-      >
-
-      <!-- 分隔线 (仅在桌面端显示) -->
-      <div class="hidden md:block border-l border-gray-300 h-6"></div>
-
-      <!-- 语言切换按钮 -->
-      <button @click="toggleLanguage" class="flex flex-col items-center text-gray-500 hover:text-blue-600">
-        <i data-lucide="languages"></i><span class="text-xs mt-1">{{ languageStore.lang === 'zh' ? 'EN' : '中' }}</span>
-      </button>
-
-      <!-- 用户信息和头像 -->
-      <RouterLink
-        to="/profile"
-        class="nav-link flex flex-col items-center text-gray-500 hover:text-blue-600"
-      >
-        <img
-          v-if="avatarUrl"
-          :src="avatarUrl"
-          alt="User Avatar"
-          class="h-6 w-6 rounded-full bg-gray-200"
-        />
-        <i v-else data-lucide="user"></i>
-        <span class="text-xs mt-1">{{ userStore.user?.username || $t('profile') }}</span>
-      </RouterLink>
-
-      <!-- 登出按钮 -->
-      <button
-        @click="handleLogout"
-        class="flex flex-col items-center text-gray-500 hover:text-red-600"
-      >
-        <i data-lucide="log-out"></i><span class="text-xs mt-1">{{ $t('logout') }}</span>
-      </button>
+  <div class="app-wrapper min-h-screen relative overflow-x-hidden">
+    <!-- Dynamic Mesh Background -->
+    <div class="fixed inset-0 -z-10 pointer-events-none opacity-40 dark:opacity-20 transition-opacity duration-1000">
+      <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-400 blur-[120px] rounded-full animate-float"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-400 blur-[120px] rounded-full animate-float" style="animation-delay: -1.5s"></div>
     </div>
-  </nav>
 
-  <main class="pb-20 md:pt-16">
-    <RouterView />
-  </main>
-  <ToastNotification />
+    <!-- Global Navigation Floating Header -->
+    <nav
+      v-if="userStore.isLoggedIn"
+      class="fixed md:top-6 bottom-0 md:bottom-auto left-1/2 -translate-x-1/2 glass-dock px-4 md:px-6 py-2 md:py-3 md:rounded-full shadow-2xl z-50 flex items-center justify-between md:justify-start space-x-2 md:space-x-4 max-w-full md:max-w-[95vw] w-full md:w-auto overflow-x-auto no-scrollbar border-t md:border border-white/20 dark:border-white/5 animate-slide-up bg-white/80 dark:bg-black/80 md:bg-transparent"
+    >
+      <!-- Group 1: General -->
+      <div class="flex items-center space-x-1 md:space-x-2">
+        <RouterLink to="/" class="nav-item group" :title="$t('home')">
+          <i data-lucide="home"></i>
+          <span class="nav-label">{{ $t('home') }}</span>
+        </RouterLink>
+        <RouterLink to="/profile" class="nav-item group" :title="$t('profile')">
+          <img
+            v-if="avatarUrl"
+            :src="avatarUrl"
+            :alt="userStore.user?.username || ''"
+            class="h-6 w-6 rounded-full border border-primary/20 bg-gray-100"
+          />
+          <i v-else data-lucide="user"></i>
+          <span class="nav-label">{{ $t('profile') }}</span>
+        </RouterLink>
+      </div>
+      
+      <div class="hidden md:block h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
+
+      <!-- Group 2: Health -->
+      <div class="flex items-center space-x-1 md:space-x-2">
+        <RouterLink to="/meds" class="nav-item group" :title="$t('meds')">
+          <i data-lucide="pill"></i>
+          <span class="nav-label">{{ $t('meds') }}</span>
+        </RouterLink>
+        <RouterLink to="/stool" class="nav-item group" :title="$t('stool')">
+          <i data-lucide="droplets"></i>
+          <span class="nav-label">{{ $t('stool') }}</span>
+        </RouterLink>
+        <RouterLink 
+          v-if="userStore.user?.show_womens_health"
+          to="/periods" 
+          class="nav-item group" 
+          :title="$t('periodTracker')"
+        >
+          <i data-lucide="calendar-heart"></i>
+          <span class="nav-label">{{ $t('periodTracker').slice(0, 2) }}</span>
+        </RouterLink>
+        <RouterLink to="/weight" class="nav-item group" :title="$t('weightManagement')">
+          <i data-lucide="weight"></i>
+          <span class="nav-label">{{ $t('weightManagement').slice(0, 2) }}</span>
+        </RouterLink>
+      </div>
+
+      <div class="hidden md:block h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
+
+      <!-- Group 3: Life -->
+      <div class="flex items-center space-x-1 md:space-x-2">
+        <RouterLink to="/daily" class="nav-item group" :title="$t('checklist')">
+          <i data-lucide="list-todo"></i>
+          <span class="nav-label">{{ $t('checklist') }}</span>
+        </RouterLink>
+        <RouterLink to="/memos" class="nav-item group" :title="$t('memos')">
+          <i data-lucide="sticky-note"></i>
+          <span class="nav-label">{{ $t('memos') }}</span>
+        </RouterLink>
+        <RouterLink to="/finance" class="nav-item group" :title="$t('finance')">
+          <i data-lucide="wallet"></i>
+          <span class="nav-label">{{ $t('finance') }}</span>
+        </RouterLink>
+        <RouterLink to="/pomodoro" class="nav-item group" :title="$t('pomodoro')">
+          <i data-lucide="timer"></i>
+          <span class="nav-label">{{ $t('pomodoro').slice(0, 2) }}</span>
+        </RouterLink>
+      </div>
+
+      <div class="hidden md:block h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
+
+      <!-- Group 4: System -->
+      <div class="flex items-center space-x-2 ml-auto md:ml-0">
+        <!-- Admin -->
+        <RouterLink
+          v-if="userStore.isAdmin"
+          to="/admin"
+          class="nav-item group text-amber-500"
+          title="管理"
+        >
+          <i data-lucide="shield-check"></i>
+          <span class="nav-label">管理</span>
+        </RouterLink>
+
+        <!-- Actions -->
+        <div class="flex items-center space-x-1">
+          <button @click="toggleLanguage" class="action-mini-btn" :title="$t('language')">
+            {{ languageStore.lang === 'zh' ? 'EN' : '中' }}
+          </button>
+          <button @click="handleLogout" class="action-mini-btn text-red-500/80" :title="$t('logout')">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="min-h-screen flex flex-col">
+      <main :class="['flex-grow container mx-auto px-4', userStore.isLoggedIn ? 'max-w-5xl pt-32 pb-32' : 'max-w-none pt-8 pb-0']">
+        <RouterView v-slot="{ Component }">
+          <transition name="fade" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </RouterView>
+      </main>
+      <AppFooter />
+    </div>
+    
+    <ToastNotification />
+  </div>
 </template>
+
+<style>
+.app-wrapper {
+  background-attachment: fixed;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Nav Item Styling */
+.nav-item {
+  @apply flex flex-col items-center justify-center p-2 md:px-3 rounded-2xl transition-all duration-300 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/50 dark:hover:bg-white/10 min-w-[3.5rem] md:min-w-[4rem];
+}
+
+.nav-item.router-link-active {
+  @apply text-blue-600 dark:text-blue-400 bg-white/80 dark:bg-white/20 shadow-sm ring-1 ring-black/5;
+}
+
+.nav-item i {
+  @apply w-5 h-5 md:w-6 md:h-6 mb-1;
+}
+
+.nav-label {
+  @apply text-[10px] md:text-xs font-medium whitespace-nowrap;
+}
+
+.action-mini-btn {
+  @apply p-1.5 md:p-2 rounded-xl transition-all duration-300 bg-gray-100/50 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 flex items-center justify-center text-[10px] md:text-xs font-bold;
+}
+
+/* Page Transitions */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+</style>

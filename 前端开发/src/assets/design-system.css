@@ -1,0 +1,139 @@
+/* 
+  Koala Health - Premium Design System
+  Focus: Glassmorphism, Modern HSL Palette, and Micro-transitions
+*/
+
+:root {
+    /* Core Palette (HSL for dynamic opacity) */
+    --primary-h: 217;
+    --primary-s: 91%;
+    --primary-l: 60%;
+
+    --accent-h: 250;
+    --accent-s: 85%;
+    --accent-l: 65%;
+
+    --success-h: 142;
+    --success-s: 70%;
+    --success-l: 45%;
+
+    /* Glassmorphism Tokens */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-shadow: rgba(0, 0, 0, 0.05);
+
+    /* Text & Surface Lux */
+    --surface: #ffffff;
+    --on-surface: #1e293b;
+    --on-surface-variant: #64748b;
+}
+
+.dark {
+    --glass-bg: rgba(15, 23, 42, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+
+    --surface: #0f172a;
+    --on-surface: #f1f5f9;
+    --on-surface-variant: #94a3b8;
+}
+
+/* Typography Overrides */
+body {
+    font-family: 'Outfit', sans-serif !important;
+    color: var(--on-surface);
+    background-color: var(--surface);
+}
+
+/* Premium Utilities */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+}
+
+.glass-dock {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary-h), var(--primary-s), var(--primary-l)), hsl(var(--accent-h), var(--accent-s), var(--accent-l)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.hover-shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.hover-shine::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+    transform: skewX(-25deg);
+}
+
+.hover-shine:hover::after {
+    animation: shine 0.75s;
+}
+
+/* Scrollbar Polish */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.2);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.4);
+}

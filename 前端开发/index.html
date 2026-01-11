@@ -1,43 +1,33 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>清风健康 (Vue版)</title>
 
-    <!-- 引入 Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/webp" href="https://pickoala.com/img/images/2026/01/09/C0esAzd8.webp" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>考拉健康 Koala Health</title>
 
-    <!-- 【新增】运行时配置文件 -->
-    <script src="/config.js"></script>
+  <!-- Premium Typography: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- (可选) 在此处粘贴您的 Umami 或其他网站统计工具的跟踪代码 -->
-    <!-- (Optional) Paste your tracking code from Umami or other web analytics tools here -->
-  </head>
-  <body>
-    <div id="app"></div>
+  <!-- 引入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
-    <!-- 【新增】动态背景壁纸脚本 -->
-    <script>
-      ;(() => {
-        const desktopBgUrl = 'https://bing.img.run/uhd.php'
-        const mobileBgUrl = 'https://bing.img.run/m.php'
+  <!-- 【新增】运行时配置文件 -->
+  <script src="/config.js"></script>
 
-        // 根据屏幕宽度判断使用哪个壁纸接口
-        const isMobile = window.innerWidth < 768
-        const finalBgUrl = isMobile ? mobileBgUrl : desktopBgUrl
+  <!-- (可选) 在此处粘贴您的 Umami 或其他网站统计工具的跟踪代码 -->
+  <!-- (Optional) Paste your tracking code from Umami or other web analytics tools here -->
+</head>
 
-        // 设置body的背景样式
-        document.body.style.backgroundImage = `url(${finalBgUrl})`
-        document.body.style.backgroundSize = 'cover'
-        document.body.style.backgroundPosition = 'center'
-        document.body.style.backgroundAttachment = 'fixed' // 背景图固定，内容滚动
-      })()
-    </script>
+<body>
+  <div id="app"></div>
 
-    <script type="module" src="/src/main.js"></script>
-  </body>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>

@@ -1,100 +1,158 @@
-<!--
-  @file src/views/HomeView.vue
-  @description 应用的首页/仪表盘。
-
-  - 这是一个静态展示页面，作为应用的门户。
-  - 显示欢迎信息和指向各个功能模块的导航卡片。
-  - 卡片使用了 Tailwind CSS 进行样式设计，并带有悬停效果和磨砂玻璃背景。
--->
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
+import { computed } from 'vue';
+
 const userStore = useUserStore();
+
+// Dynamic greeting based on time of day
+const greeting = computed(() => {
+  const hour = new Date().getHours();
+  if (hour < 6) return '早些休息';
+  if (hour < 9) return '早安';
+  if (hour < 12) return '上午好';
+  if (hour < 14) return '午后好';
+  if (hour < 18) return '下午好';
+  return '晚安';
+});
 </script>
 
 <template>
-  <div class="container mx-auto p-4 md:p-6 max-w-4xl">
-    <header class="text-center mb-8">
-      <!-- 标题区域，带有半透明背景和圆角，以增强在复杂背景下的可读性 -->
-      <div class="inline-block bg-white/80 backdrop-blur-sm px-6 py-4 rounded-xl shadow">
-        <h1 class="text-3xl md:text-4xl font-bold text-blue-600">{{ $t('home_title') }}</h1>
-        <p class="text-gray-500 mt-2">{{ $t('home_subtitle') }}</p>
+  <div class="space-y-12">
+    <!-- Hero Section -->
+    <header class="text-left py-8 animate-fade-in">
+      <div class="flex items-center space-x-2 mb-4">
+        <span class="px-3 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-bold rounded-full uppercase tracking-wider">
+          {{ greeting }}
+        </span>
       </div>
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+        {{ $t('home_title').split(' ')[0] }} <span class="text-gradient">{{ $t('home_title').split(' ')[1] }}</span>
+      </h1>
+      <p class="text-lg text-on-surface-variant max-w-2xl leading-relaxed">
+        {{ $t('home_subtitle') }}。在这里，每一项数据都为您描绘更健康的未来。
+      </p>
     </header>
 
-    <!-- 功能导航卡片网格 -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-      <!-- 用药记录卡片 -->
-      <a href="#/meds" class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/10 w-full h-full transition-transform duration-300 flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-1">
-        <div class="icon-container"><i data-lucide="pilcrow" class="text-blue-500 w-10 h-10"></i></div>
-        <div class="text-container">
-          <h3 class="font-semibold text-gray-800 dark:text-gray-200">{{ $t('home_meds') }}</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">{{ $t('home_meds_desc') }}</p>
+    <!-- Main Features Grid -->
+    <section>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Periodic Tracker (Pinned/Special if applicable) -->
+        <RouterLink 
+          v-if="userStore.user?.show_womens_health"
+          to="/periods" 
+          class="glass-card p-6 rounded-[2rem] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden h-full"
+        >
+          <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-125 transition-transform duration-700">
+            <i data-lucide="calendar-heart" class="w-32 h-32 text-pink-500"></i>
+          </div>
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="p-4 bg-pink-500/10 rounded-2xl w-fit mb-6 group-hover:bg-pink-500 group-hover:text-white transition-colors duration-300">
+              <i data-lucide="calendar-heart" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">{{ $t('home_periods') }}</h3>
+            <p class="text-sm text-on-surface-variant mb-4 flex-grow">
+              {{ $t('home_periods_desc') }}
+            </p>
+            <div class="flex items-center text-pink-500 text-sm font-bold">
+              <span>立即记录</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </div>
+        </RouterLink>
+
+        <!-- Medication Card -->
+        <RouterLink 
+          to="/meds" 
+          class="glass-card p-6 rounded-[2rem] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden"
+        >
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="p-4 bg-blue-500/10 text-blue-600 rounded-2xl w-fit mb-6 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
+              <i data-lucide="pill" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">{{ $t('home_meds') }}</h3>
+            <p class="text-sm text-on-surface-variant mb-4 flex-grow">
+              {{ $t('home_meds_desc') }}
+            </p>
+            <div class="flex items-center text-blue-600 text-sm font-bold">
+              <span>管理用药</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </div>
+        </RouterLink>
+
+        <!-- Stool Card -->
+        <RouterLink 
+          to="/stool" 
+          class="glass-card p-6 rounded-[2rem] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden"
+        >
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="p-4 bg-emerald-500/10 text-emerald-600 rounded-2xl w-fit mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
+              <i data-lucide="droplets" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">{{ $t('home_stool') }}</h3>
+            <p class="text-sm text-on-surface-variant mb-4 flex-grow">
+              {{ $t('home_stool_desc') }}
+            </p>
+            <div class="flex items-center text-emerald-600 text-sm font-bold">
+              <span>状态追踪</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </div>
+        </RouterLink>
+      </div>
+    </section>
+
+    <!-- Secondary Features Section -->
+    <section class="space-y-6">
+      <h2 class="text-xl font-bold px-2">生活助手</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- Daily -->
+        <RouterLink to="/daily" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-3">
+          <div class="p-3 bg-yellow-400/10 text-yellow-600 rounded-xl">
+            <i data-lucide="list-todo" class="w-6 h-6"></i>
+          </div>
+          <span class="text-sm font-semibold">{{ $t('home_daily') }}</span>
+        </RouterLink>
+        <!-- Weight -->
+        <RouterLink to="/weight" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-3">
+          <div class="p-3 bg-teal-400/10 text-teal-600 rounded-xl">
+            <i data-lucide="weight" class="w-6 h-6"></i>
+          </div>
+          <span class="text-sm font-semibold">{{ $t('home_weight') }}</span>
+        </RouterLink>
+        <!-- Finance -->
+        <RouterLink to="/finance" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-3">
+          <div class="p-3 bg-rose-400/10 text-rose-600 rounded-xl">
+            <i data-lucide="wallet" class="w-6 h-6"></i>
+          </div>
+          <span class="text-sm font-semibold">{{ $t('home_finance') }}</span>
+        </RouterLink>
+        <!-- Pomodoro -->
+        <RouterLink to="/pomodoro" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-3">
+          <div class="p-3 bg-indigo-400/10 text-indigo-600 rounded-xl">
+            <i data-lucide="timer" class="w-6 h-6"></i>
+          </div>
+          <span class="text-sm font-semibold">{{ $t('pomodoro') }}</span>
+        </RouterLink>
+        <!-- More -->
+        <div class="glass-card p-4 rounded-3xl opacity-50 flex flex-col items-center text-center gap-3">
+          <div class="p-3 bg-gray-400/10 text-gray-400 rounded-xl">
+            <i data-lucide="more-horizontal" class="w-6 h-6"></i>
+          </div>
+          <span class="text-sm font-semibold">更多功能</span>
         </div>
-      </a>
-      <!-- 排便记录卡片 -->
-      <a href="#/stool" class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/10 w-full h-full transition-transform duration-300 flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-1">
-        <div class="icon-container"><i data-lucide="activity" class="text-green-500 w-10 h-10"></i></div>
-        <div class="text-container">
-          <h3 class="font-semibold text-gray-800 dark:text-gray-200">{{ $t('home_stool') }}</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">{{ $t('home_stool_desc') }}</p>
-        </div>
-      </a>
-      <!-- 每日清单卡片 -->
-      <a href="#/daily" class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/10 w-full h-full transition-transform duration-300 flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-1">
-        <div class="icon-container"><i data-lucide="clipboard-list" class="text-yellow-500 w-10 h-10"></i></div>
-        <div class="text-container">
-          <h3 class="font-semibold text-gray-800 dark:text-gray-200">{{ $t('home_daily') }}</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">{{ $t('home_daily_desc') }}</p>
-        </div>
-      </a>
-      <!-- 备忘录卡片 -->
-      <a href="#/memos" class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/10 w-full h-full transition-transform duration-300 flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-1">
-        <div class="icon-container"><i data-lucide="check-square" class="text-purple-500 w-10 h-10"></i></div>
-        <div class="text-container">
-          <h3 class="font-semibold text-gray-800 dark:text-gray-200">{{ $t('home_memos') }}</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">{{ $t('home_memos_desc') }}</p>
-        </div>
-      </a>
-      <!-- 运动记录卡片 -->
-      <a href="#/exercise" class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/10 w-full h-full transition-transform duration-300 flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-1">
-        <div class="icon-container"><i data-lucide="bike" class="text-indigo-500 w-10 h-10"></i></div>
-        <div class="text-container">
-          <h3 class="font-semibold text-gray-800 dark:text-gray-200">{{ $t('home_exercise') }}</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">{{ $t('home_exercise_desc') }}</p>
-        </div>
-      </a>
-      <!-- 番茄钟卡片 -->
-      <a href="#/pomodoro" class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/10 w-full h-full transition-transform duration-300 flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-1">
-        <div class="icon-container"><i data-lucide="timer" class="text-orange-500 w-10 h-10"></i></div>
-        <div class="text-container">
-          <h3 class="font-semibold text-gray-800 dark:text-gray-200">{{ $t('home_pomodoro') }}</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">{{ $t('home_pomodoro_desc') }}</p>
-        </div>
-      </a>
-      <!-- 女性健康卡片 -->
-      <a v-if="userStore.user?.show_womens_health" href="#/periods" class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/10 w-full h-full transition-transform duration-300 flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-1">
-        <div class="icon-container"><i data-lucide="calendar-heart" class="text-pink-500 w-10 h-10"></i></div>
-        <div class="text-container">
-          <h3 class="font-semibold text-gray-800 dark:text-gray-200">{{ $t('home_periods') }}</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">{{ $t('home_periods_desc') }}</p>
-        </div>
-      </a>
-      <!-- 体重管理卡片 -->
-      <a href="#/weight" class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/10 w-full h-full transition-transform duration-300 flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-1">
-        <div class="icon-container"><i data-lucide="scale" class="text-teal-500 w-10 h-10"></i></div>
-        <div class="text-container">
-          <h3 class="font-semibold text-gray-800 dark:text-gray-200">{{ $t('home_weight') }}</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">{{ $t('home_weight_desc') }}</p>
-        </div>
-      </a>
-      <!-- 个人记账卡片 -->
-      <a href="#/finance" class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/10 w-full h-full transition-transform duration-300 flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-1 col-span-2 md:col-span-3 lg:col-span-4">
-        <div class="icon-container"><i data-lucide="landmark" class="text-red-500 w-10 h-10"></i></div>
-        <div class="text-container">
-          <h3 class="font-semibold text-gray-800 dark:text-gray-200">{{ $t('home_finance') }}</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">{{ $t('home_finance_desc') }}</p>
-        </div>
-      </a>
-    </div>
+      </div>
+    </section>
   </div>
 </template>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>

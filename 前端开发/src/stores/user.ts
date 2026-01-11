@@ -49,7 +49,7 @@ export const useUserStore = defineStore('user', () => {
     const token = localStorage.getItem('authToken')
     if (token) {
       try {
-        const userData = await apiRequest('/me', 'GET')
+        const userData = await apiRequest('/auth/me', 'GET')
         user.value = userData
         isLoggedIn.value = true
       } catch (error) {
@@ -93,7 +93,7 @@ export const useUserStore = defineStore('user', () => {
   async function updateShowWomensHealth(show: boolean) {
     if (user.value) {
       try {
-        await apiRequest('/me/settings', 'PUT', { show_womens_health: show });
+        await apiRequest('/auth/me/settings', 'PUT', { show_womens_health: show });
         // Update local state on success
         user.value.show_womens_health = show;
       } catch (error) {

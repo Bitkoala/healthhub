@@ -12,6 +12,7 @@
  */
 
 import './assets/main.css'
+import './assets/design-system.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

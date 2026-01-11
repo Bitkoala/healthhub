@@ -4,7 +4,7 @@
 
 ---
 
-# Health Hub (清风健康)
+# Koala Health (考拉健康)
 
 <p align="center">
   <img src="https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=for-the-badge&logo=vue.js" alt="Vue.js">
@@ -20,12 +20,12 @@
 </p>
 
 <p align="center">
-  <a href="[https://jiankang.mom/](https://www.joru.email/)"><strong>线上体验 &raquo;</strong></a>
+  <a href="https://pickoala.com/"><strong>线上体验 &raquo;</strong></a>
 </p>
 
 ---
 
-**Health Hub (清风健康)** 是一个一站式的 Web 应用程序，旨在帮助用户轻松记录和管理日常的健康与生活信息。从用药计划到财务状况，从每日任务到运动记录，清风健康提供了一套全面而直观的工具。
+**Koala Health (考拉健康)** 是一个一站式的 Web 应用程序，旨在帮助用户轻松记录和管理日常的健康与生活信息。从用药计划到财务状况，从每日任务到运动记录，考拉健康提供了一套全面而直观的工具。
 
 ## ✨ 功能亮点
 
@@ -45,28 +45,24 @@
   - **辅助管理**: 管理员可以帮助用户重置密码。
   - **系统维护**: 清理长时间未登录的非活跃账户及其关联数据，释放资源。
   - **隐私保护**: 管理员无法查看用户的密码、财务、健康记录等任何隐私数据，所有操作均以保护用户隐私为前提。
-- **现代化用户体验**:
-  - **用户认证与管理**:
-    - 支持 **用户名** 或 **邮箱** 两种方式进行注册和登录。
-    - 完善的个人资料页面，可随时绑定或更新用户名和邮箱。
-    - 支持 `linux.do` 第三方授权登录。
-    - 根据用户ID自动生成专属的机器人头像，增加个性化体验。
-  - **响应式设计**: 完美适配桌面和移动设备。
-  - **动态壁纸**: 提升视觉体验，带来愉悦心情。
-  - **数据可视化**: 通过图表直观展示财务和健康数据。
-  - **多语言支持 (i18n)**: 内置中英双语支持，方便不同语言习惯的用户使用。
-  - **模块化定制**: 用户可以在个人设置中自由选择开启或关闭特定功能模块（如“女性健康”），打造个性化的应用界面。
+- **现代化用户体验 (Premium UI)**:
+  - **极致视觉美学**: 全方位采用 **毛玻璃 (Glassmorphism)** 设计系统，配合动态光效与 HSL 色彩系统，打造高端、精致的视觉感官。
+  - **统一身份认证 (Casdoor SSO)**: 集成自托管 **Casdoor** 认证系统，提供安全、便捷的单点登录体验，支持多平台扩展。
+  - **灵动导航布局**: 全新的 **顶部悬浮式导航 (Top Floating Header)**，配合精选的功能图标，操作更直观，视野更开阔。
+  - **响应式布局**: 完美适配桌面与移动端。
+  - **极致性能**: 毫秒级页面过渡动画，配合数据可视化图表。
+  - **多语言与个性化**: 内置中英双语，支持模块化功能定制，打造您的专属健康管家。
 
 ## 🚀 两种使用模式：SaaS vs. 自托管
 
-您可以根据对便利性和数据隐私的不同需求，选择最适合您的方式来使用清风健康：
+您可以根据对便利性和数据隐私的不同需求，选择最适合您的方式来使用考拉健康：
 
 ### 模式一：SaaS 服务 (开箱即用)
 
 这种模式为您提供最便捷的体验。
 
 -   **适合人群**: 希望立即体验核心功能，不介意数据由服务方统一管理的用户。
--   **如何使用**: 直接访问官方演示网站 <a href="https://hb.jiankang.mom/"><strong>https://hb.jiankang.mom/</strong></a> 即可注册使用。
+-   **如何使用**: 直接访问官方演示网站 <a href="https://a.joru.email/"><strong>https://a.joru.email/</strong></a> 即可注册使用。
 -   **优点**: 无需任何技术背景和服务器，零成本、零配置。
 -   **数据归属**: 您的数据将加密存储在项目演示服务器的数据库中。
 
@@ -125,28 +121,28 @@
     `.env` 文件内容示例：
 
     ```dotenv
-    # 数据库配置
+    # --- 数据库配置 (MySQL) ---
     DB_HOST=127.0.0.1
+    DB_PORT=3306
     DB_USER=root
     DB_PASSWORD=your_password
-    DB_DATABASE=health_hub_db
-    DB_PORT=3306
+    DB_DATABASE=health_hub
 
-    # JWT 密钥 (用于用户认证，请务必修改为一个复杂的随机字符串)
-    JWT_SECRET=please_change_this_to_a_long_random_string
+    # --- 安全与加密 ---
+    JWT_SECRET=your_random_secret_string
 
-    # Linux.do 第三方登录配置 (本地开发)
-    LINUX_DO_CLIENT_ID=YOUR_LINUX_DO_CLIENT_ID
-    LINUX_DO_CLIENT_SECRET=YOUR_LINUX_DO_CLIENT_SECRET
-    # 注意：这里的回调地址指向本地后端服务
-    LINUX_DO_REDIRECT_URI=http://localhost:3000/api/linuxdo/callback
+    # --- Casdoor 认证配置 (SSO) ---
+    CASDOOR_ENDPOINT=https://your-casdoor-url
+    CASDOOR_CLIENT_ID=your_client_id
+    CASDOOR_CLIENT_SECRET=your_client_secret
+    CASDOOR_ORG_NAME=your_org_name
+    CASDOOR_APP_NAME=your_app_name
+    CASDOOR_REDIRECT_URI=http://localhost:3000/api/auth/casdoor/callback
 
-    # 服务器端口
-    PORT=3000
-    # 本地开发时，允许前端开发服务器访问
-    CORS_WHITELIST=localhost:5173
-    # 本地前端地址
+    # --- 前端关联配置 ---
     FRONTEND_URL=http://localhost:5173
+    PORT=3000
+    CORS_WHITELIST=localhost:5173
     ```
 
 3.  **安装依赖**:
