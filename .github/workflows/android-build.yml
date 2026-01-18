@@ -72,9 +72,6 @@ jobs:
           alias: ${{ secrets.ANDROID_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          buildToolsVersion: '35.0.0'
-        env:
-          BUILD_TOOLS_VERSION: '35.0.0'
 
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
@@ -83,9 +80,27 @@ jobs:
           name: healthhub-release-apk
           path: ${{ steps.sign_app.outputs.signedReleaseFile }}
 
-      - name: Upload Unsigned APK (Fallback)
-        uses: actions/upload-artifact@v4
-        if: steps.sign_app.outputs.signedReleaseFile == ''
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
-          name: healthhub-unsigned-release-apk
-          path: 前端开发/android/app/build/outputs/apk/release/app-release-unsigned.apk
+          files: |
+            ${{ steps.sign_app.outputs.signedReleaseFile }}
+            前端开发/android/app/build/outputs/apk/release/app-release-unsigned.apk
+          tag_name: v1.0.0-${{ github.run_number }}
+          name: HealthHub Android Release v1.0.0 (Build ${{ github.run_number }})
+          body: |
+            ## Android Release Build Success
+            
+            This is an automated release from GitHub Actions.
+            
+            ### Artifacts
+            - **Signed APK**: `healthhub-release.apk` (If signed)
+            - **Unsigned APK**: `app-release-unsigned.apk`
+            
+            Build Number: ${{ github.run_number }}
+            Commit: ${{ github.sha }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
