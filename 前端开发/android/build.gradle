@@ -8,10 +8,13 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.1'
         classpath 'com.google.gms:google-services:4.4.2'
+        
+        // Use version from variables if possible, but hardcoding for buildscript safety
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
     }
 }
 
+// Load global variables
 apply from: "variables.gradle"
 
 allprojects {
@@ -20,18 +23,19 @@ allprojects {
         mavenCentral()
     }
 
-    // THE FAIL-SAFE STRATEGY
-    // We use the most basic Gradle 4+ features to ensure compatibility with all sub-modules.
+    // THE DEFINITIVE FIX:
+    // This block runs for EVERY configuration in EVERY subproject.
     configurations.all {
-        // Force version for all Kotlin artifacts
         resolutionStrategy.eachDependency { details ->
             if (details.requested.group == 'org.jetbrains.kotlin') {
-                details.useVersion "1.9.22"
+                details.useVersion rootProject.ext.kotlinVersion
+            }
+            if (details.requested.group == 'org.jetbrains.kotlinx' && details.requested.name.startsWith('kotlinx-coroutines')) {
+                details.useVersion rootProject.ext.coroutinesVersion
             }
         }
         
-        // Physically block legacy stdlib variants from even entering the graph.
-        // This is much safer than 'dependencySubstitution' which can fail on certain configurations.
+        // Physically exclude the legacy artifacts that cause "Duplicate Class"
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
     }
