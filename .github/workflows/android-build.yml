@@ -67,9 +67,9 @@ jobs:
         id: sign_app
         if: github.event_name != 'pull_request' && env.HAS_SECRET == 'true'
         with:
-          releaseDirectory: 前端开发/android/app/build/outputs/apk/release
-          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
-          alias: ${{ secrets.ANDROID_ALIAS }}
+          releaseDir: 前端开发/android/app/build/outputs/apk/release
+          signingKey: ${{ secrets.ANDROID_SIGNING_KEY }}
+          keyAlias: ${{ secrets.ANDROID_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
           buildToolsVersion: '35.0.0'
