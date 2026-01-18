@@ -23,14 +23,18 @@ allprojects {
         mavenCentral()
     }
     dependencies {
-        modules {
-            module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") {
-                replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk7 is now part of kotlin-stdlib")
-            }
-            module("org.jetbrains.kotlin:kotlin-stdlib-jdk8") {
-                replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk8 is now part of kotlin-stdlib")
+        constraints {
+            implementation platform("org.jetbrains.kotlin:kotlin-bom:1.9.22") {
+                because 'Align all Kotlin modules to 1.9.22 to fix duplicate class errors'
             }
         }
+    }
+    configurations.all {
+         resolutionStrategy {
+            force("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
+            force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.22")
+            force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22")
+         }
     }
 }
 
