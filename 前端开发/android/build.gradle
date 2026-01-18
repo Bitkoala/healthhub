@@ -22,19 +22,26 @@ allprojects {
         google()
         mavenCentral()
     }
-    dependencies {
-        constraints {
-            implementation platform("org.jetbrains.kotlin:kotlin-bom:1.9.22") {
-                because 'Align all Kotlin modules to 1.9.22 to fix duplicate class errors'
+}
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty("android")) {
+            project.dependencies {
+                constraints {
+                    implementation platform("org.jetbrains.kotlin:kotlin-bom:1.9.22") {
+                        because 'Align all Kotlin modules to 1.9.22 to fix duplicate class errors'
+                    }
+                }
+            }
+            project.configurations.all {
+                resolutionStrategy {
+                    force("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
+                    force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.22")
+                    force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22")
+                }
             }
         }
-    }
-    configurations.all {
-         resolutionStrategy {
-            force("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
-            force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.22")
-            force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22")
-         }
     }
 }
 
