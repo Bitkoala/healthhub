@@ -23,10 +23,13 @@ allprojects {
         mavenCentral()
     }
     configurations.all {
-        resolutionStrategy {
-            force("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
-            force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.22")
-            force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22")
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.jetbrains.kotlin' && details.requested.name.startsWith('kotlin-stdlib')) {
+                details.useVersion '1.9.22'
+            }
+            if (details.requested.group == 'org.jetbrains.kotlin' && details.requested.name == 'kotlin-reflect') {
+                details.useVersion '1.9.22'
+            }
         }
     }
 }
