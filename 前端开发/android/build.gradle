@@ -9,7 +9,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:8.5.1'
         classpath 'com.google.gms:google-services:4.4.2'
         
-        // Match the Kotlin version used in the project
+        // Force the Kotlin Gradle Plugin version to align with our chosen standard
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -17,7 +17,7 @@ buildscript {
     }
 }
 
-// Load global variables
+// CRITICAL: Load global variables BEFORE allprojects blocks
 apply from: "variables.gradle"
 
 allprojects {
@@ -26,7 +26,8 @@ allprojects {
         mavenCentral()
     }
 
-    // Force all Kotlin-related dependencies to 1.9.22 across all projects
+    // This block is UNIVERSAL and does not depend on any specific plugin (like Android or Java).
+    // It forces version alignment and resolves "Duplicate Class" via direct dependency substitution.
     configurations.all {
         resolutionStrategy {
             eachDependency { details ->
@@ -38,14 +39,14 @@ allprojects {
                     }
                 }
             }
-        }
-    }
-}
 
-subprojects {
-    // Apply Kotlin BOM as an enforced platform to ensure transitive dependencies align
-    dependencies {
-        implementation enforcedPlatform("org.jetbrains.kotlin:kotlin-bom:1.9.22")
+            // Standard Gradle remedy for the Kotlin jdk7/jdk8 duplicate class conflict.
+            // This substitutes old artifacts with the unified stdlib at the resolution level.
+            dependencySubstitution {
+                substitute module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") using module("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
+                substitute module("org.jetbrains.kotlin:kotlin-stdlib-jdk8") using module("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
+            }
+        }
     }
 }
 
