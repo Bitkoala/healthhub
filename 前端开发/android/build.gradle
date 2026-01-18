@@ -8,6 +8,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.1'
         classpath 'com.google.gms:google-services:4.4.2'
+        
+        // Force the Kotlin Gradle Plugin version to align with our chosen standard
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
     }
     
@@ -20,7 +22,7 @@ buildscript {
     }
 }
 
-// Load global constants
+// CRITICAL: Load global variables BEFORE allprojects blocks
 apply from: "variables.gradle"
 
 allprojects {
@@ -29,7 +31,8 @@ allprojects {
         mavenCentral()
     }
 
-    // UNIFIED GLOBAL DEPENDENCY POLICY
+    // This block is UNIVERSAL and does not depend on any specific plugin.
+    // It captures all configurations across all projects (including Capacitor internal ones).
     configurations.all {
         resolutionStrategy {
             // 1. Force version alignment for ALL Kotlin and Coroutines artifacts
@@ -50,20 +53,24 @@ allprojects {
             }
         }
 
-        // 3. Physical exclusion to prevent any accidental leakage
+        // 3. Physical exclusion to prevent any accidental leakage of legacy variants
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
     }
 }
 
+// Safely apply constraints only to projects that have the relevant configurations (Android/Java)
 subprojects {
-    // 4. Use Dependency Constraints to ensure transitive dependencies also follow the rule
-    dependencies {
-        constraints {
-            implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.22") {
-                because("Force unified stdlib to prevent duplicate classes")
+    afterEvaluate { project ->
+        if (project.plugins.hasPlugin('com.android.application') || project.plugins.hasPlugin('com.android.library')) {
+            dependencies {
+                constraints {
+                    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.22") {
+                        because("Force unified stdlib to prevent duplicate classes")
+                    }
+                    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
+                }
             }
-            implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
         }
     }
 }
