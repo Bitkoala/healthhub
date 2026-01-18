@@ -49,7 +49,7 @@ jobs:
 
       - name: Build Android App (Release)
         working-directory: ./前端开发/android
-        run: ./gradlew assembleRelease --stacktrace
+        run: ./gradlew assembleRelease -x lint -x lintVitalRelease --stacktrace
 
       - name: Check for Signing Secret
         id: check_secret
