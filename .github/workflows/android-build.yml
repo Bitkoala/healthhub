@@ -76,19 +76,24 @@ jobs:
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
           buildToolsVersion: '35.0.0'
 
-      - name: Upload Signed APK
+      - name: Rename & Upload Signed APK
+        if: steps.sign_app.outputs.signedFiles != ''
+        run: |
+          cp ${{ steps.sign_app.outputs.signedFiles }} 前端开发/android/app/build/outputs/apk/release/healthhub-v1.0.apk
+
+      - name: Upload Signed APK Artifact
         uses: actions/upload-artifact@v4
-        if: steps.sign_app.outputs.signedReleaseFile != ''
+        if: steps.sign_app.outputs.signedFiles != ''
         with:
           name: healthhub-release-apk
-          path: ${{ steps.sign_app.outputs.signedReleaseFile }}
+          path: 前端开发/android/app/build/outputs/apk/release/healthhub-v1.0.apk
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
           files: |
-            ${{ steps.sign_app.outputs.signedReleaseFile }}
+            前端开发/android/app/build/outputs/apk/release/healthhub-v1.0.apk
             前端开发/android/app/build/outputs/apk/release/app-release-unsigned.apk
           tag_name: v1.0.0-${{ github.run_number }}
           name: HealthHub Android Release v1.0.0 (Build ${{ github.run_number }})
