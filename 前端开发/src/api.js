@@ -8,8 +8,12 @@
  * - 自动处理 JSON 格式的请求体和响应。
  */
 
-// 从全局 window 对象读取运行时配置，如果未定义则回退到本地开发环境地址
-const API_BASE_URL = window.APP_CONFIG?.API_BASE_URL || 'http://localhost:3000';
+// 从全局 window 对象读取运行时配置
+const API_BASE_URL = window.APP_CONFIG?.API_BASE_URL || 'https://hb-api.bitekaola.com/api';
+console.log('[API] Using Base URL:', API_BASE_URL);
+if (!window.APP_CONFIG) {
+  console.warn('[API] Warning: window.APP_CONFIG is missing. Falling back to default production URL.');
+}
 
 /**
  * 通用的API请求函数。

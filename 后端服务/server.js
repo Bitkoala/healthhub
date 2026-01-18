@@ -59,9 +59,12 @@ const corsOptions = {
     }
     // 检查请求源是否匹配白名单中的正则表达式
     const isAllowed = whitelist.some((regex) => regex.test(origin));
+
     if (isAllowed) {
+      console.log(`[CORS] Allowed origin: ${origin}`);
       callback(null, true);
     } else {
+      console.error(`[CORS] Blocked origin: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
