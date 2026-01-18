@@ -1,7 +1,7 @@
 ext {
     minSdkVersion = 24
-    compileSdkVersion = 34
-    targetSdkVersion = 34
+    compileSdkVersion = 35
+    targetSdkVersion = 35
     
     // Centralized Versions (The single source of truth)
     kotlinVersion = '1.9.22'
