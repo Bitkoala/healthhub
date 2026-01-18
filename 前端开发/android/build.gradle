@@ -25,7 +25,7 @@ allprojects {
         mavenCentral()
     }
 
-    // THE CLEAN GLOBAL POLICY
+    // THE DEFINITIVE TRIPLE-LOCK POLICY
     configurations.all {
         resolutionStrategy {
             // 1. Force version alignment for ALL Kotlin and Coroutines artifacts
@@ -38,12 +38,16 @@ allprojects {
                 }
             }
 
-            // 2. Definitive replacement for legacy jdk7/8 variants
+            // 2. Overwrite legacy jdk7/8 variants with unified stdlib
             dependencySubstitution {
                 substitute module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") using module("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.ext.kotlinVersion}")
                 substitute module("org.jetbrains.kotlin:kotlin-stdlib-jdk8") using module("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.ext.kotlinVersion}")
             }
         }
+        
+        // 3. Physical exclusion as a final safeguard
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
     }
 }
 
