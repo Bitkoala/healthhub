@@ -9,8 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      HAS_SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY != '' }}
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
@@ -51,10 +49,19 @@ jobs:
         working-directory: ./前端开发/android
         run: ./gradlew assembleRelease
 
+      - name: Check for Signing Secret
+        id: check_secret
+        run: |
+          if [ -n "${{ secrets.ANDROID_SIGNING_KEY }}" ]; then
+            echo "HAS_SECRET=true" >> $GITHUB_ENV
+          else
+            echo "HAS_SECRET=false" >> $GITHUB_ENV
+          fi
+
       - name: Sign Android Release
         uses: r0adkll/sign-android-release@v1
         id: sign_app
-        if: github.event_name != 'pull_request' && env.HAS_SIGNING_KEY == 'true'
+        if: github.event_name != 'pull_request' && env.HAS_SECRET == 'true'
         with:
           releaseDirectory: 前端开发/android/app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}

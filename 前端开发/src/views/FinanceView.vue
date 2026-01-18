@@ -643,7 +643,7 @@ onMounted(loadAllFinanceData)
           <div v-if="chartData" class="min-w-[600px] md:min-w-0 h-full">
             <Bar :data="chartData" :options="chartOptions" />
           </div>
-          <div v-else class="flex items-center justify-center h-full text-gray-500">
+          <div v-if="!chartData" class="flex items-center justify-center h-full text-gray-500">
             加载图表数据中...
           </div>
         </div>
@@ -770,7 +770,7 @@ onMounted(loadAllFinanceData)
                   <p>已还: {{ formatCurrency(l.total_repaid) }}</p>
                   <p>剩余: {{ formatCurrency(l.remaining_amount) }}</p>
                 </div>
-                <p v-else-if="l.repayment_date" class="text-xs text-gray-400">
+                <p v-if="l.status !== 'unpaid' && l.repayment_date" class="text-xs text-gray-400">
                   {{ `已于 ${new Date(l.repayment_date).toLocaleDateString()} 还清` }}
                 </p>
               </div>
