@@ -8,15 +8,10 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.1'
         classpath 'com.google.gms:google-services:4.4.2'
-        
-        // Force the Kotlin Gradle Plugin version to align with our chosen standard
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
     
-    // CRITICAL: Override any subproject buildscript dependencies (e.g., Capacitor plugins with wrong AGP versions)
+    // Force specific versions for the build system itself
     configurations.classpath {
         resolutionStrategy {
             force 'com.android.tools.build:gradle:8.5.1'
@@ -25,7 +20,7 @@ buildscript {
     }
 }
 
-// CRITICAL: Load global variables BEFORE allprojects blocks
+// Load global constants
 apply from: "variables.gradle"
 
 allprojects {
@@ -34,36 +29,41 @@ allprojects {
         mavenCentral()
     }
 
-    // NUCLEAR OPTION: Aggressively exclude legacy Kotlin stdlib variants from ALL dependencies
+    // UNIFIED GLOBAL DEPENDENCY POLICY
     configurations.all {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
-        
         resolutionStrategy {
-            // Force all Kotlin artifacts to 1.9.22
+            // 1. Force version alignment for ALL Kotlin and Coroutines artifacts
             eachDependency { details ->
                 if (details.requested.group == 'org.jetbrains.kotlin') {
                     details.useVersion '1.9.22'
                 }
+                if (details.requested.group == 'org.jetbrains.kotlinx' && details.requested.name.startsWith('kotlinx-coroutines')) {
+                    details.useVersion '1.8.1'
+                }
             }
 
-            // Substitute legacy stdlib variants with the unified stdlib
+            // 2. Resolve "Duplicate Class" by redirecting jdk7/8 requests to the unified stdlib
+            // This is the most robust way to handle this in Gradle 8.x
             dependencySubstitution {
                 substitute module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") using module("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
                 substitute module("org.jetbrains.kotlin:kotlin-stdlib-jdk8") using module("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
             }
         }
+
+        // 3. Physical exclusion to prevent any accidental leakage
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
     }
 }
 
-// Ensure all subprojects explicitly depend on the correct Kotlin stdlib
 subprojects {
-    afterEvaluate { project ->
-        if (project.hasProperty('android')) {
-            dependencies {
-                // Explicitly add the correct Kotlin stdlib
-                implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
+    // 4. Use Dependency Constraints to ensure transitive dependencies also follow the rule
+    dependencies {
+        constraints {
+            implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.22") {
+                because("Force unified stdlib to prevent duplicate classes")
             }
+            implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
         }
     }
 }
