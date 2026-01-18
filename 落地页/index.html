@@ -386,6 +386,69 @@
             </div>
         </section>
 
+        <!-- Native App Section -->
+        <section class="py-20 relative overflow-hidden">
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[120px] -z-10">
+            </div>
+            <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl md:text-5xl font-display font-bold text-gray-900 dark:text-white leading-tight"
+                        data-lang-key="mobile_title">
+                        原生移动应用，<br><span class="text-gradient">全天候的健康守护</span>
+                    </h2>
+                    <p class="mt-6 text-lg text-gray-600 dark:text-gray-400" data-lang-key="mobile_desc">
+                        除了强大的网页端，考拉健康现已完美支持 Android 与 iOS。内置原生触感反馈，适配刘海屏，为您提供最极致的手感与视觉体验。
+                    </p>
+                    <ul class="mt-8 space-y-4">
+                        <li class="flex items-center space-x-3 text-gray-700 dark:text-gray-300">
+                            <div class="p-1 bg-green-500/20 rounded-full text-green-500"><i data-lucide="check"
+                                    class="w-4 h-4"></i></div>
+                            <span data-lang-key="mobile_list1">Capacitor 跨平台架构，极致流畅</span>
+                        </li>
+                        <li class="flex items-center space-x-3 text-gray-700 dark:text-gray-300">
+                            <div class="p-1 bg-green-500/20 rounded-full text-green-500"><i data-lucide="check"
+                                    class="w-4 h-4"></i></div>
+                            <span data-lang-key="mobile_list2">原生 Haptic 触感反馈，交互更有感</span>
+                        </li>
+                        <li class="flex items-center space-x-3 text-gray-700 dark:text-gray-300">
+                            <div class="p-1 bg-green-500/20 rounded-full text-green-500"><i data-lucide="check"
+                                    class="w-4 h-4"></i></div>
+                            <span data-lang-key="mobile_list3">GitHub Actions 全自动云端编译</span>
+                        </li>
+                    </ul>
+                    <div class="mt-10 flex flex-wrap gap-4">
+                        <a href="https://github.com/Bitkoala/healthhub/actions" target="_blank"
+                            class="flex items-center px-6 py-3 bg-gray-900 text-white rounded-2xl hover:bg-gray-800 transition-all shadow-lg active:scale-95 group">
+                            <i data-lucide="android" class="w-6 h-6 mr-3"></i>
+                            <div class="text-left">
+                                <p class="text-[10px] uppercase opacity-60 leading-none">Download for</p>
+                                <p class="text-sm font-bold">Android APK</p>
+                            </div>
+                        </a>
+                        <div
+                            class="flex items-center px-6 py-3 bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 text-gray-400 rounded-2xl cursor-not-allowed grayscale opacity-60">
+                            <i data-lucide="apple" class="w-6 h-6 mr-3"></i>
+                            <div class="text-left">
+                                <p class="text-[10px] uppercase leading-none italic">Coming soon</p>
+                                <p class="text-sm font-bold">iOS App Store</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative" data-aos="fade-left">
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-tr from-blue-500 to-indigo-500 rounded-[3rem] blur-2xl opacity-20">
+                    </div>
+                    <div
+                        class="relative bg-gray-900 rounded-[3rem] p-3 border-4 border-gray-800 shadow-2xl overflow-hidden aspect-[9/19] max-w-[320px] mx-auto">
+                        <img src="./img/2.webp" alt="Mobile App View"
+                            class="w-full h-full object-cover rounded-[2.5rem]">
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Testimonials Section -->
         <section id="testimonials" class="py-20 bg-gray-100 dark:bg-gray-800/50">
             <div class="container mx-auto px-6">
@@ -464,7 +527,10 @@
                 <img src="https://img.shields.io/badge/Express.js-4.x-000000?style=for-the-badge&logo=express"
                     alt="Express.js">
                 <img src="https://img.shields.io/badge/MySQL-8.x-4479A1?style=for-the-badge&logo=mysql" alt="MySQL">
-                <img src="https://img.shields.io/badge/Vite-^5.0-646CFF?style=for-the-badge&logo=vite" alt="Vite">
+                <img src="https://img.shields.io/badge/Capacitor-Latest-119EFF?style=for-the-badge&logo=capacitor"
+                    alt="Capacitor">
+                <img src="https://img.shields.io/badge/GitHub_Actions-CI/CD-2088FF?style=for-the-badge&logo=githubactions"
+                    alt="GitHub Actions">
                 <img src="https://img.shields.io/badge/Tailwind_CSS-3.x-06B6D4?style=for-the-badge&logo=tailwindcss"
                     alt="Tailwind CSS">
             </div>
@@ -690,6 +756,11 @@
                     "final_cta_title": "准备好开启您的健康新篇章了吗？",
                     "final_cta_demo": "立即体验",
                     "final_cta_source": "查看源码",
+                    "mobile_title": "原生移动应用，<br><span class=\"text-gradient\">全天候的健康守护</span>",
+                    "mobile_desc": "除了强大的网页端，考拉健康现已完美支持 Android 与 iOS。内置原生触感反馈，适配刘海屏，为您提供最极致的手感与视觉体验。",
+                    "mobile_list1": "Capacitor 跨平台架构，极致流畅",
+                    "mobile_list2": "原生 Haptic 触感反馈，交互更有感",
+                    "mobile_list3": "GitHub Actions 全自动云端编译",
                     "testimonials_title": "他们怎么说？",
                     "testimonials_subtitle": "来自真实用户的声音。",
                     "testimonial_1_text": "\"终于找到一个可以把经期和记账放在一起的应用了！界面干净，而且数据私有化部署的选项让我非常安心。\"",
@@ -754,6 +825,11 @@
                     "final_cta_title": "Ready to Start Your New Health Chapter?",
                     "final_cta_demo": "Live Demo",
                     "final_cta_source": "View Source",
+                    "mobile_title": "Native Mobile App,<br><span class=\"text-gradient\">Your Health Always with You</span>",
+                    "mobile_desc": "In addition to our web app, Koala Health now supports Android & iOS. Features native haptic feedback and safe area optimization.",
+                    "mobile_list1": "Capacitor cross-platform architecture",
+                    "mobile_list2": "Native Haptic Feedback for better interaction",
+                    "mobile_list3": "Automated Cloud Building with GitHub Actions",
                     "testimonials_title": "What Our Users Say",
                     "testimonials_subtitle": "Voices from our community.",
                     "testimonial_1_text": "\"Finally found an app that combines period tracking and budgeting! The interface is clean, and the self-hosted option gives me peace of mind.\"",
