@@ -61,9 +61,9 @@
         <!-- Legal & Meta -->
         <div class="flex flex-col items-center lg:items-end space-y-4">
           <div class="flex items-center space-x-8 text-xs font-semibold tracking-wide text-on-surface-variant/70">
-            <a href="https://www.joru.email/privacy.html" target="_blank" class="hover:text-blue-500 transition-colors">隐私政策</a>
+            <a href="https://jk.bitekaola.com/privacy.html" target="_blank" class="hover:text-blue-500 transition-colors">隐私政策</a>
             <span class="w-1 h-1 bg-blue-500/20 rounded-full"></span>
-            <a href="https://www.joru.email/terms.html" target="_blank" class="hover:text-blue-500 transition-colors">服务条款</a>
+            <a href="https://jk.bitekaola.com/terms.html" target="_blank" class="hover:text-blue-500 transition-colors">服务条款</a>
           </div>
           
           <div class="flex flex-col items-center lg:items-end space-y-2 text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/30">

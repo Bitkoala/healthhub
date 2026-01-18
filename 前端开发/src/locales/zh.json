@@ -25,6 +25,7 @@
   "exercise": "运动",
   "profile": "我的",
   "logout": "登出",
+  "more": "更多",
   "languageSwitch": "语言",
   "emailOptional": "邮箱 (可选, 用于找回密码)",
   "emailHint": "用户名和邮箱至少需要填写一个。如果用户名是邮箱，则此处可以留空。",

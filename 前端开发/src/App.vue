@@ -1,27 +1,32 @@
-<!--
-  @file src/App.vue
-  @description 应用的根组件。
-
-  - 使用 Pinia (userStore) 集中管理用户状态。
-  - 包含全局的导航栏和路由视图 <RouterView>。
-  - 导航栏在用户登录后显示，并展示用户名和头像。
-  - 提供登出功能。
-  - 使用 Lucide 图标库，并在组件挂载和路由切换后重新渲染图标。
--->
 <script setup lang="ts">
 import { RouterView, RouterLink } from 'vue-router'
-import { onMounted, nextTick, computed } from 'vue'
+import { onMounted, onUnmounted, nextTick, computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ToastNotification from './components/ToastNotification.vue'
 import { useUserStore } from './stores/user'
 import { useLanguageStore } from './stores/language'
 import AppFooter from './components/AppFooter.vue'
+import MobileNavBar from './components/MobileNavBar.vue'
+import MobileHeader from './components/MobileHeader.vue'
 
 declare const lucide: { createIcons: () => void };
 
 const userStore = useUserStore()
 const languageStore = useLanguageStore()
 const router = useRouter()
+
+// --- 移动端检测 ---
+const isMobile = ref(window.innerWidth < 768)
+const updateDeviceType = () => {
+  isMobile.value = window.innerWidth < 768
+}
+
+onMounted(() => {
+  window.addEventListener('resize', updateDeviceType)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', updateDeviceType)
+})
 
 const toggleLanguage = () => {
   const newLang = languageStore.lang === 'zh' ? 'en' : 'zh';
@@ -77,20 +82,23 @@ router.afterEach(() => {
 </script>
 
 <template>
-  <div class="app-wrapper min-h-screen relative overflow-x-hidden">
+  <div class="app-wrapper min-h-screen relative overflow-x-hidden pt-safe">
     <!-- Dynamic Mesh Background -->
     <div class="fixed inset-0 -z-10 pointer-events-none opacity-40 dark:opacity-20 transition-opacity duration-1000">
       <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-400 blur-[120px] rounded-full animate-float"></div>
       <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-400 blur-[120px] rounded-full animate-float" style="animation-delay: -1.5s"></div>
     </div>
 
+    <!-- Mobile Header (Conditional) -->
+    <MobileHeader v-if="isMobile && userStore.isLoggedIn" />
+
     <!-- Global Navigation Floating Header -->
     <nav
-      v-if="userStore.isLoggedIn"
-      class="fixed md:top-6 bottom-0 md:bottom-auto left-1/2 -translate-x-1/2 glass-dock px-2 md:px-6 py-1.5 md:py-3 md:rounded-full shadow-2xl z-50 flex items-center justify-around md:justify-start space-x-0 md:space-x-4 max-w-full md:max-w-[95vw] w-full md:w-auto overflow-x-auto no-scrollbar border-t md:border border-white/20 dark:border-white/10 animate-slide-up bg-white/90 dark:bg-slate-900/90 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none"
+      v-if="!isMobile && userStore.isLoggedIn"
+      class="fixed top-6 left-1/2 -translate-x-1/2 glass-dock px-6 py-3 rounded-full shadow-2xl z-50 flex items-center justify-start space-x-4 max-w-[95vw] w-auto border border-white/20 dark:border-white/10 animate-nav-in"
     >
       <!-- Group 1: General -->
-      <div class="flex items-center space-x-0 md:space-x-2">
+      <div class="flex items-center space-x-2">
         <RouterLink to="/" class="nav-item group" :title="$t('home')">
           <i data-lucide="home"></i>
           <span class="nav-label">{{ $t('home') }}</span>
@@ -109,10 +117,10 @@ router.afterEach(() => {
         </RouterLink>
       </div>
       
-      <div class="hidden md:block h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
+      <div class="h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
 
       <!-- Group 2: Health -->
-      <div class="flex items-center space-x-0 md:space-x-2">
+      <div class="flex items-center space-x-2">
         <RouterLink to="/meds" class="nav-item group" :title="$t('meds')">
           <i data-lucide="pill"></i>
           <span class="nav-label">{{ $t('meds') }}</span>
@@ -136,10 +144,10 @@ router.afterEach(() => {
         </RouterLink>
       </div>
 
-      <div class="hidden md:block h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
+      <div class="h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
 
       <!-- Group 3: Life -->
-      <div class="flex items-center space-x-0 md:space-x-2">
+      <div class="flex items-center space-x-2">
         <RouterLink to="/daily" class="nav-item group" :title="$t('checklist')">
           <i data-lucide="list-todo"></i>
           <span class="nav-label">{{ $t('checklist') }}</span>
@@ -158,10 +166,10 @@ router.afterEach(() => {
         </RouterLink>
       </div>
 
-      <div class="hidden md:block h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
+      <div class="h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
 
       <!-- Group 4: System -->
-      <div class="flex items-center space-x-1 ml-auto md:ml-0 pr-2 md:pr-0">
+      <div class="flex items-center space-x-1 pr-0">
         <!-- Admin -->
         <RouterLink
           v-if="userStore.isAdmin"
@@ -185,16 +193,19 @@ router.afterEach(() => {
       </div>
     </nav>
 
+    <!-- Mobile Navigation (Conditional) -->
+    <MobileNavBar v-if="isMobile && userStore.isLoggedIn" />
+
     <!-- Main Content Area -->
     <div class="min-h-screen flex flex-col">
-      <main :class="['flex-grow container mx-auto px-4', userStore.isLoggedIn ? 'max-w-5xl pt-32 pb-32' : 'max-w-none pt-8 pb-0']">
+      <main :class="['flex-grow container mx-auto px-4 transition-all duration-300', userStore.isLoggedIn ? (isMobile ? 'pt-20 pb-24' : 'max-w-5xl pt-32 pb-32') : 'max-w-none pt-8 pb-0']">
         <RouterView v-slot="{ Component }">
           <transition name="fade" mode="out-in">
             <component :is="Component" />
           </transition>
         </RouterView>
       </main>
-      <AppFooter />
+      <AppFooter v-if="!isMobile" />
     </div>
     
     <ToastNotification />
@@ -206,18 +217,9 @@ router.afterEach(() => {
   background-attachment: fixed;
 }
 
-@keyframes slide-up {
-  from { opacity: 0; transform: translate(-50%, 20px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
-}
-
-.animate-slide-up {
-  animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
 /* Nav Item Styling */
 .nav-item {
-  @apply flex flex-col items-center justify-center p-1.5 md:p-2 md:px-3 rounded-2xl transition-all duration-300 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/80 dark:hover:bg-white/10 min-w-[3.2rem] md:min-w-[4rem];
+  @apply flex flex-col items-center justify-center p-2 px-3 rounded-2xl transition-all duration-300 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/80 dark:hover:bg-white/10 min-w-[4rem];
 }
 
 .nav-item.router-link-active {
@@ -225,15 +227,15 @@ router.afterEach(() => {
 }
 
 .nav-item i {
-  @apply w-5 h-5 md:w-6 md:h-6 mb-1 transition-transform duration-300 group-hover:scale-110;
+  @apply w-6 h-6 mb-1 transition-transform duration-300 group-hover:scale-110;
 }
 
 .nav-label {
-  @apply text-[9px] md:text-[11px] font-bold whitespace-nowrap opacity-80 group-hover:opacity-100 transition-opacity;
+  @apply text-[11px] font-bold whitespace-nowrap opacity-80 group-hover:opacity-100 transition-opacity;
 }
 
 .action-mini-btn {
-  @apply p-1.5 md:p-2 rounded-xl transition-all duration-300 bg-gray-100/50 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 flex items-center justify-center text-[10px] md:text-xs font-bold;
+  @apply p-2 rounded-xl transition-all duration-300 bg-gray-100/50 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 flex items-center justify-center text-xs font-bold;
 }
 
 /* Page Transitions */

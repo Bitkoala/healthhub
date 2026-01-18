@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <a href="https://pickoala.com/"><strong>Live Demo &raquo;</strong></a>
+  <a href="https://jk.bitekaola.com/"><strong>Live Demo &raquo;</strong></a>
 </p>
 
 ---
@@ -48,8 +48,8 @@
 - **Modern User Experience (Premium UI)**:
   - **Ultimate Visual Aesthetics**: Full implementation of the **Glassmorphism** design system with dynamic light effects and HSL color systems for a high-end feel.
   - **Diverse Authentication**: Supports **Local Account Registration/Login** and OAuth 2.0快捷登录 for **Google, GitHub, and Linux.do**.
-  - **Smart Navigation**: Adaptive **Top Floating Header** for desktop and **Bottom Navigation (Dock)** for mobile, with all icons clearly labeled.
-  - **Fully Responsive**: Perfectly adapts to both desktop and mobile devices.
+  - **Smart Navigation**: Adaptive **Top Floating Header** for desktop and **Dedicated Bottom Navigation (Dock)** for mobile, ensuring an app-like experience.
+  - **Deep Mobile Optimization**: More than just responsive - it's custom-tailored for smartphones with bottom menus, large touch targets, and optimized data grids.
   - **Peak Performance**: Millisecond-level page transitions combined with powerful data visualizations.
   - **Global & Personal**: Built-in multi-language support (i18n) and modular customization to build your personal health steward.
 
@@ -62,7 +62,7 @@ You can choose the best way to use Koala Health based on your needs for convenie
 This model provides you with the most convenient experience.
 
 -   **Target Audience**: Users who want to experience the core features immediately and don't mind their data being managed by the service provider.
--   **How to Use**: Simply visit the official demo website at <a href="https://a.joru.email/"><strong>https://a.joru.email/</strong></a> to register and use.
+-   **How to Use**: Simply visit the official demo website at <a href="https://hb.bitekaola.com/"><strong>https://hb.bitekaola.com/</strong></a> to register and use.
 -   **Advantages**: No technical background or server required, zero cost, zero configuration.
 -   **Data Ownership**: Your data will be stored encrypted in the project's demo server database.
 

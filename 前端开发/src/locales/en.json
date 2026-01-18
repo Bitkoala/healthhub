@@ -25,6 +25,7 @@
   "exercise": "Exercise",
   "profile": "Profile",
   "logout": "Logout",
+  "more": "More",
   "languageSwitch": "Language",
   "emailOptional": "Email (Optional, for password recovery)",
   "emailHint": "At least one of username or email is required. If username is an email, this can be left blank.",

@@ -5,8 +5,8 @@
 
 window.APP_CONFIG = {
   // 您可以在这里填入后端 API 的实际地址
-  API_BASE_URL: 'https://api.joru.email/api',
+  API_BASE_URL: 'https://hb-api.bitekaola.com/api',
   // Casdoor SSO 配置 (如果需要前端直接跳转，可在此配置)
-  CASDOOR_LOGIN_URL: 'https://api.joru.email/api/auth/casdoor',
+  CASDOOR_LOGIN_URL: 'https://hb-api.bitekaola.com/api/auth/casdoor',
 };
 

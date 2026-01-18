@@ -1,126 +1,189 @@
-/* 
-  Koala Health - Premium Design System
-  Focus: Glassmorphism, Modern HSL Palette, and Micro-transitions
-*/
+/* HealthHub Premium Design System */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-    /* Core Palette (HSL for dynamic opacity) */
-    --primary-h: 217;
-    --primary-s: 91%;
-    --primary-l: 60%;
+    /* M3 Inspired HSL Color Tokens */
+    --primary: 217 91% 60%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-    --accent-h: 250;
-    --accent-s: 85%;
-    --accent-l: 65%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --success-h: 142;
-    --success-s: 70%;
-    --success-l: 45%;
+    --surface: 0 0% 100%;
+    --on-surface: 222.2 47.4% 11.2%;
 
-    /* Glassmorphism Tokens */
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.3);
-    --glass-shadow: rgba(0, 0, 0, 0.05);
-
-    /* Text & Surface Lux */
-    --surface: #ffffff;
-    --on-surface: #1e293b;
-    --on-surface-variant: #64748b;
+    --surface-variant: 210 40% 96.1%;
+    --on-surface-variant: 215.4 16.3% 46.9%;
 }
 
 .dark {
-    --glass-bg: rgba(15, 23, 42, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: rgba(0, 0, 0, 0.3);
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 40% 98%;
 
-    --surface: #0f172a;
-    --on-surface: #f1f5f9;
-    --on-surface-variant: #94a3b8;
+    --surface: 222.2 84% 4.9%;
+    --on-surface: 210 40% 98%;
+
+    --surface-variant: 217.2 32.6% 17.5%;
+    --on-surface-variant: 215 20.2% 65.1%;
 }
 
-/* Typography Overrides */
-body {
-    font-family: 'Outfit', sans-serif !important;
-    color: var(--on-surface);
-    background-color: var(--surface);
+/* Global Transitions */
+* {
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Premium Utilities */
+/* Glassmorphism Core */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass-effect {
+    background: rgba(15, 23, 42, 0.6);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
 .glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+    @apply glass-effect rounded-[2rem] shadow-2xl transition-all duration-500;
 }
 
+.glass-card:hover {
+    @apply shadow-blue-500/10;
+}
+
+/* Premium Components */
+.btn-primary {
+    @apply bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg shadow-blue-500/25 transition-all active:scale-95 hover:shadow-blue-500/40;
+}
+
+.input-luxury {
+    @apply bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/40 outline-none transition-all;
+}
+
+/* Glass Dock (Floating Nav) */
 .glass-dock {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px) saturate(160%);
+    @apply border border-white/40 shadow-[0_20px_50px_rgba(0, 0, 0, 0.1)];
 }
 
-.text-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary-h), var(--primary-s), var(--primary-l)), hsl(var(--accent-h), var(--accent-s), var(--accent-l)));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+.dark .glass-dock {
+    background: rgba(30, 41, 59, 0.7);
+    @apply border-white/10;
 }
 
 /* Animations */
 @keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
 
-    50% {
-        transform: translateY(-5px);
-    }
-
+    0%,
     100% {
-        transform: translateY(0px);
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(2%, 4%) scale(1.05);
+    }
+
+    66% {
+        transform: translate(-2%, 2%) scale(0.95);
     }
 }
 
 .animate-float {
-    animation: float 3s ease-in-out infinite;
+    animation: float 20s infinite ease-in-out;
 }
 
-@keyframes shine {
-    0% {
-        left: -100%;
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
     }
 
-    100% {
-        left: 100%;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-.hover-shine {
-    position: relative;
-    overflow: hidden;
+.animate-fade-in {
+    animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.hover-shine::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(to right,
-            transparent,
-            rgba(255, 255, 255, 0.3),
-            transparent);
-    transform: skewX(-25deg);
+@keyframes card-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.hover-shine:hover::after {
-    animation: shine 0.75s;
+.animate-card-in {
+    animation: card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Scrollbar Polish */
+@keyframes nav-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+.animate-nav-in {
+    animation: nav-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Mobile Enhancements */
+@media (max-width: 768px) {
+    .glass-card {
+        @apply rounded-2xl shadow-lg;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    h1 {
+        @apply text-2xl !important;
+    }
+
+    h2 {
+        @apply text-xl !important;
+    }
+
+    .mobile-grid-1 {
+        @apply grid-cols-1 !important;
+    }
+
+    .mobile-px-0 {
+        @apply px-0 !important;
+    }
+
+    .container {
+        @apply max-w-full px-4 !important;
+    }
+
+    /* Safe Area Support */
+    .pt-safe {
+        padding-top: env(safe-area-inset_top, 0px) !important;
+    }
+
+    .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    }
+}
+
+/* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -130,10 +193,9 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(100, 116, 139, 0.2);
-    border-radius: 10px;
+    @apply rounded-full bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.dark ::-webkit-scrollbar-thumb {
     background: rgba(100, 116, 139, 0.4);
 }

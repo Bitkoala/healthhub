@@ -540,7 +540,7 @@ onMounted(loadAllFinanceData)
 </script>
 
 <template>
-  <div class="container mx-auto p-4 md:p-6 max-w-4xl">
+  <div class="container mx-auto p-4 md:p-6 max-w-4xl mobile-px-0">
     <header class="mb-6">
       <div class="bg-white/80 backdrop-blur-sm px-6 py-4 rounded-xl shadow border border-white/20">
         <h1 class="text-2xl font-bold">个人记账</h1>
@@ -577,7 +577,7 @@ onMounted(loadAllFinanceData)
 
     <!-- 总览视图 -->
     <div v-if="currentView === 'dashboard'">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 mobile-grid-1">
         <div class="bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow border">
           <p class="text-sm text-gray-500">总资产</p>
           <p class="text-2xl font-bold">{{ formatCurrency(totalAssets) }}</p>
@@ -639,8 +639,10 @@ onMounted(loadAllFinanceData)
         </div>
 
         <!-- 图表 -->
-        <div class="relative h-80">
-          <Bar v-if="chartData" :data="chartData" :options="chartOptions" />
+        <div class="relative h-64 md:h-80 overflow-x-auto">
+          <div v-if="chartData" class="min-w-[600px] md:min-w-0 h-full">
+            <Bar :data="chartData" :options="chartOptions" />
+          </div>
           <div v-else class="flex items-center justify-center h-full text-gray-500">
             加载图表数据中...
           </div>

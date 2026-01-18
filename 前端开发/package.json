@@ -15,9 +15,16 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "mobile:build": "npm run build && npx cap copy",
+    "mobile:sync": "npx cap sync",
+    "mobile:open-android": "npx cap open android",
+    "mobile:open-ios": "npx cap open ios"
   },
   "dependencies": {
+    "@capacitor/android": "^8.0.1",
+    "@capacitor/haptics": "^8.0.0",
+    "@capacitor/ios": "^8.0.1",
     "@popperjs/core": "^2.11.8",
     "axios": "^1.12.1",
     "chart.js": "^4.5.0",
@@ -29,6 +36,8 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.0.1",
+    "@capacitor/core": "^8.0.1",
     "@playwright/test": "^1.54.1",
     "@tsconfig/node22": "^22.0.2",
     "@types/jsdom": "^21.1.7",

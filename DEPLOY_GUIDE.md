@@ -97,10 +97,10 @@ sudo apt-get install -y nodejs npm git
     # 后端服务运行的端口
     PORT=3000
     # 允许访问后端的的前端域名列表 (多个用逗号,分隔，不要有空格)
-    # 例如: hb.jiankang.mom,www.another.com
-    CORS_WHITELIST=a.joru.email
+    # 例如: hb.bitekaola.com,jk.bitekaola.com
+    CORS_WHITELIST=hb.bitekaola.com,hb-api.bitekaola.com,jk.bitekaola.com
     # 您的前端主页地址，用于第三方登录成功后跳转
-    FRONTEND_URL=https://a.joru.email
+    FRONTEND_URL=https://hb.bitekaola.com
 
     # =================================
     #      第三方登录 (OAuth 2.0)
@@ -108,17 +108,17 @@ sudo apt-get install -y nodejs npm git
     # Linux.do
     LINUX_DO_CLIENT_ID=YOUR_LINUX_DO_CLIENT_ID
     LINUX_DO_CLIENT_SECRET=YOUR_LINUX_DO_CLIENT_SECRET
-    LINUX_DO_REDIRECT_URI=https://api.joru.email/api/auth/linuxdo/callback
+    LINUX_DO_REDIRECT_URI=https://hb-api.bitekaola.com/api/auth/linuxdo/callback
 
     # Google
     GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
     GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
-    GOOGLE_REDIRECT_URI=https://api.joru.email/api/auth/google/callback
+    GOOGLE_REDIRECT_URI=https://hb-api.bitekaola.com/api/auth/google/callback
 
     # GitHub
     GITHUB_CLIENT_ID=YOUR_GITHUB_CLIENT_ID
     GITHUB_CLIENT_SECRET=YOUR_GITHUB_CLIENT_SECRET
-    GITHUB_REDIRECT_URI=https://api.joru.email/api/auth/github/callback
+    GITHUB_REDIRECT_URI=https://hb-api.bitekaola.com/api/auth/github/callback
     ```
 
 3.  **使用 PM2 启动服务**:
@@ -180,7 +180,7 @@ sudo apt-get install -y nodejs npm git
     // /var/www/health-hub/config.js
     window.APP_CONFIG = {
       // 将这里修改为您的后端 API 公网地址
-      API_BASE_URL: 'https://api.joru.email/api'
+      API_BASE_URL: 'https://hb-api.bitekaola.com/api'
     };
     ```
     **优势**: 未来如果后端地址变更，您只需修改这一个文件并刷新浏览器，**无需重新打包和上传整个前端项目**。
@@ -208,7 +208,7 @@ Nginx 作为反向代理，将外部世界的域名请求转发到我们内部�
     # 后端服务 (例如: api.jiankang.mom)
     server {
         listen 80;
-        server_name api.joru.email; # 请替换为您的后端域名
+        server_name hb-api.bitekaola.com; # 请替换为您的后端域名
 
         location / {
             proxy_pass http://127.0.0.1:3000; # 将所有请求转发给在3000端口运行的后端服务
@@ -225,7 +225,7 @@ Nginx 作为反向代理，将外部世界的域名请求转发到我们内部�
     # 前端服务 (例如: hb.jiankang.mom)
     server {
         listen 80;
-        server_name a.joru.email; # 请替换为您的前端域名
+        server_name hb.bitekaola.com; # 请替换为您的前端域名
 
         # 前端静态文件的根目录
         root /var/www/health-hub;

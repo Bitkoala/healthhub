@@ -97,10 +97,10 @@ Before deploying the backend, you need to create the database and initialize all
     # Port the backend service will run on
     PORT=3000
     # Whitelist of frontend domains allowed to access the backend (comma-separated, no spaces)
-    # Example: hb.jiankang.mom,www.another.com
-    CORS_WHITELIST=a.joru.email
+    # Example: hb.bitekaola.com,www.another.com
+    CORS_WHITELIST=hb.bitekaola.com,hb-api.bitekaola.com,jk.bitekaola.com
     # Your frontend's main page URL, for redirects after third-party login
-    FRONTEND_URL=https://a.joru.email
+    FRONTEND_URL=https://hb.bitekaola.com
 
     # =================================
     #      Third-Party Auth (OAuth 2.0)
@@ -108,17 +108,17 @@ Before deploying the backend, you need to create the database and initialize all
     # Linux.do
     LINUX_DO_CLIENT_ID=YOUR_LINUX_DO_CLIENT_ID
     LINUX_DO_CLIENT_SECRET=YOUR_LINUX_DO_CLIENT_SECRET
-    LINUX_DO_REDIRECT_URI=https://api.joru.email/api/auth/linuxdo/callback
+    LINUX_DO_REDIRECT_URI=https://hb-api.bitekaola.com/api/auth/linuxdo/callback
 
     # Google
     GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
     GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
-    GOOGLE_REDIRECT_URI=https://api.joru.email/api/auth/google/callback
+    GOOGLE_REDIRECT_URI=https://hb-api.bitekaola.com/api/auth/google/callback
 
     # GitHub
     GITHUB_CLIENT_ID=YOUR_GITHUB_CLIENT_ID
     GITHUB_CLIENT_SECRET=YOUR_GITHUB_CLIENT_SECRET
-    GITHUB_REDIRECT_URI=https://api.joru.email/api/auth/github/callback
+    GITHUB_REDIRECT_URI=https://hb-api.bitekaola.com/api/auth/github/callback
     ```
 
 3.  **Start Service with PM2**:
@@ -180,7 +180,7 @@ The frontend uses a "build once, deploy anywhere" strategy. You build the projec
     // /var/www/health-hub/config.js
     window.APP_CONFIG = {
       // Change this to your backend API's public address
-      API_BASE_URL: 'https://api.joru.email/api'
+      API_BASE_URL: 'https://hb-api.bitekaola.com/api'
     };
     ```
     **Advantage**: If your backend address changes in the future, you only need to modify this single file and refresh the browser—**no need to rebuild and re-upload the entire frontend project**.
@@ -208,7 +208,7 @@ Nginx acts as a reverse proxy, directing requests from the outside world to our 
     # Backend Service (e.g., api.jiankang.mom)
     server {
         listen 80;
-        server_name api.joru.email; # Replace with your backend domain
+        server_name hb-api.bitekaola.com; # Replace with your backend domain
 
         location / {
             proxy_pass http://127.0.0.1:3000; # Forward all requests to the backend service on port 3000
@@ -225,7 +225,7 @@ Nginx acts as a reverse proxy, directing requests from the outside world to our 
     # Frontend Service (e.g., hb.jiankang.mom)
     server {
         listen 80;
-        server_name a.joru.email; # Replace with your frontend domain
+        server_name hb.bitekaola.com; # Replace with your frontend domain
 
         # Root directory for frontend static files
         root /var/www/health-hub;

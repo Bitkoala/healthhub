@@ -271,18 +271,19 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container mx-auto p-4 md:p-6 max-w-3xl">
+  <div class="container mx-auto p-4 md:p-6 max-w-3xl mobile-px-0">
     <header class="flex justify-between items-center mb-6">
-      <div class="bg-white/80 backdrop-blur-sm px-6 py-4 rounded-xl shadow border border-white/20">
-        <h1 class="text-2xl font-bold">用药记录</h1>
-        <p class="text-gray-500 mt-1">管理您的用药计划</p>
+      <div class="bg-white/80 backdrop-blur-sm px-4 md:px-6 py-3 md:py-4 rounded-xl shadow border border-white/20">
+        <h1 class="text-xl md:text-2xl font-bold">用药记录</h1>
+        <p class="text-xs md:text-gray-500 mt-1">管理您的用药计划</p>
       </div>
       <button
         @click="showMedForm = !showMedForm"
-        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all flex items-center space-x-2"
+        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 md:px-4 rounded-lg shadow-md transition-all flex items-center space-x-1 md:space-x-2 text-sm md:text-base"
       >
         <i data-lucide="plus-circle" class="w-5 h-5"></i>
-        <span>添加药品</span>
+        <span class="hidden sm:inline">添加药品</span>
+        <span class="sm:hidden">添加</span>
       </button>
     </header>
 
@@ -333,8 +334,8 @@ onMounted(() => {
               />
             </div>
             <div class="md:col-span-2">
-              <label class="block text-sm font-medium text-gray-700">当前库存</label
-              ><input
+              <label class="block text-sm font-medium text-gray-700">当前库存</label>
+              <input
                 type="number"
                 v-model.number="medForm.stock"
                 min="0"
@@ -403,10 +404,10 @@ onMounted(() => {
               </span>
             </p>
           </div>
-          <div class="flex flex-wrap gap-2 w-full md:w-auto">
+          <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 w-full md:w-auto">
             <button
               @click="takeMedication(med)"
-              class="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
+              class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
             >
               服用
             </button>
@@ -418,13 +419,13 @@ onMounted(() => {
             </button>
             <button
               @click="refillMedication(med)"
-              class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
+              class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
             >
               补充
             </button>
             <button
               @click="deleteMedication(med)"
-              class="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
+              class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
             >
               删除
             </button>

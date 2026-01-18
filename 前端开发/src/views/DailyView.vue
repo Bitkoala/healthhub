@@ -1,9 +1,9 @@
 <template>
-  <div class="container mx-auto p-4 md:p-6 max-w-4xl">
+  <div class="container mx-auto p-4 md:p-6 max-w-4xl mobile-px-0">
     <header class="mb-6">
-      <div class="inline-block bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow">
-        <h1 class="text-2xl font-bold">每日清单</h1>
-        <p class="text-gray-500 mt-1">追踪您的每日习惯与一次性任务</p>
+      <div class="inline-block bg-white/80 backdrop-blur-sm rounded-xl px-4 py-3 md:p-4 shadow border border-white/20">
+        <h1 class="text-xl md:text-2xl font-bold">每日清单</h1>
+        <p class="text-xs md:text-gray-500 mt-1">追踪您的每日习惯与任务</p>
       </div>
     </header>
 
@@ -11,10 +11,10 @@
       <!-- 管理区域 -->
       <div class="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow">
         <div class="flex justify-between items-center">
-          <h2 class="text-xl font-semibold">任务管理</h2>
+          <h2 class="text-lg md:text-xl font-semibold">任务管理</h2>
           <button
             @click="isManaging = !isManaging"
-            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-all text-sm"
+            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all text-xs md:text-sm"
           >
             {{ isManaging ? '完成' : '添加 / 管理' }}
           </button>

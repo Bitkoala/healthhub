@@ -19,16 +19,16 @@ const greeting = computed(() => {
 <template>
   <div class="space-y-12">
     <!-- Hero Section -->
-    <header class="text-left py-8 animate-fade-in">
-      <div class="flex items-center space-x-2 mb-4">
-        <span class="px-3 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-bold rounded-full uppercase tracking-wider">
+    <header class="text-left py-4 md:py-8 animate-fade-in">
+      <div class="flex items-center space-x-2 mb-2 md:mb-4">
+        <span class="px-3 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[10px] md:text-xs font-bold rounded-full uppercase tracking-wider">
           {{ greeting }}
         </span>
       </div>
-      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+      <h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-2 md:mb-4">
         {{ $t('home_title').split(' ')[0] }} <span class="text-gradient">{{ $t('home_title').split(' ')[1] }}</span>
       </h1>
-      <p class="text-lg text-on-surface-variant max-w-2xl leading-relaxed">
+      <p class="text-sm md:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
         {{ $t('home_subtitle') }}。在这里，每一项数据都为您描绘更健康的未来。
       </p>
     </header>
@@ -40,7 +40,7 @@ const greeting = computed(() => {
         <RouterLink 
           v-if="userStore.user?.show_womens_health"
           to="/periods" 
-          class="glass-card p-6 rounded-[2rem] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden h-full"
+          class="glass-card p-5 md:p-6 rounded-2xl md:rounded-[2rem] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden h-full"
         >
           <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-125 transition-transform duration-700">
             <i data-lucide="calendar-heart" class="w-32 h-32 text-pink-500"></i>
@@ -63,7 +63,7 @@ const greeting = computed(() => {
         <!-- Medication Card -->
         <RouterLink 
           to="/meds" 
-          class="glass-card p-6 rounded-[2rem] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden"
+          class="glass-card p-5 md:p-6 rounded-2xl md:rounded-[2rem] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden"
         >
           <div class="relative z-10 flex flex-col h-full">
             <div class="p-4 bg-blue-500/10 text-blue-600 rounded-2xl w-fit mb-6 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
@@ -83,7 +83,7 @@ const greeting = computed(() => {
         <!-- Stool Card -->
         <RouterLink 
           to="/stool" 
-          class="glass-card p-6 rounded-[2rem] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden"
+          class="glass-card p-5 md:p-6 rounded-2xl md:rounded-[2rem] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden"
         >
           <div class="relative z-10 flex flex-col h-full">
             <div class="p-4 bg-emerald-500/10 text-emerald-600 rounded-2xl w-fit mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
