@@ -42,9 +42,11 @@
 - **Intelligent Medication Assistant**:
   - **Barcode Entry**: Integrated scanning to automatically identify medications.
   - **Drug Encyclopedia**: Comprehensive drug guide with category filtering and detailed instructions.
-- **Health Discovery Center**:
-  - **Disease Wiki**: Authority disease data with symptoms, causes, and diagnosis references.
-  - **Healthy Living**: Daily health tips covering nutrition, exercise, and traditional medicine.
+- **Koala AI (Intelligent Assistant)**:
+  - **AI Health Advisor**: 24/7 personal health consultant powered by Doubao LLM.
+  - **AI Computing Vision**: Supports **uploading medical reports, drug labels, or photos**. The AI analyzes images multi-modally to provide advice (Back-end supports 50MB+ payloads).
+  - **High Availability**: Built-in **Multi-Key Load Balancing**, automatically rotating API keys to ensure service stability.
+  - **Disease Wiki & Health Tips**: Access authoritative health data and daily wellness advice through natural conversation.
 - **Cross-Platform Support**:
   - **Mobile**: Powered by **Capacitor**, supporting native **Android** and **iOS** apps with haptic feedback.
   - **Desktop**: Powered by **Tauri 2.0**, providing ultra-lightweight (<15MB) **Windows** and **macOS** apps.
