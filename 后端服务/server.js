@@ -80,7 +80,7 @@ app.use(cors(corsOptions));
 
 // 2. JSON 解析器
 // 用于解析请求体中的 JSON 格式数据。
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 // --- API 路由注册 ---
 // 将不同的 API 路径前缀映射到对应的路由处理模块。

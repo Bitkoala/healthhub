@@ -102,10 +102,10 @@ router.afterEach(() => {
     <!-- Global Navigation Floating Header -->
     <nav
       v-if="!isMobile && userStore.isLoggedIn"
-      class="fixed top-6 left-1/2 -translate-x-1/2 glass-dock px-6 py-3 rounded-full shadow-2xl z-50 flex items-center justify-start space-x-4 max-w-[95vw] w-auto border border-white/20 dark:border-white/10 animate-nav-in"
+      class="fixed top-6 left-1/2 -translate-x-1/2 glass-dock px-3 md:px-4 lg:px-6 py-3 rounded-full shadow-2xl z-50 flex items-center justify-start space-x-1 md:space-x-2 lg:space-x-4 max-w-[98vw] w-auto border border-white/20 dark:border-white/10 animate-nav-in overflow-x-auto no-scrollbar"
     >
       <!-- Group 1: General -->
-      <div class="flex items-center space-x-2">
+      <div class="flex items-center space-x-1 lg:space-x-2">
         <RouterLink to="/" class="nav-item group" :title="$t('home')">
           <i data-lucide="home"></i>
           <span class="nav-label">{{ $t('home') }}</span>
@@ -128,10 +128,10 @@ router.afterEach(() => {
         </RouterLink>
       </div>
       
-      <div class="h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
+      <div class="h-6 lg:h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-1 lg:mx-2"></div>
 
       <!-- Group 2: Health -->
-      <div class="flex items-center space-x-2">
+      <div class="flex items-center space-x-1 lg:space-x-2">
         <RouterLink to="/meds" class="nav-item group" :title="$t('meds')">
           <i data-lucide="pill"></i>
           <span class="nav-label">{{ $t('meds') }}</span>
@@ -155,10 +155,10 @@ router.afterEach(() => {
         </RouterLink>
       </div>
 
-      <div class="h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
+      <div class="h-6 lg:h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-1 lg:mx-2"></div>
 
       <!-- Group 3: Life -->
-      <div class="flex items-center space-x-2">
+      <div class="flex items-center space-x-1 lg:space-x-2">
         <RouterLink to="/daily" class="nav-item group" :title="$t('checklist')">
           <i data-lucide="list-todo"></i>
           <span class="nav-label">{{ $t('checklist') }}</span>
@@ -177,7 +177,7 @@ router.afterEach(() => {
         </RouterLink>
       </div>
 
-      <div class="h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
+      <div class="h-6 lg:h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-1 lg:mx-2"></div>
 
       <!-- Group 4: System -->
       <div class="flex items-center space-x-1 pr-0">
@@ -193,7 +193,7 @@ router.afterEach(() => {
         </RouterLink>
 
         <!-- Actions -->
-        <div class="flex items-center space-x-1 ml-2">
+        <div class="flex items-center space-x-1 ml-1 lg:ml-2">
           <button @click="toggleLanguage" class="action-mini-btn" :title="$t('language')">
             {{ languageStore.lang === 'zh' ? 'EN' : '中' }}
           </button>
@@ -230,7 +230,7 @@ router.afterEach(() => {
 
 /* Nav Item Styling */
 .nav-item {
-  @apply flex flex-col items-center justify-center p-2 px-3 rounded-2xl transition-all duration-300 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/80 dark:hover:bg-white/10 min-w-[4.5rem] gap-1.5;
+  @apply flex flex-col items-center justify-center p-1.5 md:p-2 lg:px-3 rounded-2xl transition-all duration-300 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/80 dark:hover:bg-white/10 min-w-[3.5rem] lg:min-w-[4.5rem] gap-1.5;
 }
 
 .nav-item.router-link-active {

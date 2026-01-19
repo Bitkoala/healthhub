@@ -6,7 +6,10 @@ import { useToastStore } from '@/stores/toast'
 // --- Types ---
 interface Message {
   role: 'user' | 'assistant' | 'system';
-  content: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string | any[];
+  time?: string;
+}
   time?: string;
 }
 
@@ -24,6 +27,8 @@ const messages = ref<Message[]>([
 const userInput = ref('')
 const isLoading = ref(false)
 const chatContainer = ref<HTMLElement | null>(null)
+const fileInput = ref<HTMLInputElement | null>(null)
+const selectedImage = ref<string | null>(null)
 
 // --- Methods ---
 
@@ -38,20 +43,78 @@ const scrollToBottom = async () => {
     }
 }
 
+const handleImageSelect = (event: Event) => {
+    const input = event.target as HTMLInputElement
+    if (input.files && input.files[0]) {
+        const file = input.files[0]
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            selectedImage.value = e.target?.result as string
+        }
+        reader.readAsDataURL(file)
+    }
+}
+
+const triggerImageUpload = () => {
+    fileInput.value?.click()
+}
+
+const clearImage = () => {
+    selectedImage.value = null
+    if (fileInput.value) fileInput.value.value = ''
+}
+
 /**
  * @function sendMessage
- * @description 发送消息给 AI 助手。
+ * @description 发送消息给 AI 助手（支持文本和图片）。
  */
 const sendMessage = async () => {
-    if (!userInput.value.trim() || isLoading.value) return
+    if ((!userInput.value.trim() && !selectedImage.value) || isLoading.value) return
 
     const userText = userInput.value.trim()
-    userInput.value = ''
+    const currentImage = selectedImage.value
     
-    // 添加用户消息
+    // Reset inputs
+    userInput.value = ''
+    selectedImage.value = null
+    if (fileInput.value) fileInput.value.value = ''
+    
+    // Construct user message content
+    // Note: We confirm the exact API structure required by backend provided "content" array support
+    let apiContent: any[] = []
+    if (currentImage) {
+        apiContent.push({ type: 'image_url', image_url: { url: currentImage } })
+    }
+    if (userText) {
+        apiContent.push({ type: 'text', text: userText })
+    }
+
+    // Add to UI state (Display)
+    // For UI simplicity, we can just store HTML content or handle structured display. 
+    // To match existing structure, we might need to adjust how we store/render messages.
+    // For now, let's store a combined view-friendly version? No, keeping structured is better.
+    // Let's modify the UI to render images if present. But since existing UI expects string content, 
+    // we'll update the Message type or fallback.
+    // Actually, let's keep it simple: Use a custom renderer in the template.
+    
+    // HACK: Serialize content for UI rendering or update the Message interface.
+    // Let's update the Message interface implicitly by storing the object.
+    
     messages.value.push({
         role: 'user',
-        content: userText,
+        content: JSON.stringify(apiContent), // Temporarily stringify to bypass type check errors? Or fix type.
+        // Better: Update the UI to check if content is string or JSON parsable array on the fly?
+        // Let's just store the text representation for now and handle "content" in API call separately?
+        // Ideally we want to show the image in the chat.
+        
+        // Let's inject a special "ui_content" property or just parse the content in template.
+        // Let's go with: content: userText or "[图片]", and separate ui_image property.
+        // But the message history sent to API needs strictly correct format.
+        
+        // Let's try this:
+        // We will store the RAW content structure (Array or String) in `content`.
+        // We update the Template to handle Array content.
+        content: apiContent as any, 
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     })
 
@@ -60,8 +123,15 @@ const sendMessage = async () => {
 
     try {
         // 调用后端 AI 接口
+        // Backend expects 'messages' array.
+        // Map messages: if content is string, keep it. If content is array, keep it.
+        const payloadMessages = messages.value.map(m => ({ 
+            role: m.role, 
+            content: m.content 
+        }))
+
         const response = await apiRequest('/ai/chat', 'POST', {
-            messages: messages.value.map(m => ({ role: m.role, content: m.content }))
+            messages: payloadMessages
         })
 
         if (response && response.choices && response.choices[0]) {
@@ -159,7 +229,24 @@ onMounted(() => {
               ? 'bg-blue-600 text-white rounded-tr-none' 
               : 'bg-white dark:bg-slate-800 border border-gray-100 dark:border-white/5 rounded-tl-none text-gray-800 dark:text-gray-100'"
           >
-            <div class="whitespace-pre-wrap leading-relaxed">{{ msg.content }}</div>
+            <div class="whitespace-pre-wrap leading-relaxed">
+                <!-- Text Content -->
+                <template v-if="typeof msg.content === 'string'">
+                    {{ msg.content }}
+                </template>
+                <!-- Structured Content (Image + Text) -->
+                <template v-else>
+                   <div v-for="(part, idx) in msg.content" :key="idx">
+                        <img 
+                            v-if="part.type === 'image_url'" 
+                            :src="part.image_url.url" 
+                            class="max-w-full rounded-lg mb-2 max-h-64 object-cover" 
+                            alt="Uploaded"
+                        />
+                        <span v-if="part.type === 'text'">{{ part.text }}</span>
+                   </div>
+                </template>
+            </div>
             <div 
               class="text-[10px] mt-2 opacity-40"
               :class="msg.role === 'user' ? 'text-right' : 'text-left'"
@@ -190,20 +277,53 @@ onMounted(() => {
     <!-- Input Area -->
     <footer class="p-4 md:p-6 bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-white/5">
       <div class="container mx-auto max-w-4xl relative">
-        <textarea 
-          v-model="userInput"
-          placeholder="问问我健康相关的问题..."
-          rows="1"
-          class="w-full pl-6 pr-16 py-4 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/40 transition-all resize-none shadow-inner"
-          @keydown.enter.prevent="sendMessage"
-        ></textarea>
-        <button 
-          @click="sendMessage"
-          :disabled="!userInput.trim() || isLoading"
-          class="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 hover:bg-blue-700 disabled:opacity-50 disabled:shadow-none transition-all active:scale-95"
-        >
-          <i data-lucide="send" class="w-5 h-5"></i>
-        </button>
+        <!-- Image Preview -->
+        <div v-if="selectedImage" class="absolute bottom-full left-0 mb-4 p-2 bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-gray-100 dark:border-white/10 animate-fade-in z-20">
+            <div class="relative">
+                <img :src="selectedImage" class="max-h-32 rounded-lg object-cover" alt="Preview">
+                <button 
+                  @click="clearImage"
+                  class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow-md hover:bg-red-600 transition-colors"
+                >
+                    <i data-lucide="x" class="w-3 h-3"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex items-end gap-2">
+            <!-- Image Upload Trigger -->
+            <button 
+                @click="triggerImageUpload"
+                class="p-4 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl text-gray-500 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors shrink-0"
+                title="上传图片"
+            >
+                <i data-lucide="image-plus" class="w-5 h-5"></i>
+            </button>
+            <input 
+                type="file" 
+                ref="fileInput" 
+                accept="image/*" 
+                class="hidden" 
+                @change="handleImageSelect"
+            >
+
+            <div class="relative flex-grow">
+                <textarea 
+                  v-model="userInput"
+                  placeholder="问问我健康相关的问题，或发送体检报告..."
+                  rows="1"
+                  class="w-full pl-6 pr-16 py-4 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/40 transition-all resize-none shadow-inner"
+                  @keydown.enter.prevent="sendMessage"
+                ></textarea>
+                <button 
+                  @click="sendMessage"
+                  :disabled="(!userInput.trim() && !selectedImage) || isLoading"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 hover:bg-blue-700 disabled:opacity-50 disabled:shadow-none transition-all active:scale-95"
+                >
+                  <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
       </div>
     </footer>
   </div>
