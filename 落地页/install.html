@@ -191,8 +191,126 @@
 
     </main>
 
-    <footer class="py-8 text-center text-sm text-gray-500 border-t border-gray-200 dark:border-gray-800">
-        <p>&copy; 2026 九如投资发展（山东）有限公司. All Rights Reserved.</p>
+    <!-- Footer -->
+    <footer id="contact" class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+                <!-- 品牌信息 -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <!-- Company Logo -->
+                        <img src="https://pickoala.com/img/images/2026/01/05/xG3tSjft.webp" alt="Company Logo"
+                            class="h-6 w-auto dark:hidden">
+                        <img src="https://pickoala.com/img/images/2026/01/05/tEGzX5DN.webp" alt="Company Logo"
+                            class="h-6 w-auto hidden dark:block">
+                        <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+                        <!-- Project Logo -->
+                        <img src="https://pickoala.com/img/images/2026/01/05/zaajujcv.webp" alt="Project Logo"
+                            class="h-8 w-auto dark:hidden">
+                        <img src="https://pickoala.com/img/images/2026/01/05/EOiSqYhH.webp" alt="Project Logo"
+                            class="h-8 w-auto hidden dark:block">
+                    </div>
+                    <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400"
+                        data-lang-key="footer_brand_desc">
+                        九如投资发展旗下核心健康管理品牌。我们致力于通过科技手段提升健康管理效率，让每一个家庭都能享受到触手可及的健康服务。
+                    </p>
+                </div>
+
+                <!-- 生态项目 -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-6 relative inline-block">
+                        <span data-lang-key="footer_col_projects">生态项目</span>
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-blue-500"></span>
+                    </h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><span class="text-gray-400">更多项目即将上线...</span></li>
+                    </ul>
+                </div>
+
+                <!-- 快速链接 -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-6 relative inline-block">
+                        <span data-lang-key="footer_col_links">快速通道</span>
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-blue-500"></span>
+                    </h4>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="https://github.com/Bitkoala/healthhub" target="_blank"
+                                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                data-lang-key="footer_link_github">GitHub 源码</a></li>
+                        <li><a href="privacy.html"
+                                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                data-lang-key="footer_link_privacy">隐私政策</a></li>
+                        <li><a href="terms.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                data-lang-key="footer_link_terms">服务条款</a></li>
+                    </ul>
+                </div>
+
+                <!-- 联系我们 -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-900 dark:text-white mb-6 relative inline-block">
+                        <span data-lang-key="footer_col_contact">联系我们</span>
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-blue-500"></span>
+                    </h4>
+                    <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start">
+                            <i data-lucide="map-pin" class="w-4 h-4 mt-1 mr-3 text-blue-500 shrink-0"></i>
+                            <span data-lang-key="footer_contact_addr">山东省济南市历下区九如投资大厦</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="mail" class="w-4 h-4 mr-3 text-blue-500 shrink-0"></i>
+                            <a href="mailto:info@bitekaola.com"
+                                class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">info@bitekaola.com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="phone" class="w-4 h-4 mr-3 text-blue-500 shrink-0"></i>
+                            <span>全球服务热线+14217911079</span>
+                        </li>
+                        <li class="flex items-center pt-2">
+                            <div class="relative group cursor-pointer">
+                                <div
+                                    class="flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                                    <i data-lucide="message-circle" class="w-4 h-4 mr-3 text-blue-500 shrink-0"></i>
+                                    <span data-lang-key="footer_contact_wechat">联系微信</span>
+                                </div>
+                                <!-- QR Code Popover -->
+                                <div
+                                    class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-64 md:w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-20">
+                                    <div
+                                        class="p-4 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 backdrop-blur-xl bg-white/90 dark:bg-gray-800/95">
+                                        <img src="https://pickoala.com/img/images/2026/01/05/RM45hGH4.webp"
+                                            alt="WeChat QR Code" class="w-full h-auto object-contain rounded-2xl">
+                                        <div
+                                            class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/90 dark:bg-gray-800/95 rotate-45 border-r border-b border-gray-100 dark:border-gray-700">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 底部版权与备案 -->
+            <div
+                class="border-t border-gray-200 dark:border-gray-800 pt-8 text-center text-gray-500 dark:text-gray-500 text-sm">
+                <p>&copy; 2024-2026 <span data-lang-key="footer_copyright">九如投资发展（山东）有限公司. All Rights Reserved.</span>
+                </p>
+                <div class="mt-2 flex flex-col md:flex-row justify-center items-center gap-2">
+                    <span>
+                        <span data-lang-key="footer_built_by_part1">由 </span>
+                        <a href="https://github.com/Bitkoala/healthhub" target="_blank" rel="noopener noreferrer"
+                            class="text-blue-600 hover:underline">比特考拉Bitkoala</a>
+                        <span data-lang-key="footer_built_by_part2"> 构建</span>
+                    </span>
+                    <span class="hidden md:inline">|</span>
+                    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"
+                        class="hover:text-blue-600 transition-colors duration-200">
+                        鲁ICP备2025174251号-1
+                    </a>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script>
