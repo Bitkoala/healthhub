@@ -199,3 +199,7 @@
 .dark ::-webkit-scrollbar-thumb {
     background: rgba(100, 116, 139, 0.4);
 }
+/* Capacitor Barcode Scanner Transparency Support */
+body.scanner-active { background-color: transparent !important; }
+body.scanner-active #app { visibility: hidden; }
+body.scanner-active .scanner-ui-overlay { visibility: visible !important; }

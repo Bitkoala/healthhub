@@ -3,8 +3,17 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/webp" href="https://pickoala.com/img/images/2026/01/09/C0esAzd8.webp" />
+  <link rel="icon" type="image/png" href="logo-pure.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#4f46e5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="考拉健康" />
+  <link rel="apple-touch-icon" href="logo-pure.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+
   <title>考拉健康 Koala Health</title>
 
   <!-- Premium Typography: Outfit -->
@@ -18,10 +27,18 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <!-- 【新增】运行时配置文件 -->
-  <script src="config.js"></script>
+  <script src="/config.js"></script>
 
-  <!-- (可选) 在此处粘贴您的 Umami 或其他网站统计工具的跟踪代码 -->
-  <!-- (Optional) Paste your tracking code from Umami or other web analytics tools here -->
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('[PWA] Service Worker registered:', reg.scope))
+          .catch(err => console.log('[PWA] Service Worker registration failed:', err));
+      });
+    }
+  </script>
 </head>
 
 <body>

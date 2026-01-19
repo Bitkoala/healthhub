@@ -30,6 +30,8 @@ const exerciseRoutes = require('./routes/exercise');
 const periodRoutes = require('./routes/periods');
 const sexRoutes = require('./routes/sex');
 const weightRoutes = require('./routes/weight');
+const medicationLookupRoutes = require('./routes/medication_lookup');
+const healthInfoRoutes = require('./routes/health_info');
 const adminRoutes = require('./routes/admin'); // 引入管理员功能路由
 
 // --- Express 应用初始化 ---
@@ -91,6 +93,8 @@ app.use('/api/exercise', exerciseRoutes);
 app.use('/api/periods', periodRoutes);
 app.use('/api/sex', sexRoutes);
 app.use('/api/weight', weightRoutes);
+app.use('/api/medication-lookup', medicationLookupRoutes);
+app.use('/api/health-info', healthInfoRoutes);
 app.use('/api/admin', adminRoutes); // 注册管理员功能路由
 
 // --- 服务器启动 ---

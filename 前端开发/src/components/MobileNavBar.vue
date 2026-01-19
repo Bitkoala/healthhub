@@ -103,6 +103,13 @@ const handleNavClick = () => {
           <span>{{ $t('memos') }}</span>
         </RouterLink>
 
+        <RouterLink to="/discovery" class="more-menu-item" @click="handleNavClick">
+          <div class="icon-box bg-indigo-500/10 text-indigo-600">
+            <i data-lucide="compass"></i>
+          </div>
+          <span>{{ $t('discovery') }}</span>
+        </RouterLink>
+
         <RouterLink to="/pomodoro" class="more-menu-item" @click="handleNavClick">
           <div class="icon-box bg-red-500/10 text-red-600">
             <i data-lucide="timer"></i>
