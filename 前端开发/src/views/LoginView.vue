@@ -30,7 +30,7 @@ const toggleMode = () => {
 const loginFormRef = ref<HTMLElement | null>(null)
 
 const scrollToLogin = () => {
-  loginFormRef.value?.scrollIntoView({ behavior: 'smooth' })
+  loginFormRef.value?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 }
 
 const handleLocalAuth = async () => {
@@ -167,7 +167,7 @@ onMounted(() => {
       </div>
 
       <!-- Right Side: Login Content -->
-      <div ref="loginFormRef" class="lg:w-1/2 flex items-center justify-center p-6 md:p-12 lg:p-24 animate-fade-in" style="animation-delay: 0.2s">
+      <div ref="loginFormRef" class="lg:w-1/2 min-h-screen lg:min-h-0 flex items-center justify-center p-6 md:p-12 lg:p-24 animate-fade-in" style="animation-delay: 0.2s">
         <div class="glass-card w-full max-w-lg p-10 md:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden">
           <div class="relative z-10 space-y-8">
             <div class="text-center space-y-2">
