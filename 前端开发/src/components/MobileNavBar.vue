@@ -50,9 +50,9 @@ const handleNavClick = () => {
       <span>{{ $t('home') }}</span>
     </RouterLink>
     
-    <RouterLink to="/meds" class="mobile-nav-item" active-class="active" @click="handleNavClick">
-      <i data-lucide="pill"></i>
-      <span>{{ $t('meds') }}</span>
+    <RouterLink to="/discovery" class="mobile-nav-item" active-class="active" @click="handleNavClick">
+      <i data-lucide="sparkles"></i>
+      <span>{{ $t('discovery') }}</span>
     </RouterLink>
 
     <RouterLink to="/finance" class="mobile-nav-item" active-class="active" @click="handleNavClick">
@@ -103,11 +103,11 @@ const handleNavClick = () => {
           <span>{{ $t('memos') }}</span>
         </RouterLink>
 
-        <RouterLink to="/discovery" class="more-menu-item" @click="handleNavClick">
+        <RouterLink to="/meds" class="more-menu-item" @click="handleNavClick">
           <div class="icon-box bg-indigo-500/10 text-indigo-600">
-            <i data-lucide="compass"></i>
+            <i data-lucide="pill"></i>
           </div>
-          <span>{{ $t('discovery') }}</span>
+          <span>{{ $t('meds') }}</span>
         </RouterLink>
 
         <RouterLink to="/pomodoro" class="more-menu-item" @click="handleNavClick">

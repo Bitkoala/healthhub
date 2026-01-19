@@ -110,6 +110,10 @@ router.afterEach(() => {
           <i data-lucide="home"></i>
           <span class="nav-label">{{ $t('home') }}</span>
         </RouterLink>
+        <RouterLink to="/discovery" class="nav-item group" :title="$t('discovery')">
+          <i data-lucide="sparkles"></i>
+          <span class="nav-label">{{ $t('discovery') }}</span>
+        </RouterLink>
         <RouterLink to="/profile" class="nav-item group" :title="$t('profile')">
           <div class="relative w-6 h-6 mb-1">
             <img
@@ -148,10 +152,6 @@ router.afterEach(() => {
         <RouterLink to="/weight" class="nav-item group" :title="$t('weightManagement')">
           <i data-lucide="weight"></i>
           <span class="nav-label">{{ $t('weightManagement') }}</span>
-        </RouterLink>
-        <RouterLink to="/discovery" class="nav-item group" :title="$t('discovery')">
-          <i data-lucide="compass"></i>
-          <span class="nav-label">{{ $t('discovery') }}</span>
         </RouterLink>
       </div>
 

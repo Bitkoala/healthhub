@@ -19,8 +19,6 @@
 import { ref, onMounted, nextTick, watch, computed } from 'vue'
 import { apiRequest } from '../api'
 import { useToastStore } from '@/stores/toast'
-import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning'
-import { Capacitor } from '@capacitor/core'
 
 declare const lucide: { createIcons: () => void; };
 
@@ -49,18 +47,11 @@ const toastStore = useToastStore() // Toast 通知状态
 const showHistoryModal = ref(false) // 是否显示服药历史弹窗
 const selectedMedLogs = ref<MedicationLog[]>([]) // 选定药品的服药历史记录
 const selectedMedName = ref('') // 选定药品的名称
-const isScanning = ref(false) // 是否正在扫码
-const isMobileApp = Capacitor.isNativePlatform()
 
-// --- 百科查询相关状态 ---
-const showEncyclopedia = ref(false)
-const searchQuery = ref('')
-const medCategories = ref<any[]>([])
-const selectedMedCategory = ref('')
-const encyclopediaResults = ref<any[]>([])
-const isSearching = ref(false)
-
-// --- 侦听器 (Watchers) ---
+// --- 生命周期钩子 (Lifecycle Hooks) ---
+onMounted(() => {
+  loadMedications()
+})
 
 /**
  * @description 侦听“每日次数”(`medForm.frequency`)的变化。
@@ -273,132 +264,12 @@ const deleteMedLog = async (logId: number) => {
   }
 }
 
-/**
- * @function scanBarcode
- * @description 调用原生摄像头进行扫码，获取 EAN_13 条码后通过后端代理查询药品信息。
- */
-const scanBarcode = async () => {
-  if (!isMobileApp) {
-    toastStore.showToast({ message: '扫码功能仅在移动端 App 中可用', type: 'warning' })
-    return
-  }
-
-  try {
-    // 1. 检查权限
-    const { camera } = await BarcodeScanner.checkPermissions()
-    if (camera !== 'granted' && camera !== 'limited') {
-      const { camera: newStatus } = await BarcodeScanner.requestPermissions()
-      if (newStatus !== 'granted') {
-        toastStore.showToast({ message: '请开启相机权限以使用扫码功能', type: 'error' })
-        return
-      }
-    }
-
-    // 2. 开始扫码
-    isScanning.value = true
-    // MLKit 扫描器通常会把 WebView 设为透明
-    document.body.classList.add('scanner-active')
-    
-    const result = await BarcodeScanner.scan({
-      formats: [BarcodeFormat.Ean13, BarcodeFormat.UpcA]
-    })
-
-    const barcode = result.barcodes[0]?.displayValue
-    
-    if (barcode) {
-      toastStore.showToast({ message: `扫描成功: ${barcode}`, type: 'success' })
-      // 3. 调用后端代理查询
-      lookupMedication(barcode)
-    }
-  } catch (error) {
-    console.error('Scan Error:', error)
-    toastStore.showToast({ message: '扫码过程中发生错误', type: 'error' })
-  } finally {
-    isScanning.value = false
-    document.body.classList.remove('scanner-active')
-  }
-}
-
-/**
- * @function lookupMedication
- * @description 通过后端代理 API 根据条码查询药品详细信息并填充表单。
- */
-const lookupMedication = async (barcode: string) => {
-  try {
-    const data = await apiRequest(`/medication-lookup/lookup/${barcode}`)
-    if (data && data.name) {
-      medForm.value.name = data.name + (data.spec ? ` (${data.spec})` : '')
-      toastStore.showToast({ message: `已自动填充: ${data.name}` })
-    }
-  } catch (error) {
-    console.error('Lookup Error:', error)
-    toastStore.showToast({ message: '未找到该药品的云端信息，请手动输入', type: 'warning' })
-  }
-}
-
-/**
- * @function searchEncyclopedia
- * @description 调用后端百科接口根据关键词搜索药品。
- */
-const searchEncyclopedia = async () => {
-  if (!searchQuery.value.trim() && !selectedMedCategory.value) return
-  
-  isSearching.value = true
-  try {
-    const data = await apiRequest('/medication-lookup/encyclopedia', 'POST', {
-      searchKey: searchQuery.value,
-      classifyId: selectedMedCategory.value,
-      searchType: '1'
-    })
-    
-    if (data && data.pagebean) {
-      encyclopediaResults.value = data.pagebean.contentlist || []
-      if (encyclopediaResults.value.length === 0) {
-        toastStore.showToast({ message: '未找到相关药品信息', type: 'warning' })
-      }
-    }
-  } catch (error) {
-    console.error('Encyclopedia Search Error:', error)
-    toastStore.showToast({ message: '搜索失败，请稍后再试', type: 'error' })
-  } finally {
-    isSearching.value = false
-  }
-}
-
-/**
- * @function selectDrugFromEncyclopedia
- * @description 从搜索结果中选择一个药品并填充到表单。
- */
-const selectDrugFromEncyclopedia = (drug: any) => {
-  medForm.value.name = drug.commonName || drug.name
-  // 尝试从中提取一些基础信息作为备注或剂量参考
-  if (drug.spec) {
-    medForm.value.dosage = drug.spec
-  }
-  showEncyclopedia.value = false
-  toastStore.showToast({ message: `已选择: ${medForm.value.name}`, type: 'success' })
-}
-
-/**
- * @function loadMedCategories
- * @description 加载药品百科分类 (ShowAPI 1468-1)
- */
-const loadMedCategories = async () => {
-  try {
-    const data = await apiRequest('/medication-lookup/categories')
-    medCategories.value = data.list || []
-  } catch (error) {
-    console.error('Fetch categories error:', error)
-  }
-}
-
 // --- 生命周期钩子 (Lifecycle Hooks) ---
 /**
  * @description 组件挂载后，立即调用 `loadMedications` 来加载初始的用药计划数据。
  */
 onMounted(() => {
   loadMedications()
-  loadMedCategories()
 })
 </script>
 
@@ -442,31 +313,12 @@ onMounted(() => {
             <div class="md:col-span-2">
               <div class="flex justify-between items-end mb-1">
                 <label class="block text-sm font-medium text-gray-700">药品名称</label>
-                <div class="flex space-x-2">
-                  <button 
-                    type="button" 
-                    @click="showEncyclopedia = true; encyclopediaResults = []; searchQuery = ''"
-                    class="flex items-center space-x-1 text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-md hover:bg-indigo-100 transition-colors"
-                  >
-                    <i data-lucide="search" class="w-3 h-3"></i>
-                    <span>查询百科</span>
-                  </button>
-                  <button 
-                    v-if="isMobileApp"
-                    type="button" 
-                    @click="scanBarcode"
-                    class="flex items-center space-x-1 text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md hover:bg-blue-100 transition-colors"
-                  >
-                    <i data-lucide="scan" class="w-3 h-3"></i>
-                    <span>扫码录入</span>
-                  </button>
-                </div>
               </div>
               <input
                 type="text"
                 v-model="medForm.name"
                 required
-                placeholder="请输入药品名称或点击扫码"
+                placeholder="请输入药品名称"
                 class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
@@ -627,92 +479,6 @@ onMounted(() => {
             class="w-full py-3 bg-white/10 hover:bg-white/20 text-on-surface font-bold rounded-2xl transition-all active:scale-[0.98]"
           >
             关闭
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 药品百科查询弹窗 -->
-    <div v-if="showEncyclopedia" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
-      <div class="glass-card max-w-xl w-full p-8 shadow-2xl relative overflow-hidden animate-slide-up">
-        <div class="flex justify-between items-center mb-6">
-          <h2 class="text-xl font-bold flex items-center space-x-2">
-            <i data-lucide="book-open" class="w-5 h-5 text-indigo-500"></i>
-            <span>药品百科查询</span>
-          </h2>
-          <button @click="showEncyclopedia = false" class="text-on-surface-variant/60 hover:text-on-surface transition-colors">
-            <i data-lucide="x" class="w-6 h-6"></i>
-          </button>
-        </div>
-
-        <div class="space-y-4 mb-6">
-          <div class="flex flex-col space-y-2">
-            <label class="text-xs font-bold opacity-40 ml-1">选择药品分类</label>
-            <select 
-              v-model="selectedMedCategory"
-              class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all appearance-none"
-              style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22none%22 viewBox=%220 0 24 24%22 stroke=%22currentColor%22%3E%3Cpath stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22M19 9l-7 7-7-7%22%3E%3C/path%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em;"
-            >
-              <option value="" class="dark:bg-slate-900">全部类别</option>
-              <option v-for="cat in medCategories" :key="cat.id" :value="cat.id" class="dark:bg-slate-900">{{ cat.name }}</option>
-            </select>
-          </div>
-
-          <div class="flex flex-col space-y-2">
-            <label class="text-xs font-bold opacity-40 ml-1">搜素名称或准字号</label>
-            <div class="flex space-x-2">
-              <input 
-                type="text" 
-                v-model="searchQuery" 
-                placeholder="请输入药品名称..." 
-                class="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-2xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500/40 outline-none transition-all"
-                @keyup.enter="searchEncyclopedia"
-              >
-              <button 
-                @click="searchEncyclopedia" 
-                :disabled="isSearching"
-                class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all active:scale-95 disabled:opacity-50"
-              >
-                {{ isSearching ? '搜索中...' : '搜索' }}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="max-h-[50vh] overflow-y-auto space-y-4 pr-2 custom-scrollbar">
-          <div v-if="encyclopediaResults.length === 0 && !isSearching" class="text-on-surface-variant/40 text-center py-16 flex flex-col items-center">
-            <i data-lucide="search" class="w-16 h-16 mb-4 opacity-10"></i>
-            <p class="text-sm">输入药名或准字号开始搜索</p>
-          </div>
-
-          <div 
-            v-for="drug in encyclopediaResults" 
-            :key="drug.id"
-            class="p-4 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-indigo-500/30 transition-all cursor-pointer group"
-            @click="selectDrugFromEncyclopedia(drug)"
-          >
-            <div class="flex justify-between items-center">
-              <div class="flex-1">
-                <h4 class="font-bold text-gray-800 dark:text-gray-100 group-hover:text-indigo-500 transition-colors">{{ drug.name }}</h4>
-                <div class="flex items-center space-x-2 mt-1">
-                  <span class="text-[10px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded-full border border-indigo-500/20">{{ drug.typeName || '西药' }}</span>
-                  <p class="text-[10px] text-on-surface-variant/60">{{ drug.approvalNumber || drug.zyzh }}</p>
-                </div>
-                <p class="text-sm text-on-surface-variant/60 mt-2 line-clamp-2 leading-relaxed italic">{{ drug.tag || drug.indications || '暂无详细功用描述' }}</p>
-              </div>
-              <div class="ml-4 p-2 bg-indigo-500/10 rounded-xl text-indigo-400 opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
-                <i data-lucide="chevron-right" class="w-5 h-5"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="mt-8">
-          <button
-            @click="showEncyclopedia = false"
-            class="w-full py-3 bg-white/5 hover:bg-white/10 text-on-surface font-semibold rounded-2xl transition-all active:scale-[0.98]"
-          >
-            返回
           </button>
         </div>
       </div>
