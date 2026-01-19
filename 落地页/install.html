@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下载考拉健康 (Koala Health) - 全平台客户端</title>
+    <meta name="description" content="下载考拉健康 App 和桌面端客户端。支持 Android, Windows 和 macOS。">
+    <link rel="icon" type="image/webp" href="https://pickoala.com/img/images/2026/01/09/C0esAzd8.webp">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        .mesh-gradient {
+            background-color: #f8fafc;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(79, 70, 229, 0.1) 0px, transparent 50%);
+        }
+
+        .dark .mesh-gradient {
+            background-color: #0f172a;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.15) 0px, transparent 50%);
+        }
+
+        .glass-effect {
+            @apply backdrop-blur-md bg-white/70 dark:bg-gray-900/70 border border-white/20 dark:border-gray-800/50 shadow-xl;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-300 font-sans antialiased min-h-screen flex flex-col relative">
+
+    <!-- Background -->
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div class="mesh-gradient absolute inset-0 opacity-60"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <i data-lucide="arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"></i>
+                <span class="font-semibold">返回官网</span>
+            </a>
+            <div class="font-bold text-lg">下载中心</div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 flex-grow flex flex-col items-center">
+
+        <div class="text-center mb-16 max-w-2xl">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">全平台原生体验</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400">选择您的设备平台，立即开始更健康的数字化生活。</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+
+            <!-- Android Card -->
+            <div
+                class="glass-effect rounded-[2rem] p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-300">
+                <div class="w-20 h-20 bg-green-500/10 rounded-3xl flex items-center justify-center mb-6 text-green-600">
+                    <i data-lucide="smartphone" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Android / HarmonyOS</h3>
+                <p class="text-sm text-gray-500 mb-8">适用于所有安卓与鸿蒙设备</p>
+
+                <a href="./KoalaHealth-Android.apk"
+                    class="w-full py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold shadow-lg shadow-green-500/20 transition-all flex items-center justify-center gap-2 group">
+                    <i data-lucide="download" class="w-5 h-5 group-hover:animate-bounce"></i>
+                    <span>下载 APK 安装包</span>
+                </a>
+                <p class="mt-4 text-xs text-gray-400">
+                    *如遇安装拦截，请允许“来自此来源的应用”
+                </p>
+            </div>
+
+            <!-- Windows Card -->
+            <div
+                class="glass-effect rounded-[2rem] p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-300">
+                <div class="w-20 h-20 bg-blue-500/10 rounded-3xl flex items-center justify-center mb-6 text-blue-600">
+                    <i data-lucide="monitor" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Windows PC</h3>
+                <p class="text-sm text-gray-500 mb-8">支持 Windows 10/11 (x64)</p>
+
+                <a href="./KoalaHealth-Windows-Setup.exe"
+                    class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2 group">
+                    <i data-lucide="download" class="w-5 h-5 group-hover:animate-bounce"></i>
+                    <span>下载安装程序 (.exe)</span>
+                </a>
+                <p class="mt-4 text-xs text-gray-400">
+                    *轻量级原生应用，仅需 10MB+
+                </p>
+            </div>
+
+            <!-- macOS Card -->
+            <div
+                class="glass-effect rounded-[2rem] p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden">
+                <!-- Coming Soon Overlay -->
+                <!-- <div class="absolute inset-0 bg-gray-100/50 dark:bg-gray-900/50 backdrop-blur-[1px] z-10 flex items-center justify-center">
+                    <span class="bg-black text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest">Building...</span>
+                 </div> -->
+
+                <div
+                    class="w-20 h-20 bg-gray-500/10 rounded-3xl flex items-center justify-center mb-6 text-gray-700 dark:text-gray-300">
+                    <i data-lucide="laptop" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">macOS</h3>
+                <p class="text-sm text-gray-500 mb-8">支持 Apple Silicon (M1/M2/M3)</p>
+
+                <a href="./KoalaHealth-macOS.dmg"
+                    class="w-full py-4 bg-gray-800 hover:bg-gray-900 text-white rounded-xl font-bold shadow-lg shadow-gray-500/20 transition-all flex items-center justify-center gap-2 group">
+                    <i data-lucide="download" class="w-5 h-5 group-hover:animate-bounce"></i>
+                    <span>下载 Disk Image (.dmg)</span>
+                </a>
+                <p class="mt-4 text-xs text-gray-400">
+                    *请将应用拖入 Applications 文件夹
+                </p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="py-8 text-center text-sm text-gray-500 border-t border-gray-200 dark:border-gray-800">
+        <p>&copy; 2026 九如投资发展（山东）有限公司. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
