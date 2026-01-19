@@ -19,7 +19,9 @@
     "mobile:build": "npm run build && npx cap copy",
     "mobile:sync": "npx cap sync",
     "mobile:open-android": "npx cap open android",
-    "mobile:open-ios": "npx cap open ios"
+    "mobile:open-ios": "npx cap open ios",
+    "desktop:dev": "tauri dev",
+    "desktop:build": "tauri build"
   },
   "dependencies": {
     "@capacitor-mlkit/barcode-scanning": "^8.0.0",
@@ -41,6 +43,7 @@
     "@capacitor/cli": "^8.0.1",
     "@capacitor/core": "^8.0.1",
     "@playwright/test": "^1.54.1",
+    "@tauri-apps/cli": "^2.9.6",
     "@tsconfig/node22": "^22.0.2",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.16.5",

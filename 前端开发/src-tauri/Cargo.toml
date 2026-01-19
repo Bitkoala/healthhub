@@ -1,0 +1,24 @@
+[package]
+name = "koalahealth"
+version = "0.1.0"
+description = "HealthHub Desktop App"
+authors = ["KoalaHealth Team"]
+license = "MIT"
+repository = "https://github.com/Bitkoala/koalahealth"
+edition = "2021"
+rust-version = "1.77.2"
+
+[build-dependencies]
+tauri-build = { version = "2.0.0-rc", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+tauri = { version = "2.0.0-rc", features = [] }
+
+[profile.release]
+panic = "abort" # Strip expensive panic info
+codegen-units = 1 # Better optimizations
+lto = true # Link time optimization
+opt-level = "s" # Optimize for size
+strip = true # Strip symbols from binary
