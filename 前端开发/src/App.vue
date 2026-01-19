@@ -149,6 +149,10 @@ router.afterEach(() => {
           <i data-lucide="weight"></i>
           <span class="nav-label">{{ $t('weightManagement') }}</span>
         </RouterLink>
+        <RouterLink to="/discovery" class="nav-item group" :title="$t('discovery')">
+          <i data-lucide="compass"></i>
+          <span class="nav-label">{{ $t('discovery') }}</span>
+        </RouterLink>
       </div>
 
       <div class="h-8 w-px bg-gray-300/50 dark:bg-gray-700/50 mx-2"></div>
