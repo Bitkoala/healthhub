@@ -6,14 +6,11 @@
 
 # Koala Health (考拉健康)
 
-<p align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/Bitkoala/healthhub/android-build.yml?style=for-the-badge&logo=github-actions&label=Android%20Build" alt="Android Build Status">
   <img src="https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=for-the-badge&logo=vue.js" alt="Vue.js">
   <img src="https://img.shields.io/badge/Node.js-20.x-5FA04E?style=for-the-badge&logo=node.js" alt="Node.js">
-  <img src="https://img.shields.io/badge/Express.js-4.x-000000?style=for-the-badge&logo=express" alt="Express.js">
-  <img src="https://img.shields.io/badge/MySQL-8.x-4479A1?style=for-the-badge&logo=mysql" alt="MySQL">
+  <img src="https://img.shields.io/badge/Tauri-2.0-24C8D8?style=for-the-badge&logo=tauri" alt="Tauri">
   <img src="https://img.shields.io/badge/Capacitor-Latest-119EFF?style=for-the-badge&logo=capacitor" alt="Capacitor">
-  <img src="https://img.shields.io/badge/GitHub_Actions-CI/CD-2088FF?style=for-the-badge&logo=githubactions" alt="GitHub Actions">
+  <img src="https://img.shields.io/badge/PWA-Supported-5A0FC8?style=for-the-badge&logo=pwa" alt="PWA">
 </p>
 
 <p align="center">
@@ -42,13 +39,17 @@
   - **番茄钟 (Pomodoro)**: 集成番茄工作法计时器，支持自定义专注与休息时长，伴随音效提醒与任务关联。
   - **备忘录 (To-Do)**: 带有优先级的任务清单，助您聚焦重要事项。
   - **每日清单**: 追踪每日习惯和一次性任务的完成情况。
-- **移动原生支持 (Native Experience)**:
-  - **多端覆盖**: 已集成 **Capacitor**，支持打包为原生 **Android** 与 **iOS** 应用。
-  - **动态开屏 (Dynamic Splash)**: 内置高端开屏动画，支持通过配置动态更换节日或活动开屏页，无需重新发版。
-  - **正版品牌形象**: 全新设计的“考拉”品牌图标与启动界面，支持中英文品牌底座。
-  - **交互增强**: 针对手机端深度优化的 **触感反馈 (Haptic Feedback)**，提供原生 App 般的操作手感。
-  - **适配无忧**: 完美支持刘海屏与操作条 (Safe Area Padding)，确保全屏沉浸体验。
-  - **自动化构建**: 内置 **GitHub Actions CI/CD** 流水线，实现提交代码自动编译正式版 APK。
+- **智能用药助手 (Medication Assistant)**:
+  - **扫码录入**: 集成条形码扫描，自动识别药品信息，简化录入流程。
+  - **百科查询**: 内置详尽的药品百科，支持按分类检索（感冒、消炎、心血管等）并查看详细说明。
+- **健康探索中心 (Discovery Center)**:
+  - **疾病百科**: 深度接入权威数据，支持数千种疾病的病因、症状、诊疗参考查询。
+  - **科普知识**: 每日更新健康生活百科，涵盖饮食、运动、中医等多维度养生知识。
+- **全平台原生支持 (Cross-Platform)**:
+  - **移动端 (Mobile)**: 集成 **Capacitor**，提供 iOS 与 Android 原生 App，支持触感反馈与刘海屏适配。
+  - **桌面端 (Desktop)**: 基于 **Tauri 2.0**，提供极致轻量化（<15MB）的 Windows 与 macOS 原生桌面软件。
+  - **离线应用 (PWA)**: 支持安装到桌面与手机桌面，具备基础离线访问能力。
+  - **动态开屏 (Dynamic Splash)**: 支持服务端动态下发启动界面，让 App 活动与节日氛围实时更新。
 - **现代化用户体验 (Premium UI)**:
   - **极致视觉美学**: 全方位采用 **毛玻璃 (Glassmorphism)** 设计系统，配合动态悬浮光效与 HSL 色彩系统。
   - **多元身份认证**: 支持 **本地账户注册/登录** 以及 **Google、GitHub、Linux.do** 三大主流平台 OAuth 2.0 快捷登录。
@@ -82,11 +83,11 @@
 
 ### **前端 (`前端开发`)**
 - **框架**: [Vue.js 3](https://vuejs.org/) (Composition API)
-- **容器化**: [Capacitor](https://capacitorjs.com/) (Android / iOS)
+- **原生容器 (移动端)**: [Capacitor](https://capacitorjs.com/) (Android / iOS)
+- **原生容器 (桌面端)**: [Tauri 2.0](https://tauri.app/) (Win / Mac)
 - **构建工具**: [Vite](https://vitejs.dev/)
 - **UI 库**: [Tailwind CSS](https://tailwindcss.com/)
 - **状态管理**: [Pinia](https://pinia.vuejs.org/)
-- **图表**: [Chart.js](https://www.chartjs.org/)
 - **自动化**: [GitHub Actions](https://github.com/features/actions)
 
 ### **后端 (`后端服务`)**
@@ -122,6 +123,11 @@
     ```bash
     npm run mobile:build  # 构建并同步到原生目录
     npx cap open android  # 使用 Android Studio 打开
+    ```
+5.  **桌面端启动**:
+    ```bash
+    npm run desktop:dev   # 启动桌面调试版
+    npm run desktop:build # 打包桌面安装包
     ```
 
 ---

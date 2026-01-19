@@ -6,14 +6,11 @@
 
 # Koala Health
 
-<p align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/Bitkoala/healthhub/android-build.yml?style=for-the-badge&logo=github-actions&label=Android%20Build" alt="Android Build Status">
   <img src="https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=for-the-badge&logo=vue.js" alt="Vue.js">
   <img src="https://img.shields.io/badge/Node.js-20.x-5FA04E?style=for-the-badge&logo=node.js" alt="Node.js">
-  <img src="https://img.shields.io/badge/Express.js-4.x-000000?style=for-the-badge&logo=express" alt="Express.js">
-  <img src="https://img.shields.io/badge/MySQL-8.x-4479A1?style=for-the-badge&logo=mysql" alt="MySQL">
+  <img src="https://img.shields.io/badge/Tauri-2.0-24C8D8?style=for-the-badge&logo=tauri" alt="Tauri">
   <img src="https://img.shields.io/badge/Capacitor-Latest-119EFF?style=for-the-badge&logo=capacitor" alt="Capacitor">
-  <img src="https://img.shields.io/badge/GitHub_Actions-CI/CD-2088FF?style=for-the-badge&logo=githubactions" alt="GitHub Actions">
+  <img src="https://img.shields.io/badge/PWA-Supported-5A0FC8?style=for-the-badge&logo=pwa" alt="PWA">
 </p>
 
 <p align="center">
@@ -42,11 +39,17 @@
   - **Pomodoro Timer**: Integrated timer with customizable durations and sound alerts.
   - **Memo (To-Do)**: A prioritized task list.
   - **Daily Checklist**: Track daily habits and one-time tasks.
-- **Mobile Native Support**:
-  - **Cross-Platform**: Powered by **Capacitor**, supporting native **Android** and **iOS** apps.
-  - **Enhanced Interaction**: Integrated **Haptic Feedback** for a premium native app feel.
-  - **Safe Area Optimization**: Full support for notches and home indicators for an immersive experience.
-  - **Automated CI/CD**: Built-in **GitHub Actions** pipeline for automated production APK building and signing.
+- **Intelligent Medication Assistant**:
+  - **Barcode Entry**: Integrated scanning to automatically identify medications.
+  - **Drug Encyclopedia**: Comprehensive drug guide with category filtering and detailed instructions.
+- **Health Discovery Center**:
+  - **Disease Wiki**: Authority disease data with symptoms, causes, and diagnosis references.
+  - **Healthy Living**: Daily health tips covering nutrition, exercise, and traditional medicine.
+- **Cross-Platform Support**:
+  - **Mobile**: Powered by **Capacitor**, supporting native **Android** and **iOS** apps with haptic feedback.
+  - **Desktop**: Powered by **Tauri 2.0**, providing ultra-lightweight (<15MB) **Windows** and **macOS** apps.
+  - **PWA**: Installable web app with offline capabilities.
+  - **Automated CI/CD**: Built-in pipelines for automated builds across all platforms.
 - **Modern User Experience (Premium UI)**:
   - **Ultimate Visual Aesthetics**: Full **Glassmorphism** design system with dynamic light effects and HSL colors.
   - **Diverse Authentication**: Local registration/login + OAuth 2.0 (Google, GitHub, Linux.do).
@@ -68,7 +71,8 @@
 
 ### **Frontend (`前端开发`)**
 - **Framework**: [Vue.js 3](https://vuejs.org/)
-- **Native Bridge**: [Capacitor](https://capacitorjs.com/) (Android / iOS)
+- **Mobile Container**: [Capacitor](https://capacitorjs.com/) (Android / iOS)
+- **Desktop Container**: [Tauri 2.0](https://tauri.app/) (Win / Mac)
 - **Build Tool**: [Vite](https://vitejs.dev/)
 - **UI Library**: [Tailwind CSS](https://tailwindcss.com/)
 - **CI/CD**: [GitHub Actions](https://github.com/features/actions)
@@ -97,6 +101,11 @@
     ```bash
     npm run mobile:build  # Build & Sync to native
     npx cap open android  # Open in Android Studio
+    ```
+5.  **Desktop Setup**:
+    ```bash
+    npm run desktop:dev   # Start Desktop Dev
+    npm run desktop:build # Build Desktop App
     ```
 
 ---
