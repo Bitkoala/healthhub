@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const { authenticateToken } = require('../middleware/auth');
+const authenticateToken = require('../authMiddleware');
 
 /**
  * @route GET /api/medication-lookup/:barcode
