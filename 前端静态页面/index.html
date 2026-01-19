@@ -3,8 +3,17 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/webp" href="https://pickoala.com/img/images/2026/01/09/C0esAzd8.webp" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="logo-pure.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#4f46e5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="考拉健康" />
+  <link rel="apple-touch-icon" href="logo-pure.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+
   <title>考拉健康 Koala Health</title>
 
   <!-- Premium Typography: Outfit -->
@@ -20,32 +29,22 @@
   <!-- 【新增】运行时配置文件 -->
   <script src="/config.js"></script>
 
-  <!-- (可选) 在此处粘贴您的 Umami 或其他网站统计工具的跟踪代码 -->
-  <!-- (Optional) Paste your tracking code from Umami or other web analytics tools here -->
-  <script type="module" crossorigin src="/assets/index-B4Xyix6F.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-BF8i_qne.css">
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('[PWA] Service Worker registered:', reg.scope))
+          .catch(err => console.log('[PWA] Service Worker registration failed:', err));
+      });
+    }
+  </script>
+  <script type="module" crossorigin src="/assets/index-DcsSUklf.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-Bub5KewG.css">
 </head>
 
 <body>
   <div id="app"></div>
-
-  <!-- 【新增】动态背景壁纸脚本 -->
-  <script>
-    ; (() => {
-      const desktopBgUrl = 'https://bing.img.run/uhd.php'
-      const mobileBgUrl = 'https://bing.img.run/m.php'
-
-      // 根据屏幕宽度判断使用哪个壁纸接口
-      const isMobile = window.innerWidth < 768
-      const finalBgUrl = isMobile ? mobileBgUrl : desktopBgUrl
-
-      // 设置body的背景样式
-      document.body.style.backgroundImage = `url(${finalBgUrl})`
-      document.body.style.backgroundSize = 'cover'
-      document.body.style.backgroundPosition = 'center'
-      document.body.style.backgroundAttachment = 'fixed' // 背景图固定，内容滚动
-    })()
-  </script>
 
 </body>
 
