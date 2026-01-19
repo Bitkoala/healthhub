@@ -114,7 +114,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] flex flex-col bg-gray-50/50 dark:bg-slate-950/20">
+  <div class="h-[calc(100svh-11.5rem)] md:h-[calc(100svh-17rem)] flex flex-col bg-gray-50/50 dark:bg-slate-950/20 rounded-3xl overflow-hidden shadow-sm border border-white/20">
     <!-- Header -->
     <header class="p-4 md:p-6 border-b border-gray-100 dark:border-white/5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md z-10">
       <div class="container mx-auto max-w-4xl flex justify-between items-center">
@@ -143,7 +143,7 @@ onMounted(() => {
     <!-- Chat Area -->
     <main 
       ref="chatContainer"
-      class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 custom-scrollbar"
+      class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 custom-scrollbar overscroll-contain"
     >
       <div class="container mx-auto max-w-4xl space-y-6">
         <div 
