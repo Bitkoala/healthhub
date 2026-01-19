@@ -108,11 +108,6 @@
             <!-- macOS Card -->
             <div
                 class="glass-effect rounded-[2rem] p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden">
-                <!-- Coming Soon Overlay -->
-                <!-- <div class="absolute inset-0 bg-gray-100/50 dark:bg-gray-900/50 backdrop-blur-[1px] z-10 flex items-center justify-center">
-                    <span class="bg-black text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest">Building...</span>
-                 </div> -->
-
                 <div
                     class="w-20 h-20 bg-gray-500/10 rounded-3xl flex items-center justify-center mb-6 text-gray-700 dark:text-gray-300">
                     <i data-lucide="laptop" class="w-10 h-10"></i>
@@ -127,6 +122,48 @@
                 </a>
                 <p class="mt-4 text-xs text-gray-400">
                     *请将应用拖入 Applications 文件夹
+                </p>
+            </div>
+
+            <!-- iOS Card (Coming Soon) -->
+            <div
+                class="glass-effect rounded-[2rem] p-8 flex flex-col items-center text-center relative overflow-hidden opacity-60 grayscale cursor-not-allowed">
+                <div class="absolute inset-0 bg-white/10 z-10"></div> <!-- Overlay blocker -->
+                <div
+                    class="w-20 h-20 bg-gray-500/10 rounded-3xl flex items-center justify-center mb-6 text-gray-700 dark:text-gray-300">
+                    <i data-lucide="smartphone" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">iOS / iPadOS</h3>
+                <p class="text-sm text-gray-500 mb-8">敬请期待 (Coming Soon)</p>
+
+                <div
+                    class="w-full py-4 bg-gray-200 dark:bg-gray-700 text-gray-400 rounded-xl font-bold flex items-center justify-center gap-2">
+                    <i data-lucide="clock" class="w-5 h-5"></i>
+                    <span>开发中...</span>
+                </div>
+                <p class="mt-4 text-xs text-gray-400">
+                    *后续支持 TestFlight 或 App Store
+                </p>
+            </div>
+
+            <!-- Linux Card (Coming Soon) -->
+            <div
+                class="glass-effect rounded-[2rem] p-8 flex flex-col items-center text-center relative overflow-hidden opacity-60 grayscale cursor-not-allowed">
+                <div class="absolute inset-0 bg-white/10 z-10"></div> <!-- Overlay blocker -->
+                <div
+                    class="w-20 h-20 bg-orange-500/10 rounded-3xl flex items-center justify-center mb-6 text-orange-600">
+                    <i data-lucide="terminal" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Linux</h3>
+                <p class="text-sm text-gray-500 mb-8">敬请期待 (Coming Soon)</p>
+
+                <div
+                    class="w-full py-4 bg-gray-200 dark:bg-gray-700 text-gray-400 rounded-xl font-bold flex items-center justify-center gap-2">
+                    <i data-lucide="clock" class="w-5 h-5"></i>
+                    <span>适配中...</span>
+                </div>
+                <p class="mt-4 text-xs text-gray-400">
+                    *将支持 Ubuntu/Debian (.deb)
                 </p>
             </div>
 
