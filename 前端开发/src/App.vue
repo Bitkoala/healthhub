@@ -110,9 +110,9 @@ router.afterEach(() => {
           <i data-lucide="home"></i>
           <span class="nav-label">{{ $t('home') }}</span>
         </RouterLink>
-        <RouterLink to="/discovery" class="nav-item group" :title="$t('discovery')">
-          <i data-lucide="sparkles"></i>
-          <span class="nav-label">{{ $t('discovery') }}</span>
+        <RouterLink to="/discovery" class="nav-item group flex flex-col items-center justify-center w-full" :title="$t('discovery')">
+          <i data-lucide="bot" class="mx-auto"></i>
+          <span class="nav-label w-full text-center block">{{ $t('discovery') }}</span>
         </RouterLink>
         <RouterLink to="/profile" class="nav-item group" :title="$t('profile')">
           <div class="relative w-6 h-6">
