@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title data-lang-key="page_title">九如投资发展旗下考拉健康 (Koala Health) - 您的私人健康与生活管家</title>
     <meta name="description" data-lang-key="page_description"
         content="集健康追踪、财务管理、生活助手于一体的现代化全栈应用。支持SaaS服务或私有化部署，数据安全可控。">
@@ -35,6 +35,11 @@
         }
     </script>
     <style>
+        html,
+        body {
+            touch-action: manipulation;
+        }
+
         :root {
             --primary-blue: #2563eb;
             --primary-indigo: #4f46e5;

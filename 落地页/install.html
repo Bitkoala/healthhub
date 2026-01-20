@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>下载考拉健康 (Koala Health) - 全平台客户端</title>
     <meta name="description" content="下载考拉健康 App 和桌面端客户端。支持 Android, Windows 和 macOS。">
     <link rel="icon" type="image/webp" href="https://pickoala.com/img/images/2026/01/09/C0esAzd8.webp">
@@ -17,6 +17,11 @@
         }
     </script>
     <style>
+        html,
+        body {
+            touch-action: manipulation;
+        }
+
         .mesh-gradient {
             background-color: #f8fafc;
             background-image:

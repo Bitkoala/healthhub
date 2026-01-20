@@ -1,5 +1,10 @@
 @import './base.css';
 
+html,
+body {
+  touch-action: manipulation;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -19,5 +24,3 @@ a,
     background-color: hsla(160, 100%, 37%, 0.2);
   }
 }
-
-
