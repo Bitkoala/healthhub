@@ -1,4 +1,4 @@
-name: KaolaList Sync to Gitee 🐨🔁
+name: KoalaHealth Sync to Gitee 🐨🔁
 
 on:
   push:
@@ -15,7 +15,8 @@ jobs:
           src: github/bitkoala
           dst: gitee/bitekaola
           static_list: "koalahealth"
-          dst_key: ${{ secrets.GITEE_SSH_PRIVATE_KEY }}
+          # --- 重点：去掉 dst_key，改用 clone_style: https ---
           dst_token: ${{ secrets.GITEE_TOKEN }}
+          clone_style: https
           force_update: true
           debug: true
