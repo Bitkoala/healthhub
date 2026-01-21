@@ -14,7 +14,7 @@ jobs:
         with:
           src: github/bitkoala
           dst: gitee/bitekaola
-          static_list: "KaolaList"
+          static_list: "koalahealth"
           dst_key: ${{ secrets.GITEE_SSH_PRIVATE_KEY }}
           dst_token: ${{ secrets.GITEE_TOKEN }}
           force_update: true
